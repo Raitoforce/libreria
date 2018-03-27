@@ -1,0 +1,13 @@
+https://www.getpostman.com/collections/76f35af3e17896347270 //Directores
+https://www.getpostman.com/collections/407ad5607aab464e42d0 //Escuelas (Para hacer la relación entre profesores y escuela
+debes modificar en escuela, y agregar los profesores dentro del json)
+https://www.getpostman.com/collections/2d0247e8afc607f808ba //Folios
+https://www.getpostman.com/collections/3ffd1df9e4dacbaa036d //Libros
+https://www.getpostman.com/collections/74cf6992d1325a04de33 //Profesores
+https://www.getpostman.com/collections/a142553a553130e4d7fb //Temporada
+
+Todos los  recursos tienen un metodo de GET de la forma /Recurso/{$id} para acceder solo a ese recurso.
+En el caso de Folios, y Escuelas, tienes metodos que no agregue aqui, pero que ya estan probados, con busquedas. Eso ya lo
+documento bien luego, pero aqui tienes el CRUD de todos estos :v.
+
+

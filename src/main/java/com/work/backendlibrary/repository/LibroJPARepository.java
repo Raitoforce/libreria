@@ -9,8 +9,8 @@ import com.work.backendlibrary.entity.Libro;
 
 @Repository("libroJPARepository")
 public interface LibroJPARepository extends JpaRepository<Libro, Serializable>,CrudRepository<Libro,Serializable>{
-	public abstract Libro findByIsbn(String isbn);
-	
+	//public abstract Libro findByIsbn(String isbn);
+	public abstract Libro findByClaveProducto(String clave);
 	/*@Modifying
 	@Transactional
 	@Query("delete from Libro libro where isbn = ?1")

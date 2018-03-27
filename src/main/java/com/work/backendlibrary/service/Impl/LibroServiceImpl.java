@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.work.backendlibrary.converter.LibroConverter;
 import com.work.backendlibrary.entity.Libro;
-import com.work.backendlibrary.model.LibroModel;
 import com.work.backendlibrary.repository.LibroJPARepository;
 import com.work.backendlibrary.service.LibroService;
 
@@ -19,36 +17,32 @@ public class LibroServiceImpl implements LibroService{
 	@Qualifier("libroJPARepository")
 	private LibroJPARepository libroJPARepository;
 	
-	@Autowired
-	@Qualifier("libroConverter")
-	private LibroConverter lbc;
-	
 	@Override
-	public List<LibroModel> listAllLibros() {
-		return lbc.listEntity2listmodel(libroJPARepository.findAll());
+	public List<Libro> listAllLibros() {
+		return libroJPARepository.findAll();
 	}
 
 	@Override
-	public Libro addLibro(LibroModel librom) {
-		Libro libro=lbc.model2entity(librom);
+	public Libro addLibro(Libro libro) {
+		//Libro libro=lbc.model2entity(librom);
 		return libroJPARepository.save(libro);
 	}
 
 	@Override
-	public void removeLibro(String isbn) {
-		//libroJPARepository.deleteByIsbn(isbn);
-		libroJPARepository.deleteById(isbn);
+	public void removeLibro(String clave_producto) {
+		//libroJPARepository.deleteByIsbn(clave_producto);
+		libroJPARepository.deleteById(clave_producto);
 	}
 
 	@Override
-	public Libro updateLibro(LibroModel librom){
-		Libro libro=lbc.model2entity(librom);
+	public Libro updateLibro(Libro libro){
+		//Libro libro=lbc.model2entity(librom);
 		return libroJPARepository.save(libro);
 	}
 	
 	@Override
-	public LibroModel consultarLibro(String isbn){
-		Libro libro = libroJPARepository.findByIsbn(isbn);
-		return lbc.entity2model(libro);
+	public Libro consultarLibro(String clave_producto){
+		Libro libro = libroJPARepository.findByClaveProducto(clave_producto);
+		return libro;
 	}
 }

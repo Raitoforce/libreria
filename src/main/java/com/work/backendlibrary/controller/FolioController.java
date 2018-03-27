@@ -15,43 +15,50 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.work.backendlibrary.entity.Libro;
-import com.work.backendlibrary.service.LibroService;
+import com.work.backendlibrary.entity.Folio;
+import com.work.backendlibrary.service.FolioService;
+
 
 @RestController
-@RequestMapping("/Libro")
-public class ControllerLibro{
+@RequestMapping("/Folio")
+public class FolioController {
 	@Autowired
-	@Qualifier("libroServiceImpl")
-	LibroService libroService;
+	@Qualifier("folioServiceImpl")
+	FolioService fs;
 	
 	@GetMapping("")
-	public ResponseEntity<List<Libro>> devolverLibros(){
-		List<Libro> libros = libroService.listAllLibros();
-		return new ResponseEntity<List<Libro>>(libros,HttpStatus.OK);
+	public ResponseEntity<List<Folio>> devolverFolios(){
+		List<Folio> folios = fs.listAllFolios();
+		return new ResponseEntity<List<Folio>>(folios,HttpStatus.OK);
 	}
 	
-	@GetMapping("/{isbn}")
-	public ResponseEntity<Libro> consultaLibro(@PathVariable("isbn") String isbn){
-		Libro libro=libroService.consultarLibro(isbn);
-		return new ResponseEntity<Libro>(libro,HttpStatus.OK);
+	@GetMapping("/{id}")
+	public ResponseEntity<Folio> consultaFolio(@PathVariable("id") int id){
+		Folio folio=fs.consultarFolio(id);
+		return new ResponseEntity<Folio>(folio,HttpStatus.OK);
+	}
+	
+	@GetMapping("/Temporada/{id}")
+	public ResponseEntity<List<Folio>> consultaTemporada(@PathVariable("id") int id){
+		List<Folio> folios=fs.consultarTemporada(id);
+		return new ResponseEntity<List<Folio>>(folios,HttpStatus.OK);
 	}
 	
 	@PostMapping(path="",consumes="application/json")
-	public ResponseEntity<String> insertarLibro(@RequestBody Libro libro){
-		libroService.addLibro(libro);
+	public ResponseEntity<String> insertarFolio(@RequestBody Folio folio){
+		fs.addFolio(folio);
 		return new ResponseEntity<String>(HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping(path="/{isbn}")
-	public ResponseEntity<String> eliminarLibro(@PathVariable("isbn") String isbn){
-		libroService.removeLibro(isbn);
+	@DeleteMapping(path="/{id}")
+	public ResponseEntity<String> eliminarFolio(@PathVariable("id") int id){
+		fs.removeFolio(id);;
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
 	@PutMapping(path="",consumes="application/json")
-	public ResponseEntity<String> actualizarLibro(@RequestBody Libro libro){
-		libroService.updateLibro(libro);
+	public ResponseEntity<String> actualizarFolio(@RequestBody Folio folio){
+		fs.updateFolio(folio);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	

@@ -1,0 +1,29 @@
+package com.work.backendlibrary.repository;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.work.backendlibrary.entity.Escuela;
+
+@Repository("escuelaJPARepository")
+public interface EscuelaJPARepository extends JpaRepository<Escuela,Serializable>,CrudRepository<Escuela,Serializable>{
+	public abstract List<Escuela> findByDirectorIddirector(int id);
+	
+	@Transactional
+	@Query("SELECT escuela from Escuela escuela where clave=?1")
+	public Escuela findByClave(String clave);
+	
+	@Modifying
+	@Transactional
+	@Query("delete from Escuela escuela where clave=?1")
+	public void deleteByClave(String clave);
+	
+}

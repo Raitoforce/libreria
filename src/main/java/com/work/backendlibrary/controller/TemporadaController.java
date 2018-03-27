@@ -15,47 +15,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.work.backendlibrary.model.DirectorModel;
-import com.work.backendlibrary.service.DirectorService;
+import com.work.backendlibrary.entity.Temporada;
+import com.work.backendlibrary.service.TemporadaService;
 
 @RestController
-@RequestMapping("/Director")
-public class ControllerDirector {
+@RequestMapping("/Temporada")
+public class TemporadaController {
 	@Autowired
-	@Qualifier("directorServiceImpl")
-	private DirectorService directorService;
+	@Qualifier("temporadaServiceImpl")
+	TemporadaService tmps;
 	
 	@GetMapping("")
-	public ResponseEntity<List<DirectorModel>> devolverDirectores(){
-		List<DirectorModel> directores=directorService.listAllDirectores();
-		return new ResponseEntity<List<DirectorModel>>(directores,HttpStatus.OK);
+	public ResponseEntity<List<Temporada>> devolverTemporadas(){
+		List<Temporada> temporadas=tmps.listAllTemporadas();
+		return new ResponseEntity<List<Temporada>>(temporadas,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<DirectorModel> consultarDirector(@PathVariable("id") int id){
-		DirectorModel directorm= directorService.consultarDirector(id);
-		return new ResponseEntity<DirectorModel>(directorm,HttpStatus.OK);
+	public ResponseEntity<Temporada> consultarTemporada(@PathVariable("id") int id){
+		Temporada temporada= tmps.consultarTemporada(id);
+		return new ResponseEntity<Temporada>(temporada,HttpStatus.OK);
 		
 	}
 	
 	@PostMapping(path="",consumes="application/json")
-	public ResponseEntity<String> insertarDirector(@RequestBody DirectorModel directorm){
-		directorService.addDirector(directorm);
+	public ResponseEntity<String> insertarTemporada(@RequestBody Temporada temporada){
+		tmps.addTemporada(temporada);
 		return new ResponseEntity<String>(HttpStatus.CREATED);
 	}
 	
 	@PutMapping(path="",consumes="application/json")
-	public ResponseEntity<String> actualizarDirector(@RequestBody DirectorModel directorm){
-		directorService.updateDirector(directorm);
+	public ResponseEntity<String> actualizarTemporada(@RequestBody Temporada temporada){
+		tmps.updateTemporada(temporada);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
 	@DeleteMapping(path="/{id}")
 	public ResponseEntity<String> eliminarDirector(@PathVariable("id")int id){
-		directorService.removeDirector(id);
+		tmps.removeTemporada(id);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
-	
-	
 	
 }

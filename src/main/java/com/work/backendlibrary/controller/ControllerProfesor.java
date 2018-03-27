@@ -25,7 +25,7 @@ public class ControllerProfesor {
 	@Qualifier("profesorServiceImpl")
 	private ProfesorService profesorService;
 	
-	@GetMapping("/Profesores")
+	@GetMapping("")
 	public ResponseEntity<List<ProfesorModel>> devolverDirectores(){
 		List<ProfesorModel> profesores=profesorService.listAllProfesores();
 		return new ResponseEntity<List<ProfesorModel>>(profesores,HttpStatus.OK);

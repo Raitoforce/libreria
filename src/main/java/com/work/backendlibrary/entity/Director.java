@@ -1,25 +1,33 @@
 package com.work.backendlibrary.entity;
 
+import java.util.Iterator;
+import java.util.List;
+
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="director")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Director {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="iddirector")
 	private int iddirector;
-<<<<<<< HEAD
-=======
+
 	
->>>>>>> 383de93f3af5b5c630d6672d343bbfdbeea8c4f6
 	@NotNull                //Anotacion para no permitir nulos
 	@Basic(optional=false)
 	@Column(name="nombre",nullable=false)
@@ -32,6 +40,9 @@ public class Director {
 	private String telefono;
 	@Column(name="email")
 	private String email;
+	
+	@OneToMany(mappedBy="director",fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	List<Escuela> escuelas;
 	
 	public Director(){
 		
@@ -75,6 +86,14 @@ public class Director {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	@PreRemove
+	public void Nullable(){
+		for (Iterator<Escuela> iterator = escuelas.iterator(); iterator.hasNext();) {
+			Escuela escuela = (Escuela) iterator.next();
+			escuela.setDirector(null);
+		}
 	}
 	
 	

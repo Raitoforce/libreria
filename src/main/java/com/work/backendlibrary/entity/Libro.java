@@ -10,8 +10,12 @@ import javax.persistence.Table;
 public class Libro{
 	
 	@Id
+	@Column(name="clave_producto")
+	private String claveProducto;
+	
 	@Column(name="isbn")
 	private String isbn;
+	
 	@Column(name="titulo",nullable=true)
 	private String titulo;
 	@Column(name="descripcion",nullable=true)
@@ -35,8 +39,9 @@ public class Libro{
 	}
 
 	public Libro(String isbn, String titulo, String descripcion, String autor, String editorial, String año,
-			String curso, float precio, float costo, int cantidad) {
+			String curso, float precio, float costo, int cantidad, String clave_producto) {
 		super();
+		this.claveProducto=clave_producto;
 		this.isbn = isbn;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
@@ -131,6 +136,14 @@ public class Libro{
 
 	public void setPrecio(Float precio) {
 		this.precio = precio;
+	}
+
+	public String getClave_producto() {
+		return claveProducto;
+	}
+
+	public void setClave_producto(String clave_producto) {
+		this.claveProducto = clave_producto;
 	}
 	
 	

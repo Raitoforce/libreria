@@ -25,6 +25,7 @@ public class DirectorServiceImpl implements DirectorService{
 
 	@Override
 	public List<DirectorModel> listAllDirectores() {
+		//Hibernate.initialize(directorJPA);
 		return directorc.listEntity2listmodel(directorJPA.findAll());
 	}
 

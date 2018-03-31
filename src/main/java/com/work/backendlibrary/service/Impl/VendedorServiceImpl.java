@@ -40,4 +40,20 @@ public class VendedorServiceImpl implements VendedorService {
         return vendedorRepository.findByEmail(email) != null;
     }
 
+    @Override
+    public void removeVendedor(String clave) {
+        vendedorRepository.deleteById(clave);
+    }
+
+    @Override
+    public Vendedor consultarVendedor(String clave) {
+        Vendedor vendedorm = vendedorRepository.findByClave(clave);
+        return vendedorm;
+    }
+
+    @Override
+    public Vendedor updateVendedor(Vendedor vendedorm) {
+        return vendedorRepository.save(vendedorm);
+    }
+
 }

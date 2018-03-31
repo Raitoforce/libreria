@@ -14,4 +14,10 @@ public interface VendedorService {
     List<Vendedor> listAll();
 
     boolean findByEmail(String email);
+
+    void removeVendedor(String clave);
+
+    Vendedor consultarVendedor(String clave);
+
+    Vendedor updateVendedor(Vendedor vendedorm);
 }

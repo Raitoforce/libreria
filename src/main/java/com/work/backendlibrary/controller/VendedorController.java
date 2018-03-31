@@ -1,6 +1,7 @@
 package com.work.backendlibrary.controller;
 
 import com.work.backendlibrary.entity.Vendedor;
+import com.work.backendlibrary.model.DirectorModel;
 import com.work.backendlibrary.repository.UserRepository;
 import com.work.backendlibrary.service.VendedorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,28 @@ public class VendedorController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(vendedores, HttpStatus.OK);
+    }
+
+    // Borrar vendedor
+    @DeleteMapping(value ="/{clave}")
+    public ResponseEntity<String> eliminarDirector(@PathVariable("clave") String clave){
+        vendedorService.removeVendedor(clave);
+        return new ResponseEntity<String>(HttpStatus.OK);
+    }
+
+    // Obtener un vendedor
+    @GetMapping("/{clave}")
+    public ResponseEntity<Vendedor> consultarVendedor(@PathVariable("clave") String clave){
+        Vendedor vendedorm= vendedorService.consultarVendedor(clave);
+        return new ResponseEntity<Vendedor>(vendedorm,HttpStatus.OK);
+
+    }
+
+    // Actualizar datos de vendedor
+    @PutMapping
+    public ResponseEntity<String> actualizarVendedor(@RequestBody Vendedor vendedorm){
+        vendedorService.updateVendedor(vendedorm);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "/search/clave={clave}")

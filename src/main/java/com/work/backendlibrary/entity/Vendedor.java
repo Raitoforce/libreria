@@ -7,11 +7,12 @@ import javax.validation.constraints.NotNull;
 @Table(name = "vendedor")
 public class Vendedor {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idVendedor")
-    private int idVendedor;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "idVendedor")
+//    private int idVendedor;
 
+    @Id
     @Column(name = "clave", unique = true)
     private String clave;
 

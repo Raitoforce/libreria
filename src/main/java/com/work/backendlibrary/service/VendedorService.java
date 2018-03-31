@@ -1,6 +1,7 @@
 package com.work.backendlibrary.service;
 
 import com.work.backendlibrary.entity.Vendedor;
+import com.work.backendlibrary.model.VendedorModel;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ public interface VendedorService {
     Boolean findByRfc(String rfc);
 
     List<Vendedor> listAll();
+    
+    List<VendedorModel> listAllModel();
 
     boolean findByEmail(String email);
 

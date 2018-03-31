@@ -1,7 +1,8 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3308/db_librerialozano?useSSL=false
+    #url: jdbc:mysql://localhost:3306/db_libreralozano?useSSL=false #Maquina Hugo
+    url: jdbc:mysql://localhost:3308/db_librerialozano?useSSL=false #Maquina Luis
 #    url: jdbc:mysql://localhost:3306/db_librerialozano?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password: root

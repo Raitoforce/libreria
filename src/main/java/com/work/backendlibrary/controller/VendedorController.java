@@ -1,6 +1,7 @@
 package com.work.backendlibrary.controller;
 
 import com.work.backendlibrary.entity.Vendedor;
+import com.work.backendlibrary.model.VendedorModel;
 import com.work.backendlibrary.repository.UserRepository;
 import com.work.backendlibrary.service.VendedorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,15 @@ public class VendedorController {
     @GetMapping
     public ResponseEntity<List<Vendedor>> listAll() {
         List<Vendedor> vendedores = vendedorService.listAll();
+        if (vendedores.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(vendedores, HttpStatus.OK);
+    }
+    
+    @GetMapping("/Vendedores")
+    public ResponseEntity<List<VendedorModel>> listAllModel() {
+        List<VendedorModel> vendedores = vendedorService.listAllModel();
         if (vendedores.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

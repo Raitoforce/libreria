@@ -6,7 +6,7 @@ spring:
 #    url: jdbc:mysql://localhost:3306/db_librerialozano?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
 #    url: jdbc:mysql://aaqeba3awbwsyd.chimtynwqqkf.us-east-2.rds.amazonaws.com:3306/libLozano
     username: root
-    password: root
+    password: 
 #    password: huevos123
   jpa:
     show-sql: true

@@ -5,6 +5,8 @@ import com.work.backendlibrary.model.VendedorModel;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 public interface VendedorService {
     Vendedor addVendedor(Vendedor vendedor);
 
@@ -15,6 +17,8 @@ public interface VendedorService {
     List<Vendedor> listAll();
     
     List<VendedorModel> listAllModel();
+    
+    List<VendedorModel> listPage(Pageable pageable);
 
     boolean findByEmail(String email);
 
@@ -23,4 +27,6 @@ public interface VendedorService {
     Vendedor consultarVendedor(String clave);
 
     Vendedor updateVendedor(Vendedor vendedorm);
+    
+    
 }

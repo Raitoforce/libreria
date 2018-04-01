@@ -6,6 +6,7 @@ import com.work.backendlibrary.repository.UserRepository;
 import com.work.backendlibrary.service.VendedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -52,6 +53,15 @@ public class VendedorController {
     @GetMapping("/Vendedores")
     public ResponseEntity<List<VendedorModel>> listAllModel() {
         List<VendedorModel> vendedores = vendedorService.listAllModel();
+        if (vendedores.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(vendedores, HttpStatus.OK);
+    }
+    
+    @GetMapping("/pagina")
+    public ResponseEntity<List<VendedorModel>> listAllpage(Pageable pageable) {
+        List<VendedorModel> vendedores = vendedorService.listPage(pageable);
         if (vendedores.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

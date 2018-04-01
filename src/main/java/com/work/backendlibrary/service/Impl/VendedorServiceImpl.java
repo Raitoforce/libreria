@@ -7,6 +7,7 @@ import com.work.backendlibrary.repository.VendedorRepository;
 import com.work.backendlibrary.service.VendedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -65,6 +66,11 @@ public class VendedorServiceImpl implements VendedorService {
 	public List<VendedorModel> listAllModel() {
 		List<VendedorModel> vm= vendedorc.listEntity2listmodel(vendedorRepository.findAll());
 		return vm;
+	}
+
+	@Override
+	public List<VendedorModel> listPage(Pageable pageable) {
+		return vendedorc.listEntity2listmodel(vendedorRepository.findAll(pageable).getContent());
 	}
 
 }

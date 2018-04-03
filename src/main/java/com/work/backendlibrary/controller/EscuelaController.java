@@ -20,7 +20,7 @@ import com.work.backendlibrary.service.EscuelaService;
 
 
 @RestController
-@RequestMapping("/Escuela")
+@RequestMapping("/escuelas")
 public class EscuelaController {
 	@Autowired
 	@Qualifier("escuelaServiceImpl")
@@ -44,7 +44,7 @@ public class EscuelaController {
 		return new ResponseEntity<List<Escuela>>(escuelas,HttpStatus.OK);
 	}
 	
-	@PostMapping(path="",consumes="application/json")
+	@PostMapping(value = "/nuevo")
 	public ResponseEntity<String> insertar(@RequestBody Escuela escuela){
 		service.addEscuela(escuela);
 		return new ResponseEntity<String>(HttpStatus.CREATED);

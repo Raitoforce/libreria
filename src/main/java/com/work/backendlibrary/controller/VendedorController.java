@@ -36,7 +36,7 @@ public class VendedorController {
     public ResponseEntity<Vendedor> crearVendedor(@RequestBody Vendedor vendedor) {
         Vendedor resultVendedor = vendedorService.addVendedor(vendedor);
         if (resultVendedor != null)
-            return new ResponseEntity<Vendedor>(vendedor, HttpStatus.OK);
+            return new ResponseEntity<Vendedor>(vendedor, HttpStatus.CREATED);
         else
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

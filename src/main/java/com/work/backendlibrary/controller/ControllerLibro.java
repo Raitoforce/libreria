@@ -19,7 +19,7 @@ import com.work.backendlibrary.entity.Libro;
 import com.work.backendlibrary.service.LibroService;
 
 @RestController
-@RequestMapping("/Libro")
+@RequestMapping("/productos")
 public class ControllerLibro{
 	@Autowired
 	@Qualifier("libroServiceImpl")
@@ -31,20 +31,20 @@ public class ControllerLibro{
 		return new ResponseEntity<List<Libro>>(libros,HttpStatus.OK);
 	}
 	
-	@GetMapping("/{isbn}")
-	public ResponseEntity<Libro> consultaLibro(@PathVariable("isbn") String isbn){
+	@GetMapping("/{clave}")
+	public ResponseEntity<Libro> consultaLibro(@PathVariable("clave") String isbn){
 		Libro libro=libroService.consultarLibro(isbn);
 		return new ResponseEntity<Libro>(libro,HttpStatus.OK);
 	}
 	
-	@PostMapping(path="",consumes="application/json")
+	@PostMapping(value = "/nuevo")
 	public ResponseEntity<String> insertarLibro(@RequestBody Libro libro){
 		libroService.addLibro(libro);
-		return new ResponseEntity<String>(HttpStatus.CREATED);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping(path="/{isbn}")
-	public ResponseEntity<String> eliminarLibro(@PathVariable("isbn") String isbn){
+	@DeleteMapping(path="/{clave}")
+	public ResponseEntity<String> eliminarLibro(@PathVariable("clave") String isbn){
 		libroService.removeLibro(isbn);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}

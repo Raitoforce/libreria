@@ -20,6 +20,8 @@ public class Escuela implements Serializable {
 	private String codigoPostal;
 	@Column(name="direccion")
 	private String direccion;
+	@Column(name="colonia")
+	private String colonia;
 	@Column(name="email")
 	private String email;
 	@Column(name="estado")
@@ -31,8 +33,8 @@ public class Escuela implements Serializable {
 	@Column(name="turno")
 	private String turno;
 	
-	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="director_iddirector"/*,insertable=false,updatable=false*/)
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="director_iddirector", insertable=true/*,updatable=false*/)
 	private Director director;
 
 	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
@@ -45,15 +47,13 @@ public class Escuela implements Serializable {
 
 	public Escuela() {
 	}
-	
-	
-	public Escuela(String clave, String nombre, String codigoPostal, String direccion, String email, String estado,
-			String municipio, String telefono, String turno, Director director, List<Profesor> profesores) {
-		super();
+
+	public Escuela(String clave, String nombre, String codigoPostal, String direccion, String colonia, String email, String estado, String municipio, String telefono, String turno, Director director, List<Profesor> profesores) {
 		this.clave = clave;
 		this.nombre = nombre;
 		this.codigoPostal = codigoPostal;
 		this.direccion = direccion;
+		this.colonia = colonia;
 		this.email = email;
 		this.estado = estado;
 		this.municipio = municipio;
@@ -62,8 +62,6 @@ public class Escuela implements Serializable {
 		this.director = director;
 		this.profesores = profesores;
 	}
-
-
 
 	public List<Profesor> getProfesores() {
 		return profesores;
@@ -155,5 +153,11 @@ public class Escuela implements Serializable {
 		this.clave = clave;
 	}
 
-	
+	public String getColonia() {
+		return colonia;
+	}
+
+	public void setColonia(String colonia) {
+		this.colonia = colonia;
+	}
 }

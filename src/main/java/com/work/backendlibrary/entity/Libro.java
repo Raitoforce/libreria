@@ -24,8 +24,10 @@ public class Libro{
 	private String autor;
 	@Column(name="editorial",nullable=true)
 	private String editorial;
-	@Column(name="año",nullable=true)
-	private String año;
+	@Column(name="year",nullable=true)
+	private String year;
+	@Column(name="nivel",nullable=true)
+	private String nivel;
 	@Column(name="curso",nullable=true)
 	private String curso;
 	@Column(name="precio",nullable=true)
@@ -38,16 +40,15 @@ public class Libro{
 	public Libro() {
 	}
 
-	public Libro(String isbn, String titulo, String descripcion, String autor, String editorial, String año,
-			String curso, float precio, float costo, int cantidad, String clave_producto) {
-		super();
-		this.claveProducto=clave_producto;
+	public Libro(String claveProducto, String isbn, String titulo, String descripcion, String autor, String editorial, String year, String nivel, String curso, Float precio, Float costo, Integer cantidad) {
+		this.claveProducto = claveProducto;
 		this.isbn = isbn;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.autor = autor;
 		this.editorial = editorial;
-		this.año = año;
+		this.year = year;
+		this.nivel = nivel;
 		this.curso = curso;
 		this.precio = precio;
 		this.costo = costo;
@@ -94,12 +95,12 @@ public class Libro{
 		this.editorial = editorial;
 	}
 
-	public String getAño() {
-		return año;
+	public String getyear() {
+		return year;
 	}
 
-	public void setAño(String año) {
-		this.año = año;
+	public void setyear(String year) {
+		this.year = year;
 	}
 
 	public String getCurso() {
@@ -145,7 +146,12 @@ public class Libro{
 	public void setClave_producto(String clave_producto) {
 		this.claveProducto = clave_producto;
 	}
-	
-	
 
+	public String getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(String nivel) {
+		this.nivel = nivel;
+	}
 }

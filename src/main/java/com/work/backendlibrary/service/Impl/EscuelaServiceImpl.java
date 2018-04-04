@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.work.backendlibrary.converter.EscuelaConverter;
 import com.work.backendlibrary.entity.Escuela;
+import com.work.backendlibrary.model.EscuelaModel;
 import com.work.backendlibrary.repository.EscuelaJPARepository;
 import com.work.backendlibrary.service.EscuelaService;
 
@@ -15,6 +18,10 @@ public class EscuelaServiceImpl implements EscuelaService{
 	@Autowired
 	@Qualifier("escuelaJPARepository")
 	EscuelaJPARepository escuelajpa;
+	
+	@Autowired
+	@Qualifier("escuelaConverter")
+	EscuelaConverter escuelac;
 
 	@Override
 	public List<Escuela> listAllEscuelas() {
@@ -50,6 +57,12 @@ public class EscuelaServiceImpl implements EscuelaService{
 	public List<Escuela> consultarDirector(int id) {
 		// TODO Auto-generated method stub
 		return escuelajpa.findByDirectorIddirector(id);
+	}
+
+	@Override
+	public List<EscuelaModel> listpage(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return escuelac.listEntity2listmodel(escuelajpa.findAll(pageable).getContent());
 	}
 	
 }

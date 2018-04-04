@@ -1,7 +1,6 @@
 package com.work.backendlibrary.model;
 
 public class DirectorModel {
-	private int iddirector;
 	private String nombre;
 	private String apellidos;
 	private String telefono;
@@ -37,14 +36,6 @@ public class DirectorModel {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public int getIddirector() {
-		return iddirector;
-	}
-
-	public void setIddirector(int iddirector) {
-		this.iddirector = iddirector;
 	}
 	
 	public DirectorModel(String nombre, String apellidos, String telefono, String email) {

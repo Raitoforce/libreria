@@ -3,7 +3,6 @@ package com.work.backendlibrary.model;
 
 
 public class ProfesorModel {
-	private int idprofesor;
 	private String nombre;
 	private String apellidos;
 	private String telefono;
@@ -35,13 +34,5 @@ public class ProfesorModel {
 	}
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
-	}
-
-	public int getIdprofesor() {
-		return idprofesor;
-	}
-
-	public void setIdprofesor(int idprofesor) {
-		this.idprofesor = idprofesor;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,6 +31,15 @@ public class ControllerLibro{
 		List<Libro> libros = libroService.listAllLibros();
 		return new ResponseEntity<List<Libro>>(libros,HttpStatus.OK);
 	}
+	
+	@GetMapping("/pagina")
+    public ResponseEntity<List<Libro>> listAllpage(Pageable pageable) {
+        List<Libro> libros = libroService.listPage(pageable);
+        if (libros.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(libros, HttpStatus.OK);
+    }
 	
 	@GetMapping("/{clave}")
 	public ResponseEntity<Libro> consultaLibro(@PathVariable("clave") String isbn){

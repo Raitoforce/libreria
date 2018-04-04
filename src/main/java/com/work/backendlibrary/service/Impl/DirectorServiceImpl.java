@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.work.backendlibrary.converter.DirectorConverter;
@@ -41,8 +42,7 @@ public class DirectorServiceImpl implements DirectorService{
 	}
 
 	@Override
-	public Director updateDirector(DirectorModel directorm) {
-		Director director= directorc.entity2entity(directorm);
+	public Director updateDirector(Director director) {
 		return directorJPA.save(director);
 	}
 
@@ -50,6 +50,12 @@ public class DirectorServiceImpl implements DirectorService{
 	public DirectorModel consultarDirector(int id) {
 		DirectorModel directorm=directorc.model2model(directorJPA.findByIddirector(id));
 		return directorm;
+	}
+
+	@Override
+	public List<DirectorModel> listPage(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return directorc.listEntity2listmodel(directorJPA.findAll(pageable).getContent());
 	}
 	
 }

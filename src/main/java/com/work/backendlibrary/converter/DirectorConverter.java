@@ -22,7 +22,7 @@ public class DirectorConverter {
 	
 	public DirectorModel model2model(Director director){
 		DirectorModel directorm=new DirectorModel();
-		directorm.setIddirector(director.getIddirector());
+		//directorm.setIddirector(director.getIddirector());
 		directorm.setNombre(director.getNombre());
 		directorm.setApellidos(director.getApellidos());
 		directorm.setTelefono(director.getTelefono());
@@ -42,7 +42,7 @@ public class DirectorConverter {
 
 	public Director entity2entity(DirectorModel directorm){
 		Director director=new Director();
-		director.setIddirector(directorm.getIddirector());
+		//director.setIddirector(directorm.getIddirector());
 		director.setNombre(directorm.getNombre());
 		director.setApellidos(directorm.getApellidos());
 		director.setTelefono(directorm.getTelefono());

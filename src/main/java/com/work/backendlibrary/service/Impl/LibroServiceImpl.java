@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.work.backendlibrary.entity.Libro;
@@ -44,5 +45,11 @@ public class LibroServiceImpl implements LibroService{
 	public Libro consultarLibro(String clave_producto){
 		Libro libro = libroJPARepository.findByClaveProducto(clave_producto);
 		return libro;
+	}
+
+	@Override
+	public List<Libro> listPage(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return libroJPARepository.findAll(pageable).getContent();
 	}
 }

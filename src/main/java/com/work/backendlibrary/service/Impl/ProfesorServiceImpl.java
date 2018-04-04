@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.work.backendlibrary.converter.ProfesorConverter;
@@ -40,8 +41,8 @@ public class ProfesorServiceImpl implements ProfesorService{
 	}
 
 	@Override
-	public Profesor updateProfesor(ProfesorModel profesorm) {
-		Profesor  profesor=profesorc.entity2entity(profesorm);
+	public Profesor updateProfesor(Profesor profesor) {
+		//Profesor  profesor=profesorc.entity2entity(profesorm);
 		return profesorJPA.save(profesor);
 	}
 
@@ -49,6 +50,12 @@ public class ProfesorServiceImpl implements ProfesorService{
 	public ProfesorModel consultarProfesor(int id) {
 		ProfesorModel profesorm=profesorc.model2model(profesorJPA.findByIdprofesor(id));
 		return profesorm;
+	}
+
+	@Override
+	public List<ProfesorModel> listPage(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return profesorc.listEntity2listmodel(profesorJPA.findAll(pageable).getContent());
 	}
 
 }

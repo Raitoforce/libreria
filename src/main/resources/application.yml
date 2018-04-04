@@ -1,12 +1,12 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    #url: jdbc:mysql://localhost:3306/db_libreralozano?useSSL=false #Maquina Hugo
-    url: jdbc:mysql://localhost:3308/db_librerialozano?useSSL=false #Maquina Luis
+    url: jdbc:mysql://localhost:3306/db_libreralozano?useSSL=false #Maquina Hugo
+    #url: jdbc:mysql://localhost:3308/db_librerialozano?useSSL=false #Maquina Luis
 #    url: jdbc:mysql://localhost:3306/db_librerialozano?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
 #    url: jdbc:mysql://aaqeba3awbwsyd.chimtynwqqkf.us-east-2.rds.amazonaws.com:3306/libLozano
     username: root
-    password: root
+    password: 
 #    password: huevos123
   jpa:
     show-sql: true

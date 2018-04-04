@@ -21,7 +21,7 @@ public class ProfesorConverter {
 	
 	public ProfesorModel model2model(Profesor profesor){
 		ProfesorModel profesorm=new ProfesorModel();
-		profesorm.setIdprofesor(profesor.getIdprofesor());
+		//profesorm.setIdprofesor(profesor.getIdprofesor());
 		profesorm.setNombre(profesor.getNombre());
 		profesorm.setApellidos(profesor.getApellidos());
 		profesorm.setTelefono(profesor.getTelefono());
@@ -39,7 +39,7 @@ public class ProfesorConverter {
 	
 	public Profesor entity2entity(ProfesorModel profesorm){
 		Profesor profesor=new Profesor();
-		profesor.setIdprofesor(profesorm.getIdprofesor());
+		//profesor.setIdprofesor(profesorm.getIdprofesor());
 		profesor.setNombre(profesorm.getNombre());
 		profesor.setApellidos(profesorm.getApellidos());
 		profesor.setTelefono(profesorm.getTelefono());

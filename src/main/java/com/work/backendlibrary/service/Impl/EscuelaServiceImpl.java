@@ -64,5 +64,10 @@ public class EscuelaServiceImpl implements EscuelaService{
 		// TODO Auto-generated method stub
 		return escuelac.listEntity2listmodel(escuelajpa.findAll(pageable).getContent());
 	}
-	
+
+	@Override
+	public EscuelaModel listmodel(String escuela) {
+		return null;
+	}
+
 }

@@ -1,5 +1,7 @@
 package com.work.backendlibrary.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -32,7 +34,7 @@ public class Profesor {
 	@Column(name = "telefono")
 	private String telefono;
 	
-	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST,mappedBy="profesores")
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST, mappedBy="profesores")
 	List<Escuela> escuelas;
 	
 	// private String email;
@@ -66,6 +68,15 @@ public class Profesor {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	@JsonManagedReference
+	public List<Escuela> getEscuelas() {
+		return escuelas;
+	}
+
+	public void setEscuelas(List<Escuela> escuelas) {
+		this.escuelas = escuelas;
 	}
 
 	public Profesor() {

@@ -8,10 +8,10 @@ import com.work.backendlibrary.entity.Profesor;
 import com.work.backendlibrary.model.ProfesorModel;
 
 public interface ProfesorService {
-	public abstract List<ProfesorModel> listAllProfesores();
+	public abstract List<Profesor> listAllProfesores();
 	public abstract Profesor addProfesor(ProfesorModel profesorm);
 	public abstract void removeProfesor(int id);
 	public abstract Profesor updateProfesor(Profesor profesor);
-	public abstract ProfesorModel consultarProfesor(int id);
+	public abstract Profesor consultarProfesor(int id);
 	public abstract List<ProfesorModel> listPage(Pageable pageable);
 }

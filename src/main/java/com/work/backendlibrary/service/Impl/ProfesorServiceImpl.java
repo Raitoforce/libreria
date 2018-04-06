@@ -25,8 +25,8 @@ public class ProfesorServiceImpl implements ProfesorService{
 	private ProfesorConverter profesorc;
 
 	@Override
-	public List<ProfesorModel> listAllProfesores() {
-		return profesorc.listEntity2listmodel(profesorJPA.findAll());
+	public List<Profesor> listAllProfesores() {
+		return profesorJPA.findAll();
 	}
 
 	@Override
@@ -47,8 +47,8 @@ public class ProfesorServiceImpl implements ProfesorService{
 	}
 
 	@Override
-	public ProfesorModel consultarProfesor(int id) {
-		ProfesorModel profesorm=profesorc.model2model(profesorJPA.findByIdprofesor(id));
+	public Profesor consultarProfesor(int id) {
+		Profesor profesorm = profesorJPA.findByIdprofesor(id);
 		return profesorm;
 	}
 

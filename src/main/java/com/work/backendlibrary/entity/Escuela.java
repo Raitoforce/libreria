@@ -1,5 +1,7 @@
 package com.work.backendlibrary.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -63,6 +65,7 @@ public class Escuela implements Serializable {
 		this.profesores = profesores;
 	}
 
+	@JsonBackReference
 	public List<Profesor> getProfesores() {
 		return profesores;
 	}

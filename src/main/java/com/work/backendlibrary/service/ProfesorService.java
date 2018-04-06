@@ -12,6 +12,6 @@ public interface ProfesorService {
 	public abstract Profesor addProfesor(ProfesorModel profesorm);
 	public abstract void removeProfesor(int id);
 	public abstract Profesor updateProfesor(Profesor profesor);
-	public abstract ProfesorModel consultarProfesor(int id);
+	public abstract Profesor consultarProfesor(int id);
 	public abstract List<ProfesorModel> listPage(Pageable pageable);
 }

@@ -1,4 +1,5 @@
 package com.work.backendlibrary.entity;
+
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -35,7 +36,7 @@ public class Profesor {
 	@Column(name = "telefono")
 	private String telefono;
 	
-	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST,mappedBy="profesores")
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST, mappedBy="profesores")
 	List<Escuela> escuelas;
 	
 	// private String email;

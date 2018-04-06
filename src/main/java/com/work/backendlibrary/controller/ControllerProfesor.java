@@ -21,16 +21,16 @@ import com.work.backendlibrary.model.ProfesorModel;
 import com.work.backendlibrary.service.ProfesorService;
 
 @RestController()
-@RequestMapping("/Profesor")
+@RequestMapping("/profesores")
 public class ControllerProfesor {
 	@Autowired
 	@Qualifier("profesorServiceImpl")
 	private ProfesorService profesorService;
 	
 	@GetMapping("")
-	public ResponseEntity<List<Profesor>> devolverDirectores(){
-		List<Profesor> profesores=profesorService.listAllProfesores();
-		return new ResponseEntity<>(profesores,HttpStatus.OK);
+	public ResponseEntity<List<Profesor>> devolverProfesores(){
+		List<Profesor> profesores = profesorService.listAllProfesores();
+		return new ResponseEntity<List<Profesor>>(profesores,HttpStatus.OK);
 	}
 	
 	@GetMapping("/pagina")
@@ -43,16 +43,16 @@ public class ControllerProfesor {
     }
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<ProfesorModel> consultarDirector(@PathVariable("id") int id){
-		ProfesorModel profesorm= profesorService.consultarProfesor(id);
-		return new ResponseEntity<ProfesorModel>(profesorm,HttpStatus.OK);
+	public ResponseEntity<Profesor> consultarProfesor(@PathVariable("id") int id){
+		Profesor profesorm = profesorService.consultarProfesor(id);
+		return new ResponseEntity<Profesor>(profesorm,HttpStatus.OK);
 		
 	}
 	
-	@PostMapping(path="",consumes="application/json")
-	public ResponseEntity<String> insertarDirector(@RequestBody ProfesorModel profesorm){
-		profesorService.addProfesor(profesorm);
-		return new ResponseEntity<String>(HttpStatus.CREATED);
+	@PostMapping(value = "/nuevo")
+	public ResponseEntity<Profesor> insertarDirector(@RequestBody ProfesorModel profesorm){
+		Profesor profesorResponse = profesorService.addProfesor(profesorm);
+		return new ResponseEntity<Profesor>(profesorResponse, HttpStatus.CREATED);
 	}
 	
 	@PutMapping(path="",consumes="application/json")

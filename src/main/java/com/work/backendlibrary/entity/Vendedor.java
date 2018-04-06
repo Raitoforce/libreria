@@ -1,10 +1,14 @@
 package com.work.backendlibrary.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
 
 @Entity
 @Table(name = "vendedor")
@@ -50,7 +54,10 @@ public class Vendedor {
 
     @Column(name = "codigo_postal", length = 45)
     private String codigo_postal;
-
+    
+    @OneToMany(mappedBy="vendedor")
+	private List<BloqueFolio> bloqueFolios;
+    
     public Vendedor() {
     }
 

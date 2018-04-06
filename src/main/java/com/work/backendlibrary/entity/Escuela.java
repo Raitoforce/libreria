@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="escuela")
@@ -62,7 +65,9 @@ public class Escuela implements Serializable {
 		this.director = director;
 		this.profesores = profesores;
 	}
-
+	
+	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="idprofesor")
+	@JsonIgnoreProperties({"escuelas"})
 	public List<Profesor> getProfesores() {
 		return profesores;
 	}

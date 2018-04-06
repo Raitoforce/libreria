@@ -28,9 +28,9 @@ public class ControllerProfesor {
 	private ProfesorService profesorService;
 	
 	@GetMapping("")
-	public ResponseEntity<List<ProfesorModel>> devolverDirectores(){
-		List<ProfesorModel> profesores=profesorService.listAllProfesores();
-		return new ResponseEntity<List<ProfesorModel>>(profesores,HttpStatus.OK);
+	public ResponseEntity<List<Profesor>> devolverDirectores(){
+		List<Profesor> profesores=profesorService.listAllProfesores();
+		return new ResponseEntity<>(profesores,HttpStatus.OK);
 	}
 	
 	@GetMapping("/pagina")

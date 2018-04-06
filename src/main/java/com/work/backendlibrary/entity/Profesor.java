@@ -1,5 +1,4 @@
 package com.work.backendlibrary.entity;
-
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -13,6 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 @Entity
 @Table(name = "profesor")
@@ -66,6 +69,16 @@ public class Profesor {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="clave")
+	@JsonIgnoreProperties({"profesores"})
+	public List<Escuela> getEscuelas() {
+		return escuelas;
+	}
+
+	public void setEscuelas(List<Escuela> escuelas) {
+		this.escuelas = escuelas;
 	}
 
 	public Profesor() {

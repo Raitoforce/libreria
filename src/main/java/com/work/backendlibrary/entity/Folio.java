@@ -1,6 +1,7 @@
 package com.work.backendlibrary.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -35,6 +37,9 @@ public class Folio implements Serializable{
 	@ManyToOne(fetch=FetchType.LAZY,cascade= CascadeType.MERGE)
 	@JoinColumn(name="temporada_idtemporada")
 	private Temporada idtemporada;
+	
+	@OneToMany(mappedBy="folio")
+	private List<BloqueFolio> bloqueFolios;
 	
 	
 	public int getIdfolios() {

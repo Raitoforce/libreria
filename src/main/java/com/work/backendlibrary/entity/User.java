@@ -4,19 +4,19 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "user")
+@Table(name = "usuario")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "idusuario")
     private int id;
 
     @NotNull
     @Column(name = "username", unique = true, nullable = false, length = 45)
     private String username;
 
-    @Column(name = "password", nullable = false, length = 120)
+    @Column(name = "password", nullable = false, length = 200)
     private String password;
 
     @Column(name = "role", nullable = false, length = 45)

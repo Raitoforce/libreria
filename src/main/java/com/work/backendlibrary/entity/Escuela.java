@@ -7,6 +7,8 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.Cascade;
+import org.springframework.transaction.annotation.Transactional;
 
 @Entity
 @Table(name="escuela")
@@ -40,11 +42,11 @@ public class Escuela implements Serializable {
 	@JoinColumn(name="director_iddirector", insertable=true/*,updatable=false*/)
 	private Director director;
 
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinTable(name="escuela_has_profesor", joinColumns={
-				  @JoinColumn(name = "escuela_clave", referencedColumnName="clave")  
+				  @JoinColumn(name = "escuela_clave", referencedColumnName="clave",nullable = false,updatable = false)
 			},
-			inverseJoinColumns={@JoinColumn(name="profesor_idprofesor")}
+			inverseJoinColumns={@JoinColumn(name="profesor_idprofesor",nullable = false,updatable = false)}
 			)
 	private List<Profesor> profesores;
 
@@ -66,7 +68,7 @@ public class Escuela implements Serializable {
 		this.profesores = profesores;
 	}
 	
-	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="idprofesor")
+//	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="idprofesor")
 	@JsonIgnoreProperties({"escuelas"})
 	public List<Profesor> getProfesores() {
 		return profesores;
@@ -164,5 +166,14 @@ public class Escuela implements Serializable {
 
 	public void setColonia(String colonia) {
 		this.colonia = colonia;
+	}
+
+	@Transactional
+	@PreRemove
+	@Cascade(org.hibernate.annotations.CascadeType.REMOVE)
+	public  void deleteEscuela(){
+		for (Profesor profesor: getProfesores()) {
+			profesor=null;
+		}
 	}
 }

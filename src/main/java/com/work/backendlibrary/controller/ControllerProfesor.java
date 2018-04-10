@@ -50,15 +50,15 @@ public class ControllerProfesor {
 	}
 	
 	@PostMapping(value = "/nuevo")
-	public ResponseEntity<Profesor> insertarDirector(@RequestBody ProfesorModel profesorm){
+	public ResponseEntity<Profesor> insertarProfesor(@RequestBody ProfesorModel profesorm){
 		Profesor profesorResponse = profesorService.addProfesor(profesorm);
 		return new ResponseEntity<Profesor>(profesorResponse, HttpStatus.CREATED);
 	}
 	
 	@PutMapping(path="",consumes="application/json")
-	public ResponseEntity<String> actualizarDirector(@RequestBody Profesor profesor){
-		profesorService.updateProfesor(profesor);
-		return new ResponseEntity<String>(HttpStatus.OK);
+	public ResponseEntity<Profesor> actualizarProfesor(@RequestBody Profesor profesor){
+		Profesor profesorResponse = profesorService.updateProfesor(profesor);
+		return new ResponseEntity<Profesor>(profesorResponse,HttpStatus.OK);
 	}
 	
 	@DeleteMapping(path="/{id}")

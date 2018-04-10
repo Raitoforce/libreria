@@ -34,6 +34,7 @@ public class ProfesorConverter {
 		profesor.setNombre(profesorm.getNombre());
 		profesor.setApellidos(profesorm.getApellidos());
 		profesor.setTelefono(profesorm.getTelefono());
+		profesor.setEscuelas(profesor.getEscuelas());
 		return profesor;
 	}
 	

@@ -2,20 +2,13 @@ package com.work.backendlibrary.entity;
 
 import java.util.List;
 
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.Cascade;
 
 
 @Entity
@@ -36,7 +29,12 @@ public class Profesor {
 	@Column(name = "telefono")
 	private String telefono;
 	
-	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST, mappedBy="profesores")
+	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@JoinTable(name="escuela_has_profesor", joinColumns={
+			@JoinColumn(name="profesor_idprofesor",nullable = false,updatable = false)
+	},
+			inverseJoinColumns={@JoinColumn(name = "escuela_clave", referencedColumnName="clave",nullable = false,updatable = false)}
+	)
 	List<Escuela> escuelas;
 	
 	// private String email;
@@ -72,7 +70,7 @@ public class Profesor {
 		this.telefono = telefono;
 	}
 
-	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="clave")
+//	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="clave")
 	@JsonIgnoreProperties({"profesores"})
 	public List<Escuela> getEscuelas() {
 		return escuelas;
@@ -91,6 +89,16 @@ public class Profesor {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.telefono = telefono;
+	}
+
+	@Transactional
+	@PreRemove
+	@Cascade(org.hibernate.annotations.CascadeType.REMOVE)
+	public void DeleteProfesor(){
+		for (Escuela escuela: getEscuelas()
+				) {
+			escuela=null;
+		}
 	}
 
 }

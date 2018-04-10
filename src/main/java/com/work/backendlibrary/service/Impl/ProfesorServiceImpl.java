@@ -2,6 +2,7 @@ package com.work.backendlibrary.service.Impl;
 
 import java.util.List;
 
+import com.work.backendlibrary.entity.Escuela;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;

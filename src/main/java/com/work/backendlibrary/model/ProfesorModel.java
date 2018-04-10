@@ -1,6 +1,9 @@
 package com.work.backendlibrary.model;
 
 
+import com.work.backendlibrary.entity.Escuela;
+
+import java.util.List;
 
 public class ProfesorModel {
 	private String nombre;
@@ -17,6 +20,8 @@ public class ProfesorModel {
 		this.apellidos = apellidos;
 		this.telefono = telefono;
 	}
+
+
 	public String getNombre() {
 		return nombre;
 	}

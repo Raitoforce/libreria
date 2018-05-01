@@ -37,13 +37,13 @@ public class BloqueFolio implements Serializable {
 	public BloqueFolio() {
 	}
 
-	/*public BloqueFolioPK getId() {
+	public BloqueFolioPK getId() {
 		return this.id;
 	}
 
 	public void setId(BloqueFolioPK id) {
 		this.id = id;
-	}*/
+	}
 
 	public int getFin() {
 		return this.fin;
@@ -109,7 +109,7 @@ class BloqueFolioPK implements Serializable {
 	@Column(name="vendedor_clave", insertable=false, updatable=false)
 	private String vendedorClave;
 
-	@Column(name="folio_idfolios", insertable=false, updatable=false)
+	@Column(name="folio_idfolios", insertable=false, updatable=false,unique=true)
 	private int folioIdfolios;
 
 	public BloqueFolioPK() {

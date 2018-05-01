@@ -1,10 +1,5 @@
 package com.work.backendlibrary.model;
 
-
-import com.work.backendlibrary.entity.Escuela;
-
-import java.util.List;
-
 public class ProfesorModel {
 	private String nombre;
 	private String apellidos;

@@ -34,8 +34,6 @@ public class Libro{
 	private Float precio;
 	@Column(name="costo",nullable=true)
 	private Float costo;
-	@Column(name="cantidad",nullable=true)
-	private Integer cantidad;
 
 	public Libro() {
 	}
@@ -52,7 +50,6 @@ public class Libro{
 		this.curso = curso;
 		this.precio = precio;
 		this.costo = costo;
-		this.cantidad = cantidad;
 	}
 
 	public String getIsbn() {
@@ -125,14 +122,6 @@ public class Libro{
 
 	public void setCosto(Float costo) {
 		this.costo = costo;
-	}
-
-	public Integer getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(Integer cantidad) {
-		this.cantidad = cantidad;
 	}
 
 	public void setPrecio(Float precio) {

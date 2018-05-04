@@ -21,7 +21,7 @@ import com.work.backendlibrary.service.LibroService;
 
 @RestController
 @RequestMapping("/productos")
-public class ControllerLibro{
+public class LibroController{
 	@Autowired
 	@Qualifier("libroServiceImpl")
 	LibroService libroService;

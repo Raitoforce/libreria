@@ -22,7 +22,7 @@ import com.work.backendlibrary.service.ProfesorService;
 
 @RestController()
 @RequestMapping("/profesores")
-public class ControllerProfesor {
+public class ProfesorController {
 	@Autowired
 	@Qualifier("profesorServiceImpl")
 	private ProfesorService profesorService;

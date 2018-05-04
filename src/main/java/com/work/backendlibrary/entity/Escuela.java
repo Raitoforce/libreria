@@ -5,18 +5,23 @@ import java.util.List;
 
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.work.backendlibrary.Views.VentaView;
+
 import org.hibernate.annotations.Cascade;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.transaction.annotation.Transactional;
 
 @Entity
 @Table(name="escuela")
 public class Escuela implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+	@JsonView(VentaView.interno.class)
 	@Id
 	@Column(name="clave")
 	private String clave;
-
+	
+	@JsonView(VentaView.interno.class)
 	@Column(name="nombre")
 	private String nombre;
 	@Column(name="codigo_postal")
@@ -36,10 +41,15 @@ public class Escuela implements Serializable {
 	@Column(name="turno")
 	private String turno;
 	
+	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="director_iddirector", insertable=true/*,updatable=false*/)
+	@JoinColumn(name="director_iddirector", insertable=true,updatable=true)
 	private Director director;
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="zona_idzona")
+	private Zona zona;
+	
 	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinTable(name="escuela_has_profesor", joinColumns={
 				  @JoinColumn(name = "escuela_clave", referencedColumnName="clave",nullable = false,updatable = false)
@@ -173,5 +183,13 @@ public class Escuela implements Serializable {
 		for (Profesor profesor: getProfesores()) {
 			profesor=null;
 		}
+	}
+
+	public Zona getZona() {
+		return zona;
+	}
+
+	public void setZona(Zona zona) {
+		this.zona = zona;
 	}
 }

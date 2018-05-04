@@ -6,6 +6,9 @@ import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.work.backendlibrary.Views.VentaView;
+
 import org.hibernate.annotations.Cascade;
 
 
@@ -17,9 +20,12 @@ public class Profesor {
 	@Column(name = "idprofesor")
 	private int idprofesor;
 	@NotNull
+	
+	@JsonView(VentaView.interno.class)
 	@Basic(optional = false)
 	@Column(name = "nombre")
 	private String nombre;
+	@JsonView(VentaView.interno.class)
 	@NotNull
 	@Basic(optional = false)
 	@Column(name = "apellidos")

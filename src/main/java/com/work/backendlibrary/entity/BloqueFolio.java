@@ -1,5 +1,9 @@
 package com.work.backendlibrary.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.work.backendlibrary.Views.VentaView;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -13,6 +17,7 @@ import javax.persistence.Table;
 @Table(name="bloque_folio")
 public class BloqueFolio implements Serializable {
 	private static final long serialVersionUID = 1L;
+	@JsonView(VentaView.interno.class)
 	@EmbeddedId
 	private BloqueFolioPK id;
 
@@ -26,6 +31,7 @@ public class BloqueFolio implements Serializable {
 	private Folio folio;
 
 	//bi-directional many-to-one association to Vendedor
+	@JsonView(VentaView.interno.class)
 	@ManyToOne
 	@JoinColumn(name="vendedor_clave",referencedColumnName="clave", insertable=false, updatable=false)
 	private Vendedor vendedor;
@@ -69,6 +75,7 @@ public class BloqueFolio implements Serializable {
 		this.folio = folio;
 	}
 
+	@JsonIgnoreProperties({"bloqueFolios"})
 	public Vendedor getVendedor() {
 		return this.vendedor;
 	}
@@ -105,10 +112,10 @@ public class BloqueFolio implements Serializable {
 class BloqueFolioPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
-	
+	@JsonView(VentaView.interno.class)
 	@Column(name="vendedor_clave", insertable=false, updatable=false)
 	private String vendedorClave;
-
+	@JsonView(VentaView.interno.class)
 	@Column(name="folio_idfolios", insertable=false, updatable=false,unique=true)
 	private int folioIdfolios;
 

@@ -1,5 +1,8 @@
 package com.work.backendlibrary.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.work.backendlibrary.entity.Vendedor;
 import com.work.backendlibrary.model.VendedorModel;
 import com.work.backendlibrary.repository.UserRepository;

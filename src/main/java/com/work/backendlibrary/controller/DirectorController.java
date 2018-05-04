@@ -22,7 +22,7 @@ import com.work.backendlibrary.service.DirectorService;
 
 @RestController
 @RequestMapping("/Director")
-public class ControllerDirector {
+public class DirectorController {
 	@Autowired
 	@Qualifier("directorServiceImpl")
 	private DirectorService directorService;

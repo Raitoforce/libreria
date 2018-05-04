@@ -1,5 +1,9 @@
 package com.work.backendlibrary.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.work.backendlibrary.Views.VentaView;
+
 import java.util.List;
 
 import javax.persistence.Column;
@@ -22,11 +26,13 @@ public class Vendedor {
     @Id
     @Column(name = "clave", unique = true)
     private String clave;
-
+    
+    @JsonView(VentaView.interno.class)
     @NotNull
     @Column(name = "nombre", nullable = false, length = 45)
     private String nombre;
-
+    
+    @JsonView(VentaView.interno.class)
     @NotNull
     @Column(name = "apellidos", nullable = false, length = 45)
     private String apellidos;
@@ -57,7 +63,7 @@ public class Vendedor {
     
     @OneToMany(mappedBy="vendedor")
 	private List<BloqueFolio> bloqueFolios;
-    
+
     public Vendedor() {
     }
 
@@ -179,5 +185,10 @@ public class Vendedor {
                 ", estado='" + estado + '\'' +
                 ", codigo_postal='" + codigo_postal + '\'' +
                 '}';
+    }
+
+    @JsonIgnoreProperties({"id","vendedor"})
+    public List<BloqueFolio> getBloqueFolios() {
+        return bloqueFolios;
     }
 }

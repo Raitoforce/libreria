@@ -1,5 +1,6 @@
 package com.work.backendlibrary.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import com.work.backendlibrary.entity.Temporada;
 import com.work.backendlibrary.service.TemporadaService;
 
 @RestController
-@RequestMapping("/Temporada")
+@RequestMapping("/temporada")
 public class TemporadaController {
 	@Autowired
 	@Qualifier("temporadaServiceImpl")
@@ -38,6 +39,19 @@ public class TemporadaController {
 		
 	}
 	
+	
+	@GetMapping("/actual")
+	public ResponseEntity<Temporada> consultarTemporadaActual(){
+		Temporada temporada= tmps.actualTemporada();
+		return new ResponseEntity<Temporada>(temporada,HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/fecha={date}")
+	public boolean rangoTemporada(@PathVariable("date") Date date){
+		return tmps.rangoTemporada(date);
+	}
+	
 	@PostMapping(path="",consumes="application/json")
 	public ResponseEntity<String> insertarTemporada(@RequestBody Temporada temporada){
 		tmps.addTemporada(temporada);
@@ -51,7 +65,7 @@ public class TemporadaController {
 	}
 	
 	@DeleteMapping(path="/{id}")
-	public ResponseEntity<String> eliminarDirector(@PathVariable("id")int id){
+	public ResponseEntity<String> eliminarTemporada(@PathVariable("id")int id){
 		tmps.removeTemporada(id);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}

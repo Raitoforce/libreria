@@ -1,5 +1,6 @@
 package com.work.backendlibrary.service.Impl;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,21 @@ public class TemporadaServiceImpl implements TemporadaService{
 	@Override
 	public Temporada consultarTemporada(int id) {
 		return temporadaJPA.findByIdtemporada(id);
+	}
+
+	@Override
+	public boolean rangoTemporada(Date date) {
+		// TODO Auto-generated method stub
+		Temporada temporada=temporadaJPA.findByFechaActualBeetwenFechaInicioAndFechaFin(date);
+		if(temporada==null) return false;
+		else return true;
+	}
+	@Override
+	public Temporada actualTemporada() {
+		// TODO Auto-generated method stub
+		Date date=new Date(System.currentTimeMillis());
+		Temporada temporada=temporadaJPA.findByFechaActualBeetwenFechaInicioAndFechaFin(date);
+		return temporada;
 	}
 
 }

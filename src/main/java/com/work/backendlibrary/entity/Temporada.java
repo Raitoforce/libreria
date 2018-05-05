@@ -19,9 +19,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name="temporada")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"}) //Anotacion para manejar el lazy
 public class Temporada implements Serializable{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

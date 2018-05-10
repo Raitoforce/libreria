@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.work.backendlibrary.Views.VentaView;
 import com.work.backendlibrary.entity.Venta;
+import com.work.backendlibrary.model.VentaModel;
 import com.work.backendlibrary.service.VentaService;
 
 @RestController
@@ -41,7 +42,7 @@ public class VentaController {
 	}
 	
 	@PostMapping(value = "/nuevo")
-	public ResponseEntity<String> insertarVenta(@RequestBody Venta venta){
+	public ResponseEntity<String> insertarVenta(@RequestBody VentaModel venta){
 		ventaService.addVenta(venta);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
@@ -53,7 +54,7 @@ public class VentaController {
 	}
 	
 	@PutMapping(path="",consumes="application/json")
-	public ResponseEntity<String> actualizarVenta(@RequestBody Venta venta){
+	public ResponseEntity<String> actualizarVenta(@RequestBody VentaModel venta){
 		ventaService.updateVenta(venta);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}

@@ -21,7 +21,7 @@ import com.work.backendlibrary.Views.VentaView;
 public class Venta implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@JsonView(VentaView.interno.class)
+	@JsonView(VentaView.Todo.class)
 	@Id
 	@Column(name="folio")
 	private String folio;

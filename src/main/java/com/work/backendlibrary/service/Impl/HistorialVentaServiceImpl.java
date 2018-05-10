@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.work.backendlibrary.converter.HistorialVentaConverter;
 import com.work.backendlibrary.entity.HistorialVenta;
+import com.work.backendlibrary.model.HistorialVentaModel;
 import com.work.backendlibrary.repository.HistorialVentaJPARepository;
 import com.work.backendlibrary.service.HistorialVentaService;
 
@@ -15,6 +17,10 @@ public class HistorialVentaServiceImpl implements HistorialVentaService{
 	@Autowired
 	@Qualifier("historialVentaJPARepository")
 	HistorialVentaJPARepository hvJPA;
+	@Autowired
+	@Qualifier("historialVentaConverter")
+	HistorialVentaConverter hvConverter;
+	
 	
 	@Override
 	public List<HistorialVenta> listAllHistorialVentas() {
@@ -23,8 +29,9 @@ public class HistorialVentaServiceImpl implements HistorialVentaService{
 	}
 
 	@Override
-	public HistorialVenta addHistorialVenta(HistorialVenta hventa) {
+	public HistorialVenta addHistorialVenta(HistorialVentaModel hventam) {
 		// TODO Auto-generated method stub
+		HistorialVenta hventa=hvConverter.model2entity(hventam);
 		return hvJPA.save(hventa);
 	}
 
@@ -35,8 +42,9 @@ public class HistorialVentaServiceImpl implements HistorialVentaService{
 	}
 
 	@Override
-	public HistorialVenta updateHistorialVenta(HistorialVenta hventa) {
+	public HistorialVenta updateHistorialVenta(HistorialVentaModel hventam) {
 		// TODO Auto-generated method stub
+		HistorialVenta hventa=hvConverter.model2entity(hventam);
 		return hvJPA.save(hventa);
 	}
 

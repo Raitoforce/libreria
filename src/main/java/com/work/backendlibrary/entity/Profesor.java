@@ -15,6 +15,7 @@ import org.hibernate.annotations.Cascade;
 @Entity
 @Table(name = "profesor")
 public class Profesor {
+	@JsonView(VentaView.Todo.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idprofesor")

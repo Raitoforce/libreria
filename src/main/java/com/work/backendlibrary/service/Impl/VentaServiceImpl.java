@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.work.backendlibrary.converter.VentaConverter;
 import com.work.backendlibrary.entity.Venta;
+import com.work.backendlibrary.model.VentaModel;
 import com.work.backendlibrary.repository.VentaJPARepository;
 import com.work.backendlibrary.service.VentaService;
 
@@ -15,6 +17,9 @@ public class VentaServiceImpl implements VentaService{
 	@Autowired
 	@Qualifier("ventaJPARepository")
 	VentaJPARepository ventaJPA;
+	@Autowired
+	@Qualifier("ventaConverter")
+	VentaConverter vConverter;
 	
 	@Override
 	public List<Venta> listAllVentas() {
@@ -23,8 +28,9 @@ public class VentaServiceImpl implements VentaService{
 	}
 
 	@Override
-	public Venta addVenta(Venta venta) {
+	public Venta addVenta(VentaModel ventam) {
 		// TODO Auto-generated method stub
+		Venta  venta= vConverter.model2Entity(ventam);
 		return ventaJPA.save(venta);
 	}
 
@@ -35,8 +41,9 @@ public class VentaServiceImpl implements VentaService{
 	}
 
 	@Override
-	public Venta updateVenta(Venta venta) {
+	public Venta updateVenta(VentaModel ventam) {
 		// TODO Auto-generated method stub
+		Venta venta=vConverter.model2Entity(ventam);
 		return ventaJPA.save(venta);
 	}
 

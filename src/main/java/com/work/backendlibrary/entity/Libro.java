@@ -5,10 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.work.backendlibrary.Views.VentaView;
+
 @Entity
 @Table(name = "libro")
 public class Libro{
 	
+	@JsonView(VentaView.interno.class)
 	@Id
 	@Column(name="clave_producto")
 	private String claveProducto;
@@ -16,6 +20,7 @@ public class Libro{
 	@Column(name="isbn")
 	private String isbn;
 	
+	@JsonView(VentaView.Todo.class)
 	@Column(name="titulo",nullable=true)
 	private String titulo;
 	@Column(name="descripcion",nullable=true)
@@ -26,12 +31,20 @@ public class Libro{
 	private String editorial;
 	@Column(name="year",nullable=true)
 	private String year;
+	
+	@JsonView(VentaView.Todo.class)
 	@Column(name="nivel",nullable=true)
 	private String nivel;
+	
+	@JsonView(VentaView.Todo.class)
 	@Column(name="curso",nullable=true)
 	private String curso;
+	
+	@JsonView(VentaView.Todo.class)
 	@Column(name="precio",nullable=true)
 	private Float precio;
+	
+	@JsonView(VentaView.Todo.class)
 	@Column(name="costo",nullable=true)
 	private Float costo;
 

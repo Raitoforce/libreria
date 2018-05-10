@@ -18,9 +18,11 @@ public class VentaConverter {
 	@Autowired
 	@Qualifier("bloqueFolioService")
 	BloqueFolioService bfService;
-	@Qualifier("escuelaService")
+	@Autowired
+	@Qualifier("escuelaServiceImpl")
 	EscuelaService escuelaService;
-	@Qualifier("profesorService")
+	@Autowired
+	@Qualifier("profesorServiceImpl")
 	ProfesorService profesorService;
 	
 	public Venta model2Entity(VentaModel vm){

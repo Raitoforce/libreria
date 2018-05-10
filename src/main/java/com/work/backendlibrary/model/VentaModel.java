@@ -12,6 +12,7 @@ public class VentaModel {
 	private int idfolios;
 	private String escuela_clave;
 	private int idprofesor;
+	
 	public String getFolio() {
 		return folio;
 	}
@@ -66,4 +67,19 @@ public class VentaModel {
 	public void setIdprofesor(int idprofesor) {
 		this.idprofesor = idprofesor;
 	}
+	public VentaModel(String folio, Date fecha, float comision_vendedor, float comision_profesor,
+			float comision_director, String vendedor_clave, int idfolios, String escuela_clave, int idprofesor) {
+		super();
+		this.folio = folio;
+		this.fecha = fecha;
+		this.comision_vendedor = comision_vendedor;
+		this.comision_profesor = comision_profesor;
+		this.comision_director = comision_director;
+		this.vendedor_clave = vendedor_clave;
+		this.idfolios = idfolios;
+		this.escuela_clave = escuela_clave;
+		this.idprofesor = idprofesor;
+	}
+	
+	public VentaModel(){}
 }

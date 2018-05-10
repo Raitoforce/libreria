@@ -14,38 +14,51 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.work.backendlibrary.Views.VentaView;
+
 @Entity
 @Table(name="historial_venta")
 public class HistorialVenta implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@JsonView(VentaView.Todo.class)
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="idHistorial")
 	private int idHistorial;
 
+	@JsonView(VentaView.Todo.class)
 	private Integer entregados;
 
+	@JsonView(VentaView.Todo.class)
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="fecha_confirmacion")
 	private Date fechaConfirmacion;
 
+	@JsonView(VentaView.Todo.class)
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_solicitud")
 	private Date fechaSolicitud;
 
+	@JsonView(VentaView.Todo.class)
 	@Column(name="motivo")
 	private String motivo;
 
+	@JsonView(VentaView.Todo.class)
 	@Column(name="pedidos")
 	private int pedidos;
 
+	@JsonView(VentaView.Todo.class)
 	@Column(name="tipo_movimiento")
 	private String tipoMovimiento;
 
+	@JsonView(VentaView.Todo.class)
 	@ManyToOne
 	@JoinColumn(name="venta_folio",referencedColumnName="folio")
 	private Venta venta;
 	
+	@JsonView(VentaView.Todo.class)
 	@ManyToOne
 	@JoinColumn(name="libro_clave_producto",referencedColumnName="clave_producto")
 	private Libro libro;

@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.work.backendlibrary.Views.VentaView;
 import com.work.backendlibrary.entity.HistorialVenta;
+import com.work.backendlibrary.model.HistorialVentaModel;
 import com.work.backendlibrary.service.HistorialVentaService;
 
 @RestController
@@ -25,6 +28,7 @@ public class HistorialVentaController {
 	@Qualifier("historialVentaService")
 	HistorialVentaService hvService;
 	
+	@JsonView(VentaView.interno.class)
 	@GetMapping("")
 	public ResponseEntity<List<HistorialVenta>> devolverHistorialVenta(){
 		List<HistorialVenta> hventas = hvService.listAllHistorialVentas(); 
@@ -38,7 +42,7 @@ public class HistorialVentaController {
 	}
 	
 	@PostMapping(value = "/nuevo")
-	public ResponseEntity<String> insertarHistorialVenta(@RequestBody HistorialVenta hventa){
+	public ResponseEntity<String> insertarHistorialVenta(@RequestBody HistorialVentaModel hventa){
 		hvService.addHistorialVenta(hventa);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
@@ -50,7 +54,7 @@ public class HistorialVentaController {
 	}
 	
 	@PutMapping(path="",consumes="application/json")
-	public ResponseEntity<String> actualizarHistorialVenta(@RequestBody HistorialVenta hventa){
+	public ResponseEntity<String> actualizarHistorialVenta(@RequestBody HistorialVentaModel hventa){
 		hvService.updateHistorialVenta(hventa);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}

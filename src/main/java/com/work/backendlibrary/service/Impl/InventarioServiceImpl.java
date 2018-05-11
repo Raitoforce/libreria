@@ -3,6 +3,7 @@ package com.work.backendlibrary.service.Impl;
 import com.work.backendlibrary.entity.HistorialVenta;
 import com.work.backendlibrary.service.HistorialVentaService;
 import com.work.backendlibrary.service.InventarioService;
+import com.work.backendlibrary.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,14 @@ public class InventarioServiceImpl implements InventarioService {
     @Qualifier("historialVentaService")
     HistorialVentaService hvService;
 
+    @Autowired
+    @Qualifier("stockService")
+    StockService stockService;
+
     @Override
     public List<HistorialVenta> getPedidosPendientes(){
         List<HistorialVenta> cola=new ArrayList<HistorialVenta>();
-        for (HistorialVenta hv: hvService.listAllHistorialVentas()) {
+        for (HistorialVenta hv: hvService.listAllHistorialVentas()){
             if(hv.getEntregados()-hv.getPedidos()!=0)
                 cola.add(hv);
         }

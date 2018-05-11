@@ -41,7 +41,7 @@ public class Director {
 	@Column(name="email")
 	private String email;
 	
-	@OneToMany(mappedBy="director",fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="director",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	List<Escuela> escuelas;
 	
 	public Director(){

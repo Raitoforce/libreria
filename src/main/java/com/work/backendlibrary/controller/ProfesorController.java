@@ -50,8 +50,8 @@ public class ProfesorController {
 	}
 	
 	@PostMapping(value = "/nuevo")
-	public ResponseEntity<Profesor> insertarProfesor(@RequestBody ProfesorModel profesorm){
-		Profesor profesorResponse = profesorService.addProfesor(profesorm);
+	public ResponseEntity<Profesor> insertarProfesor(@RequestBody Profesor profesor){
+		Profesor profesorResponse = profesorService.addProfesor(profesor);
 		return new ResponseEntity<Profesor>(profesorResponse, HttpStatus.CREATED);
 	}
 	

@@ -19,7 +19,7 @@ public class Profesor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idprofesor")
-	private int idprofesor;
+	private Integer idprofesor;
 	@NotNull
 	
 	@JsonView(VentaView.interno.class)
@@ -33,12 +33,12 @@ public class Profesor {
 	private String apellidos;
 	@Column(name = "telefono")
 	private String telefono;
-	
-	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+
+	@ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinTable(name="escuela_has_profesor", joinColumns={
-			@JoinColumn(name="profesor_idprofesor",nullable = false,updatable = false)
+			@JoinColumn(name="profesor_idprofesor",nullable = false, updatable = false)
 	},
-			inverseJoinColumns={@JoinColumn(name = "escuela_clave", referencedColumnName="clave",nullable = false,updatable = false)}
+			inverseJoinColumns={@JoinColumn(name = "escuela_clave", referencedColumnName="clave",nullable = false, updatable = false)}
 	)
 	List<Escuela> escuelas;
 	
@@ -81,6 +81,7 @@ public class Profesor {
 		return escuelas;
 	}
 
+	@JsonIgnoreProperties({"profesores"})
 	public void setEscuelas(List<Escuela> escuelas) {
 		this.escuelas = escuelas;
 	}
@@ -102,7 +103,7 @@ public class Profesor {
 	public void DeleteProfesor(){
 		for (Escuela escuela: getEscuelas()
 				) {
-			escuela=null;
+			escuela.getProfesores().remove(this);
 		}
 	}
 

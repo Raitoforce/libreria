@@ -54,4 +54,9 @@ public class HistorialVentaServiceImpl implements HistorialVentaService{
 		return hvJPA.findByIdHistorial(id);
 	}
 
+	@Override
+	public HistorialVenta updateInventario(HistorialVenta historialVenta) {
+		return hvJPA.save(historialVenta);
+	}
+
 }

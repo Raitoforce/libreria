@@ -1,12 +1,13 @@
 package com.work.backendlibrary.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.work.backendlibrary.Views.VentaView;
+import org.hibernate.annotations.Cascade;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Entity
 @Table(name = "libro")
@@ -48,11 +49,14 @@ public class Libro{
 	@Column(name="costo",nullable=true)
 	private Float costo;
 
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "libro")
+	private List<Stock> stocks;
+
 	public Libro() {
 	}
 
-	public Libro(String claveProducto, String isbn, String titulo, String descripcion, String autor, String editorial, String year, String nivel, String curso, Float precio, Float costo, Integer cantidad) {
-		this.claveProducto = claveProducto;
+	public Libro(String clave_producto, String isbn, String titulo, String descripcion, String autor, String editorial, String year, String nivel, String curso, Float precio, Float costo, Integer cantidad) {
+		this.claveProducto = clave_producto;
 		this.isbn = isbn;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
@@ -156,4 +160,14 @@ public class Libro{
 	public void setNivel(String nivel) {
 		this.nivel = nivel;
 	}
+
+	@Transactional
+	@PreRemove
+	@Cascade(org.hibernate.annotations.CascadeType.REMOVE)
+	public  void Nullable(){
+		for (Stock stock: stocks) {
+			stock=null;
+		}
+	}
+
 }

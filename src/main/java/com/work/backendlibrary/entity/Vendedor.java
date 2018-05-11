@@ -1,16 +1,14 @@
 package com.work.backendlibrary.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.work.backendlibrary.Views.VentaView;
 
+import java.util.Iterator;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 
@@ -170,6 +168,10 @@ public class Vendedor {
         this.codigo_postal = codigo_postal;
     }
 
+    @JsonIgnore
+    @OneToMany(mappedBy="vendedor",fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+    List<Zona> zonas;
+
     @Override
     public String toString() {
         return "Vendedor{" +
@@ -191,4 +193,13 @@ public class Vendedor {
     public List<BloqueFolio> getBloqueFolios() {
         return bloqueFolios;
     }
+
+    @PreRemove
+    public void Nullable(){
+        for (Iterator<Zona> iterator = zonas.iterator(); iterator.hasNext();) {
+            Zona zona = (Zona) iterator.next();
+            zona.setVendedor(null);
+        }
+    }
+
 }

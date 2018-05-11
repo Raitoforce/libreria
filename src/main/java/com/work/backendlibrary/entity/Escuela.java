@@ -43,18 +43,18 @@ public class Escuela implements Serializable {
 	
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="director_iddirector", insertable=true,updatable=true)
+	@JoinColumn(name="director_iddirector")
 	private Director director;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="zona_idzona")
+	@JoinColumn(name="zona_idzona", insertable = false)
 	private Zona zona;
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinTable(name="escuela_has_profesor", joinColumns={
-				  @JoinColumn(name = "escuela_clave", referencedColumnName="clave",nullable = false,updatable = false)
+				  @JoinColumn(name = "escuela_clave", referencedColumnName="clave",nullable = false, insertable = false, updatable = false)
 			},
-			inverseJoinColumns={@JoinColumn(name="profesor_idprofesor",nullable = false,updatable = false)}
+			inverseJoinColumns={@JoinColumn(name="profesor_idprofesor",nullable = false , insertable = false, updatable = false)}
 			)
 	private List<Profesor> profesores;
 
@@ -181,7 +181,7 @@ public class Escuela implements Serializable {
 	@Cascade(org.hibernate.annotations.CascadeType.REMOVE)
 	public  void deleteEscuela(){
 		for (Profesor profesor: getProfesores()) {
-			profesor=null;
+			profesor.getEscuelas().remove(this);
 		}
 	}
 

@@ -11,4 +11,5 @@ public interface HistorialVentaService {
 	public abstract void removeHistorialVenta(int id);
 	public abstract HistorialVenta updateHistorialVenta(HistorialVentaModel hventa);
 	public abstract HistorialVenta consultarHistorialVenta(int id);
+	public abstract HistorialVenta updateInventario(HistorialVenta historialVenta);
 }

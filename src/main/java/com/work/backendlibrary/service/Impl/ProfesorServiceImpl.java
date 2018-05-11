@@ -31,8 +31,7 @@ public class ProfesorServiceImpl implements ProfesorService{
 	}
 
 	@Override
-	public Profesor addProfesor(ProfesorModel profesorm) {
-		Profesor  profesor=profesorc.model2entity(profesorm);
+	public Profesor addProfesor(Profesor profesor) {
 		return profesorJPA.save(profesor);
 	}
 

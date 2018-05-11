@@ -30,8 +30,8 @@ public class CuentasPorCobrar implements Serializable {
 	private float pago;
 	
 	@ManyToOne
-	@JoinColumn(name="venta_folio",referencedColumnName="folio")
-	private Venta venta;
+	@JoinColumn(name="idhistorialventa",referencedColumnName="idHistorial")
+	private HistorialVenta historialVenta;
 	
 	public CuentasPorCobrar() {
 	
@@ -61,4 +61,11 @@ public class CuentasPorCobrar implements Serializable {
 		this.pago = pago;
 	}
 
+	public HistorialVenta getHistorialVenta() {
+		return historialVenta;
+	}
+
+	public void setHistorialVenta(HistorialVenta historialVenta) {
+		this.historialVenta = historialVenta;
+	}
 }

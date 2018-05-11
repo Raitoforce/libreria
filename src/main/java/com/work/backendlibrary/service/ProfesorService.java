@@ -9,8 +9,7 @@ import com.work.backendlibrary.model.ProfesorModel;
 
 public interface ProfesorService {
 
-	Profesor addProfesor(ProfesorModel profesorm);
-
+	Profesor addProfesor(Profesor profesor);
 	public abstract List<Profesor> listAllProfesores();
 	public abstract void removeProfesor(int id);
 	public abstract Profesor updateProfesor(Profesor profesor);

@@ -1,15 +1,13 @@
 package com.work.backendlibrary.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
+import java.util.Iterator;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="zona")
@@ -20,9 +18,14 @@ public class Zona implements Serializable {
 	@Column(name="idzona")
 	private String idzona;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="vendedor_clave",referencedColumnName="clave")
 	private Vendedor vendedor;
+
+	@JsonIgnore
+	@OneToMany(mappedBy="zona",fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	List<Escuela> escuelas;
+
 
 	@JsonIgnoreProperties({"bloqueFolios"})
 	public Vendedor getVendedor() {
@@ -33,7 +36,7 @@ public class Zona implements Serializable {
 		this.vendedor = vendedor;
 	}
 
-	public Zona() {
+	public Zona(){
 	}
 
 	public String getIdzona() {
@@ -44,4 +47,5 @@ public class Zona implements Serializable {
 	public void setIdzona(String idzona) {
 		this.idzona = idzona;
 	}
+
 }

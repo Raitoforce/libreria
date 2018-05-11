@@ -1,16 +1,18 @@
 package com.work.backendlibrary.controller;
 
 import com.work.backendlibrary.security.SecurityConstants;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
@@ -20,14 +22,31 @@ import java.util.Date;
 public class RefreshTokenController{
     Authentication auth;
 
-    @PostMapping(path = "/token")
-    public void updateToken(HttpServletRequest request, HttpServletResponse response){
-        String tokenIn = request.getHeader(SecurityConstants.HEADER_STRING);
+    @PostMapping(path = "/token={tokenIn}")
+    public void updateToken(HttpServletResponse response,@PathVariable("tokenIn") String tokenIn){
+    	String user;
+    	//Claims claims;
+    	//boolean isExpired=false;
+    	//Date today=new Date(System.currentTimeMillis());
         auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getPrincipal()!=null || !tokenIn.isEmpty()){
-            response.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + generarToken(auth));
-        }
-    }
+        try{
+        	if (tokenIn!=null){
+        	 		user = Jwts.parser()
+                     .setSigningKey(SecurityConstants.SECRET.getBytes())
+                     .parseClaimsJws(tokenIn.replace(SecurityConstants.TOKEN_PREFIX, ""))
+                     .getBody()
+                     .getSubject();
+        	 		
+        	//if(user.compareTo(auth.getName())==0){
+        		//claims = Jwts.parser().setSigningKey(SecurityConstants.SECRET.getBytes()).parseClaimsJws(tokenIn.replace(SecurityConstants.TOKEN_PREFIX, "")).getBody();
+        	}	
+        			//isExpired=today.after(claims.getExpiration());
+        }catch (ExpiredJwtException e) {
+        			response.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + generarToken(auth));
+		}
+        	//}
+      }
+    
 
 
     private String generarToken(Authentication authentication){

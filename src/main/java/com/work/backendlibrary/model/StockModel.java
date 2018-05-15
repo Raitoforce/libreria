@@ -3,7 +3,7 @@ import java.sql.Timestamp;
 
 public class StockModel {
 
-    private int idstock;
+    private Integer idstock;
 
     private int cantidad;
 

@@ -1,6 +1,7 @@
 package com.work.backendlibrary.service.Impl;
 
 import com.work.backendlibrary.entity.HistorialVenta;
+import com.work.backendlibrary.entity.Stock;
 import com.work.backendlibrary.service.HistorialVentaService;
 import com.work.backendlibrary.service.InventarioService;
 import com.work.backendlibrary.service.StockService;
@@ -39,10 +40,19 @@ public class InventarioServiceImpl implements InventarioService {
         hv.setEntregados(hv.getEntregados()+entregados);
         hv.setFechaConfirmacion(new Timestamp(System.currentTimeMillis()));
         hvService.updateInventario(hv);
+        for(Stock stock: stockService.consultarByLibro(hv.getLibro().getClave_producto())){
+        	if(stock.getCantidad()>=entregados){
+        		stock.setCantidad(stock.getCantidad()-entregados);
+        		break;
+        	}else{
+        		entregados=entregados-stock.getCantidad();
+        		stock.setCantidad(0);
+        	}
+        }
+        
     }
 
     @Override
-    public void generarReporte(String folio) {
-
+    public void generarReporte(String folio){
     }
 }

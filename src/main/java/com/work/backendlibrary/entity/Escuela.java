@@ -47,7 +47,7 @@ public class Escuela implements Serializable {
 	private Director director;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="zona_idzona", insertable = false)
+	@JoinColumn(name="zona_idzona")
 	private Zona zona;
 	
 	@ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)

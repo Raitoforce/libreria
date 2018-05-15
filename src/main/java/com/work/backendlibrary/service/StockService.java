@@ -11,4 +11,5 @@ public interface StockService {
     public abstract void removeStock(int id);
     public abstract Stock updateStock(StockModel stockModel);
     public abstract Stock consultarStock(int id);
+    public abstract List<Stock> consultarByLibro(String clave);
 }

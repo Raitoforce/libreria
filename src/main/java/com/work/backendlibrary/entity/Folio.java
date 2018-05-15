@@ -25,7 +25,7 @@ public class Folio implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="idfolios")
-	private int idfolios;
+	private Integer idfolios;
 	
 	@Column(name="tipo")
 	private String tipo;
@@ -34,7 +34,7 @@ public class Folio implements Serializable{
 	@Column(name="fin")
 	private Integer fin;
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade= CascadeType.MERGE)
+	@ManyToOne(fetch=FetchType.LAZY,cascade= CascadeType.ALL)
 	@JoinColumn(name="temporada_idtemporada")
 	private Temporada idtemporada;
 	

@@ -9,5 +9,6 @@ public interface BloqueFolioService {
 	public abstract BloqueFolio addBloqueFolio(BloqueFolio bf);
 	public abstract void removeBloqueFolio(String clave,int id);
 	public abstract BloqueFolio updateFolio(BloqueFolio bf);
-	public abstract BloqueFolio consultarFolio(String clave, int id); 
+	public abstract BloqueFolio consultarFolio(String clave, int id);
+	public abstract boolean isInRange(int valor,int idfolio);
 }

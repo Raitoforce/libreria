@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.work.backendlibrary.entity.Folio;
@@ -36,6 +37,11 @@ public class FolioController {
 	public ResponseEntity<Folio> consultaFolio(@PathVariable("id") int id){
 		Folio folio=fs.consultarFolio(id);
 		return new ResponseEntity<Folio>(folio,HttpStatus.OK);
+	}
+	
+	@GetMapping("/range")
+	public boolean rangoFolio(@RequestParam("valor")int valor,@RequestParam("tipo")String tipo){
+		return fs.isInRange(valor,tipo);
 	}
 	
 	@GetMapping("/Temporada/{id}")

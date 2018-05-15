@@ -48,4 +48,10 @@ public class StockServiceImpl implements StockService {
     public Stock consultarStock(int id) {
         return stockJPARepository.findByIdstock(id);
     }
+
+	@Override
+	public List<Stock> consultarByLibro(String clave) {
+		// TODO Auto-generated method stub
+		return stockJPARepository.findByLibroClaveProducto(clave);
+	}
 }

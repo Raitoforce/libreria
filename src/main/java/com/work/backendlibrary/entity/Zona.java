@@ -47,5 +47,12 @@ public class Zona implements Serializable {
 	public void setIdzona(String idzona) {
 		this.idzona = idzona;
 	}
+	
+	@PreRemove
+	public void Nullable(){
+		for (Escuela escuela: escuelas) {
+			escuela.setZona(null);
+		}
+	}
 
 }

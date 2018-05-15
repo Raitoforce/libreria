@@ -45,4 +45,11 @@ public class BloqueFolioServiceImpl implements BloqueFolioService{
 		// TODO Auto-generated method stub
 		return bfJPA.findByVendedorClaveAndFolioIdfolios(clave,id);
 	}
+
+	@Override
+	public boolean isInRange(int valor, int idfolio) {
+		if(bfJPA.findByIsRange(valor, idfolio)!=null)
+			return true;
+		return false;
+	}
 }

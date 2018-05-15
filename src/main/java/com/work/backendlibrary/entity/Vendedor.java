@@ -1,6 +1,5 @@
 package com.work.backendlibrary.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.work.backendlibrary.Views.VentaView;
@@ -168,7 +167,7 @@ public class Vendedor {
         this.codigo_postal = codigo_postal;
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     @OneToMany(mappedBy="vendedor",fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
     List<Zona> zonas;
 
@@ -188,8 +187,27 @@ public class Vendedor {
                 ", codigo_postal='" + codigo_postal + '\'' +
                 '}';
     }
+    
+    
 
-    @JsonIgnoreProperties({"id","vendedor"})
+    public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	
+	@JsonIgnoreProperties({"vendedor"})
+	public List<Zona> getZonas() {
+		return zonas;
+	}
+
+	public void setZonas(List<Zona> zonas) {
+		this.zonas = zonas;
+	}
+
+	@JsonIgnoreProperties({"id","vendedor"})
     public List<BloqueFolio> getBloqueFolios() {
         return bloqueFolios;
     }

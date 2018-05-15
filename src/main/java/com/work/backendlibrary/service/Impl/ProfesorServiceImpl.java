@@ -2,7 +2,6 @@ package com.work.backendlibrary.service.Impl;
 
 import java.util.List;
 
-import com.work.backendlibrary.entity.Escuela;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
@@ -56,6 +55,12 @@ public class ProfesorServiceImpl implements ProfesorService{
 	public List<ProfesorModel> listPage(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return profesorc.listEntity2listmodel(profesorJPA.findAll(pageable).getContent());
+	}
+
+	@Override
+	public List<Profesor> findByEscuela(String clave) {
+		// TODO Auto-generated method stub
+		return profesorJPA.findByEscuelasClave(clave);
 	}
 
 }

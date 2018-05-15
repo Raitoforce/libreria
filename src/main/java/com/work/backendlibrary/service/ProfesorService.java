@@ -15,4 +15,5 @@ public interface ProfesorService {
 	public abstract Profesor updateProfesor(Profesor profesor);
 	public abstract Profesor consultarProfesor(int id);
 	public abstract List<ProfesorModel> listPage(Pageable pageable);
+	public abstract List<Profesor> findByEscuela(String clave);
 }

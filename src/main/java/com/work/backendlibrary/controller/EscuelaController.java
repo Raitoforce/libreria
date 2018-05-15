@@ -46,9 +46,15 @@ public class EscuelaController {
 		return new ResponseEntity<Escuela>(escuela,HttpStatus.OK);
 	}
 	
-	@GetMapping("/Director/{id}")
+	@GetMapping("/director/{id}")
 	public ResponseEntity<List<Escuela>> consultaDirector(@PathVariable("id") int id){
 		List<Escuela> escuelas=service.consultarDirector(id);
+		return new ResponseEntity<List<Escuela>>(escuelas,HttpStatus.OK);
+	}
+	
+	@GetMapping("/profesor/{zona}")
+	public ResponseEntity<List<Escuela>> consultaByZona(@PathVariable("zona")String zona){
+		List<Escuela> escuelas=service.findByZona(zona);
 		return new ResponseEntity<List<Escuela>>(escuelas,HttpStatus.OK);
 	}
 	

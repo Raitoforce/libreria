@@ -49,6 +49,13 @@ public class ProfesorController {
 		
 	}
 	
+	@GetMapping("/escuela={clave}")
+	public ResponseEntity<List<Profesor>> consultarByEscuela(@PathVariable("escuela")String clave){
+		List<Profesor> profesors=profesorService.findByEscuela(clave);
+		return new ResponseEntity<>(profesors,HttpStatus.OK);
+		
+	}
+	
 	@PostMapping(value = "/nuevo")
 	public ResponseEntity<Profesor> insertarProfesor(@RequestBody Profesor profesor){
 		Profesor profesorResponse = profesorService.addProfesor(profesor);

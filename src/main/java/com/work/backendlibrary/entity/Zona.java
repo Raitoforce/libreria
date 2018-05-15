@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.List;
-
 import javax.persistence.*;
 
 @Entity
@@ -27,7 +25,7 @@ public class Zona implements Serializable {
 	List<Escuela> escuelas;
 
 
-	@JsonIgnoreProperties({"bloqueFolios"})
+	@JsonIgnoreProperties({"bloqueFolios","zonas"})
 	public Vendedor getVendedor() {
 		return vendedor;
 	}
@@ -38,11 +36,10 @@ public class Zona implements Serializable {
 
 	public Zona(){
 	}
-
+	
 	public String getIdzona() {
 		return this.idzona;
 	}
-
 
 	public void setIdzona(String idzona) {
 		this.idzona = idzona;

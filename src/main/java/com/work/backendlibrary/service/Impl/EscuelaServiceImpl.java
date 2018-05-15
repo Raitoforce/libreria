@@ -70,4 +70,10 @@ public class EscuelaServiceImpl implements EscuelaService{
 		return null;
 	}
 
+	@Override
+	public List<Escuela> findByZona(String zona) {
+		// TODO Auto-generated method stub
+		return escuelajpa.findByZonaIdzona(zona);
+	}
+
 }

@@ -26,4 +26,6 @@ public interface EscuelaJPARepository extends JpaRepository<Escuela,Serializable
 	@Query("delete from Escuela escuela where clave=?1")
 	public void deleteByClave(String clave);
 	
+	public abstract List<Escuela> findByZonaIdzona(String idzona);
+	
 }

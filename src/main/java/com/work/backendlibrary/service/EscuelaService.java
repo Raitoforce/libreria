@@ -16,4 +16,5 @@ public interface EscuelaService {
 	public abstract List<Escuela> consultarDirector(int id);
 	public abstract List<EscuelaModel> listpage(Pageable pageable);
 	public abstract EscuelaModel listmodel(String escuela);
+	public abstract List<Escuela> findByZona(String zona);
 }

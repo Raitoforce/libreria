@@ -37,6 +37,12 @@ public class BloqueFolioController {
 		return new ResponseEntity<BloqueFolio>(bfolio,HttpStatus.OK);
 	}
 	
+	@GetMapping("/vendedortemporada")
+	public ResponseEntity<List<BloqueFolio>> consultarByVendedorAndTemporada(@RequestParam("clave")String clave,@RequestParam("idtemporada")Integer idtemporada){
+		List<BloqueFolio> bfolios=bfservice.consultarByVendedorAndTemporada(clave, idtemporada);
+		return new ResponseEntity<List<BloqueFolio>>(bfolios,HttpStatus.OK);
+	}
+	
 	@GetMapping("/range")
 	public boolean rangoFolio(@RequestParam("valor")int valor,@RequestParam("idfolio")Integer idfolio){
 		return bfservice.isInRange(valor,idfolio);

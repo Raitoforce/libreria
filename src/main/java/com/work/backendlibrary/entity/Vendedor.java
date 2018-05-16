@@ -189,14 +189,6 @@ public class Vendedor {
     }
     
     
-
-    public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
 	
 	@JsonIgnoreProperties({"vendedor"})
 	public List<Zona> getZonas() {

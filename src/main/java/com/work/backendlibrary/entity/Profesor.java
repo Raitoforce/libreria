@@ -81,7 +81,6 @@ public class Profesor {
 		return escuelas;
 	}
 
-	@JsonIgnoreProperties({"profesores"})
 	public void setEscuelas(List<Escuela> escuelas) {
 		this.escuelas = escuelas;
 	}

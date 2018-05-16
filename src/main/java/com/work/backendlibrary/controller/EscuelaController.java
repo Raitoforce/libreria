@@ -52,7 +52,7 @@ public class EscuelaController {
 		return new ResponseEntity<List<Escuela>>(escuelas,HttpStatus.OK);
 	}
 	
-	@GetMapping("/profesor/{zona}")
+	@GetMapping("/zona={zona}")
 	public ResponseEntity<List<Escuela>> consultaByZona(@PathVariable("zona")String zona){
 		List<Escuela> escuelas=service.findByZona(zona);
 		return new ResponseEntity<List<Escuela>>(escuelas,HttpStatus.OK);

@@ -59,4 +59,10 @@ public class HistorialVentaServiceImpl implements HistorialVentaService{
 		return hvJPA.save(historialVenta);
 	}
 
+	@Override
+	public List<HistorialVenta> consultarByVenta(String idVenta) {
+		// TODO Auto-generated method stub
+		return hvJPA.findByVentaFolio(idVenta);
+	}
+
 }

@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class HistorialVentaModel {
-	private int idHistorial;
+	private Integer idHistorial;
 	private int pedidos;
 	private int entregados;
 	private String venta_folio;

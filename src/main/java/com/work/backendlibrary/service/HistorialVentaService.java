@@ -12,4 +12,5 @@ public interface HistorialVentaService {
 	public abstract HistorialVenta updateHistorialVenta(HistorialVentaModel hventa);
 	public abstract HistorialVenta consultarHistorialVenta(int id);
 	public abstract HistorialVenta updateInventario(HistorialVenta historialVenta);
+	public abstract List<HistorialVenta> consultarByVenta(String idVenta);
 }

@@ -26,7 +26,7 @@ public class HistorialVenta implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="idHistorial")
-	private int idHistorial;
+	private Integer idHistorial;
 
 	@JsonView(VentaView.Todo.class)
 	private Integer entregados;
@@ -66,7 +66,7 @@ public class HistorialVenta implements Serializable {
 	public HistorialVenta() {
 	
 	}
-
+	
 	public int getIdHistorial() {
 		return idHistorial;
 	}

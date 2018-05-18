@@ -41,6 +41,12 @@ public class HistorialVentaController {
 		return new ResponseEntity<HistorialVenta>(hventa,HttpStatus.OK);
 	}
 	
+	@GetMapping("/venta={id}")
+	public ResponseEntity<List<HistorialVenta>> consultabyVenta(@PathVariable("id") String id){
+		List<HistorialVenta> hventas= hvService.consultarByVenta(id);
+		return new ResponseEntity<List<HistorialVenta>>(hventas,HttpStatus.OK);
+	}
+	
 	@PostMapping(value = "/nuevo")
 	public ResponseEntity<String> insertarHistorialVenta(@RequestBody HistorialVentaModel hventa){
 		hvService.addHistorialVenta(hventa);

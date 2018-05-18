@@ -1,8 +1,10 @@
 package com.work.backendlibrary.service.Impl;
 
+import com.work.backendlibrary.converter.VentaReportConverter;
 import com.work.backendlibrary.entity.HistorialVenta;
 import com.work.backendlibrary.entity.Stock;
 import com.work.backendlibrary.entity.Venta;
+import com.work.backendlibrary.model.VentaReportModel;
 import com.work.backendlibrary.service.HistorialVentaService;
 import com.work.backendlibrary.service.InventarioService;
 import com.work.backendlibrary.service.StockService;
@@ -17,26 +19,28 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.web.ServerProperties.Tomcat.Resource;
-import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service("inventarioService")
-public class InventarioServiceImpl implements InventarioService {
+public class InventarioServiceImpl implements InventarioService{
 	
+	@Autowired
+	ResourceLoader resourceLoader;
 	
-	String masterReportFileName = "/Invoice.jrxml";
-	String subReportFileName = "/pedidos.jrxml";
-	String destFile="reporte.pdf";
+	String path=null;
+	String masterReportFileName =null;
+	String subReportFileName =null;
 	String reporte=null;
+	String destFile=null;
+	String jasperMaster;
 	
     @Autowired
     @Qualifier("historialVentaService")
@@ -49,7 +53,11 @@ public class InventarioServiceImpl implements InventarioService {
     @Autowired
     @Qualifier("stockService")
     StockService stockService;
-
+    
+    @Autowired
+    @Qualifier("ventaReportConverter")
+    VentaReportConverter ventaReportC;
+    
     @Override
     public List<HistorialVenta> getPedidosPendientes(){
         List<HistorialVenta> cola=new ArrayList<HistorialVenta>();
@@ -80,19 +88,42 @@ public class InventarioServiceImpl implements InventarioService {
 
     @Override
     public void generarReporte(String folio){
-    	String reporte;
+    	if(path==null){
+	    	try {
+				path=resourceLoader.getResource(resourceLoader.CLASSPATH_URL_PREFIX+"Invoice.jrxml").getURL().getPath().replaceAll("%20"," ");
+				path=path.replaceAll("Invoice.jrxml","");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	masterReportFileName=path+"Invoice.jrxml";
+	    	subReportFileName=path+"pedidos.jrxml";
+	    	jasperMaster=path+"Invoice.jasper";
+	    	destFile=path+"reporte.pdf";
+    	}
     	try {
-    		Venta venta=ventaService.consultarVenta(folio);
-    	    JRBeanCollectionDataSource sourceVenta = new JRBeanCollectionDataSource(null, new ArrayList<>().add(venta));
+    		Venta v=ventaService.consultarVenta(folio);
+    		VentaReportModel venta=ventaReportC.entity2model(v);
+    		venta.setPedidos(ventaReportC.entity2modelPedidos(hvService.consultarByVenta(folio)));
+    		venta.Calcular(v.getComisionProfesor());
+    		ArrayList<VentaReportModel> ventas=new ArrayList<>();
+    		ventas.add(venta);
+    	    JRBeanCollectionDataSource sourceVenta = new JRBeanCollectionDataSource(ventas);
+    	    //JRBeanCollectionDataSource sourcePedidos=new JRBeanCollectionDataSource(venta.getPedidos());
     		
             /* Compile the master and sub report */
-            JasperReport jasperMasterReport = JasperCompileManager
-               .compileReport(masterReportFileName);
+            //JasperReport jasperMasterReport = JasperCompileManager
+               //.compileReport(masterReportFileName);
+    	    //JasperCompileManager.compileReportToFile(subReportFileName,path+"pedidos.jasper");
             JasperReport jasperSubReport = JasperCompileManager
                .compileReport(subReportFileName);
-            Map parameters = new HashMap();
+            JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
             
-            reporte=JasperFillManager.fillReportToFile(masterReportFileName,parameters,sourceVenta);
+            Map parameters = new HashMap();
+            parameters.put("subreportParameter", jasperSubReport);
+            
+            System.out.println("Llenando...");
+            reporte=JasperFillManager.fillReportToFile(jasperMaster,parameters,sourceVenta);
             if(reporte!=null){
             	JasperExportManager.exportReportToPdfFile(reporte, destFile);
             }
@@ -102,4 +133,5 @@ public class InventarioServiceImpl implements InventarioService {
          }
          System.out.println("Done filling!!! ...");
      }
+
 }

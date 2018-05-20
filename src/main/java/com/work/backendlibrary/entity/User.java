@@ -1,5 +1,9 @@
 package com.work.backendlibrary.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.sun.glass.ui.View;
+import com.work.backendlibrary.Views.VentaView;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -12,6 +16,7 @@ public class User {
     @Column(name = "idusuario")
     private int id;
 
+    @JsonView(VentaView.user.class)
     @NotNull
     @Column(name = "username", unique = true, nullable = false, length = 45)
     private String username;
@@ -19,6 +24,7 @@ public class User {
     @Column(name = "password", nullable = false, length = 200)
     private String password;
 
+    @JsonView(VentaView.user.class)
     @Column(name = "role", nullable = false, length = 45)
     private String role;
 

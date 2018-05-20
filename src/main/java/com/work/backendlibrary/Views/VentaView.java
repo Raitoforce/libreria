@@ -5,4 +5,6 @@ public class VentaView {
 	public interface Todo{}
 	
 	public interface interno extends Todo{}
+
+	public interface user{}
 }

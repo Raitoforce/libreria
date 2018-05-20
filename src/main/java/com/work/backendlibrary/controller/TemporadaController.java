@@ -44,7 +44,6 @@ public class TemporadaController {
 	public ResponseEntity<Temporada> consultarTemporadaActual(){
 		Temporada temporada= tmps.actualTemporada();
 		return new ResponseEntity<Temporada>(temporada,HttpStatus.OK);
-		
 	}
 	
 	@GetMapping("/fecha={date}")

@@ -1,5 +1,7 @@
 package com.work.backendlibrary.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.work.backendlibrary.Views.VentaView;
 import com.work.backendlibrary.entity.User;
 import com.work.backendlibrary.repository.UserRepository;
 import org.apache.commons.logging.Log;
@@ -27,6 +29,7 @@ public class UserController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    @JsonView(VentaView.user.class)
     @PostMapping(value = "/logincheck")
     public ResponseEntity<User> autenticar(@RequestBody User user) {
         User usuario = userRepository.findByUsername(user.getUsername());

@@ -38,9 +38,9 @@ public class BloqueFolioController {
 	}
 	
 	@GetMapping("/vendedortemporada")
-	public ResponseEntity<List<BloqueFolio>> consultarByVendedorAndTemporada(@RequestParam("clave")String clave,@RequestParam("idtemporada")Integer idtemporada){
-		List<BloqueFolio> bfolios=bfservice.consultarByVendedorAndTemporada(clave, idtemporada);
-		return new ResponseEntity<List<BloqueFolio>>(bfolios,HttpStatus.OK);
+	public ResponseEntity<BloqueFolio> consultarByVendedorAndTemporada(@RequestParam("clave")String clave,@RequestParam("idtemporada")Integer idtemporada){
+		BloqueFolio bfolios=bfservice.consultarByVendedorAndTemporada(clave, idtemporada);
+		return new ResponseEntity<BloqueFolio>(bfolios,HttpStatus.OK);
 	}
 	
 	@GetMapping("/range")

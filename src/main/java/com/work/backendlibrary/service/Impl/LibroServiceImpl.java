@@ -52,4 +52,13 @@ public class LibroServiceImpl implements LibroService{
 		// TODO Auto-generated method stub
 		return libroJPARepository.findAll(pageable).getContent();
 	}
+
+	@Override
+	public boolean LibroIsOnDB(String clave_producto) {
+		if(libroJPARepository.findByClaveProducto(clave_producto)!=null)
+			return true;
+		return false;
+	}
+	
+	
 }

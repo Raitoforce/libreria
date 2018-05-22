@@ -21,8 +21,8 @@ public class DataSourceConfig{
 		return DataSourceBuilder
 				.create()
 		        .username("root")
-		        .password("root")
-		        .url("jdbc:mysql://localhost:3308/db_libreralozano?useSSL=false")
+		        .password("")
+		        .url("jdbc:mysql://localhost:3306/db_libreralozano?useSSL=false")
 		        .driverClassName("com.mysql.jdbc.Driver")
 		        .build();
 	}

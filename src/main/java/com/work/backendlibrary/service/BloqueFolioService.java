@@ -11,5 +11,6 @@ public interface BloqueFolioService {
 	public abstract BloqueFolio updateFolio(BloqueFolio bf);
 	public abstract BloqueFolio consultarFolio(String clave, int id);
 	public abstract boolean isInRange(int valor,int idfolio);
-	public abstract List<BloqueFolio> consultarByVendedorAndTemporada(String clave,int idtemporada);
+	public abstract BloqueFolio consultarByVendedorAndTemporada(String clave,int idtemporada);
+	
 }

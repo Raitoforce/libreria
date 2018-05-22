@@ -1,7 +1,7 @@
 package com.work.backendlibrary.model;
 
 import java.sql.Date;
-
+import java.util.List;
 public class VentaModel {
 	private String folio;
 	private Date fecha;
@@ -12,6 +12,7 @@ public class VentaModel {
 	private int idfolios;
 	private String escuela_clave;
 	private int idprofesor;
+	private List<HistorialVentaModel> pedidos;
 	
 	public String getFolio() {
 		return folio;
@@ -66,6 +67,14 @@ public class VentaModel {
 	}
 	public void setIdprofesor(int idprofesor) {
 		this.idprofesor = idprofesor;
+		
+	}
+	
+	public List<HistorialVentaModel> getPedidos() {
+		return pedidos;
+	}
+	public void setPedidos(List<HistorialVentaModel> pedidos) {
+		this.pedidos = pedidos;
 	}
 	public VentaModel(String folio, Date fecha, float comision_vendedor, float comision_profesor,
 			float comision_director, String vendedor_clave, int idfolios, String escuela_clave, int idprofesor) {

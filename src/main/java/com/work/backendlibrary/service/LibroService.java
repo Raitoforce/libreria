@@ -13,4 +13,6 @@ public interface LibroService {
 	public abstract Libro updateLibro(Libro libro);
 	public abstract Libro consultarLibro(String clave_producto);
 	public abstract List<Libro> listPage(Pageable pageable);
+	
+	public abstract boolean LibroIsOnDB(String clave_producto);
 }

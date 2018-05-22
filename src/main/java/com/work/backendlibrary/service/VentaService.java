@@ -11,4 +11,7 @@ public interface VentaService {
 	public abstract void removeVenta(String folio);
 	public abstract Venta updateVenta(VentaModel venta);
 	public abstract Venta consultarVenta(String folio);
+	public abstract Venta consultarVentaByVendedorAndTemporada(String clave,int id);
+	
+	public abstract boolean VentaIsOnDB(String folio);
 }

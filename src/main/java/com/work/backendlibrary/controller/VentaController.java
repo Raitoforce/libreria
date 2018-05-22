@@ -58,5 +58,11 @@ public class VentaController {
 		ventaService.updateVenta(venta);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
-
+	
+	@GetMapping(value = "/search/folio={folio}")
+    public ResponseEntity<Boolean> buscarXFolio(@PathVariable String folio) {
+        Boolean exist = ventaService.VentaIsOnDB(folio);
+        return new ResponseEntity<>(exist, HttpStatus.OK);
+    }
+	
 }

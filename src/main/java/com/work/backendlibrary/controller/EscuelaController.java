@@ -75,4 +75,10 @@ public class EscuelaController {
 		service.updateEscuela(escuela);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "/search/clave={clave}")
+    public ResponseEntity<Boolean> buscarXClave(@PathVariable String clave) {
+        Boolean exist = service.EscuelaIsOnDB(clave);
+        return new ResponseEntity<>(exist, HttpStatus.OK);
+    }
 }

@@ -2,17 +2,22 @@ package com.work.backendlibrary.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.work.backendlibrary.Views.VentaView;
 
@@ -60,6 +65,9 @@ public class Venta implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="idprofesor",referencedColumnName="idprofesor")
 	private Profesor profesor;
+	
+	@OneToMany(mappedBy="pedidos",cascade=CascadeType.ALL)
+	private List<HistorialVenta> pedidos;
 
 	public Venta(){
 	}
@@ -126,6 +134,22 @@ public class Venta implements Serializable {
 
 	public void setProfesor(Profesor profesor) {
 		this.profesor = profesor;
+	}
+
+	@JsonIgnore
+	public List<HistorialVenta> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<HistorialVenta> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
+	@PreRemove
+	public void Nullable(){
+		for (HistorialVenta pedido: pedidos) {
+			pedido=null;
+		}
 	}
 	
 }

@@ -25,6 +25,10 @@ public class VentaConverter {
 	@Qualifier("profesorServiceImpl")
 	ProfesorService profesorService;
 	
+	@Autowired
+	@Qualifier("historialVentaConverter")
+	HistorialVentaConverter hvConverter;
+	
 	public Venta model2Entity(VentaModel vm){
 		Venta v=new Venta();
 		BloqueFolio bloque=bfService.consultarFolio(vm.getVendedor_clave(), vm.getIdfolios());
@@ -38,6 +42,9 @@ public class VentaConverter {
 		v.setComisionVendedor(vm.getComision_vendedor());
 		v.setFecha(vm.getFecha());
 		v.setFolio(vm.getFolio());
+		if(vm.getPedidos()!=null)
+			v.setPedidos(hvConverter.model2ListEntity(vm.getPedidos(), v));
+		
 		return v;
 	}
 	

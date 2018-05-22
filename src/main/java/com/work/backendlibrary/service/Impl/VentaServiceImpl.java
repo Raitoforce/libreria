@@ -2,6 +2,7 @@ package com.work.backendlibrary.service.Impl;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -51,5 +52,19 @@ public class VentaServiceImpl implements VentaService{
 	public Venta consultarVenta(String folio) {
 		// TODO Auto-generated method stub
 		return ventaJPA.findByFolio(folio);
+	}
+
+	@Override
+	public Venta consultarVentaByVendedorAndTemporada(String clave, int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean VentaIsOnDB(String folio) {
+		// TODO Auto-generated method stub
+		if(ventaJPA.findByFolio(folio)!=null)
+			return true;
+		return false;
 	}
 }

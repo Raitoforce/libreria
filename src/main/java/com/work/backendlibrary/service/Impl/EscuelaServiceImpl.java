@@ -76,4 +76,12 @@ public class EscuelaServiceImpl implements EscuelaService{
 		return escuelajpa.findByZonaIdzona(zona);
 	}
 
+	@Override
+	public boolean EscuelaIsOnDB(String clave) {
+		// TODO Auto-generated method stub
+		if(escuelajpa.findByClave(clave)!=null)
+			return true;
+		return false;
+	}
+
 }

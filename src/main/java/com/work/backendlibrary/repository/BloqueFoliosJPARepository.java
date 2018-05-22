@@ -1,7 +1,6 @@
 package com.work.backendlibrary.repository;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -24,5 +23,7 @@ public interface BloqueFoliosJPARepository extends JpaRepository<BloqueFolio, Se
 	@Query("select bf from BloqueFolio bf where inicio <= ?1 and fin >= ?1 and folio.idfolios=?2")
 	public abstract BloqueFolio findByIsRange(int valor,int folio);
 	
-	public abstract List<BloqueFolio> findByVendedorClaveAndFolioIdtemporada(String clave,int idtemporada);
+	public abstract BloqueFolio findByVendedorClaveAndFolioIdtemporada(String clave,int idtemporada);
+	
+	
 }

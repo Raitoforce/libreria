@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.work.backendlibrary.Views.VentaView;
 
 import org.hibernate.annotations.Cascade;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.transaction.annotation.Transactional;
 
 @Entity

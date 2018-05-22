@@ -1,10 +1,14 @@
 package com.work.backendlibrary.converter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.work.backendlibrary.entity.HistorialVenta;
+import com.work.backendlibrary.entity.Venta;
 import com.work.backendlibrary.model.HistorialVentaModel;
 import com.work.backendlibrary.service.LibroService;
 import com.work.backendlibrary.service.VentaService;
@@ -32,4 +36,16 @@ public class HistorialVentaConverter {
 		hv.setTipoMovimiento(hvm.getTipo_movimiento());
 		return hv;
 	}
+	
+	public List<HistorialVenta> model2ListEntity(List<HistorialVentaModel> hvms, Venta venta){
+		List<HistorialVenta> hvs=new ArrayList<>();
+		for (HistorialVentaModel historialVentam : hvms){
+			HistorialVenta hv=model2entity(historialVentam);
+			hv.setVenta(venta);
+			hvs.add(hv);
+		}
+		
+		return hvs;
+	}
+	
 }

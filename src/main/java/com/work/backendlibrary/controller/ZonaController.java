@@ -54,6 +54,12 @@ public class ZonaController{
 		zonaService.updateZona(zona);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "/search/zona={zona}")
+    public ResponseEntity<Boolean> buscarXZona(@PathVariable String zona) {
+        Boolean exist = zonaService.ZonaIsOnDB(zona);
+        return new ResponseEntity<>(exist, HttpStatus.OK);
+    }
 
 	
 }

@@ -65,4 +65,10 @@ public class LibroController{
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/search/clave={clave}")
+    public ResponseEntity<Boolean> buscarXClaveProducto(@PathVariable String clave) {
+        Boolean exist = libroService.LibroIsOnDB(clave);
+        return new ResponseEntity<>(exist, HttpStatus.OK);
+    }
+	
 }

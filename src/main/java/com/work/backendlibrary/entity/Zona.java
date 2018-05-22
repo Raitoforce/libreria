@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 
+
 @Entity
 @Table(name="zona")
 public class Zona implements Serializable {

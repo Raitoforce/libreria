@@ -1,10 +1,23 @@
 package com.work.backendlibrary.controller;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +34,9 @@ public class InventarioController{
 	@Qualifier("inventarioService")
 	InventarioService inventarioService;
 	
+	@Autowired
+	ResourceLoader resourceLoader;
+	
 	@GetMapping("")
 	public ResponseEntity<List<HistorialVenta>> devolverInventario(){
 		List<HistorialVenta> inventario=inventarioService.getPedidosPendientes();
@@ -34,8 +50,34 @@ public class InventarioController{
 	}
 	
 	@GetMapping("/pdf")
-	public ResponseEntity<String> crearPDF(@RequestParam("folio")String folio){
+	public ResponseEntity<byte[]> crearPDF(@RequestParam("folio")String folio){
 		inventarioService.generarReporte(folio);
-		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+		
+		String path="";
+		try {
+			path = resourceLoader.getResource(resourceLoader.CLASSPATH_URL_PREFIX+"reporte.pdf").getURI().getPath().replaceAll("%20"," ");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.parseMediaType("application/pdf"));
+	    //String filename =path+"reporte.pdf";
+	    byte[] data=null;
+	    try {
+	    	File file = new File(path);
+	        data = new byte[(int) file.length()];
+	        InputStream is = new FileInputStream(file);
+	        is.read(data);
+	        is.close();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}  
+	    
+	    headers.setContentDispositionFormData(path,path);
+	    headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+		return new ResponseEntity<byte[]>(data,HttpStatus.ACCEPTED);
 	}
 }

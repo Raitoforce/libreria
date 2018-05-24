@@ -51,6 +51,7 @@ public class Venta implements Serializable {
 	@JsonView(VentaView.interno.class)
 	@ManyToOne
 	@JoinColumns({
+		@JoinColumn(name="id", referencedColumnName="id"),
 		@JoinColumn(name="idfolios", referencedColumnName="folio_idfolios"),
 		@JoinColumn(name="vendedor_clave", referencedColumnName="vendedor_clave")
 		})

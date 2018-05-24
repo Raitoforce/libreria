@@ -10,6 +10,8 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -83,35 +85,18 @@ public class BloqueFolio implements Serializable {
 	public void setVendedor(Vendedor vendedor) {
 		this.vendedor = vendedor;
 	}
-
-	/*public List<Venta> getVentas() {
-		return this.ventas;
-	}
-
-	public void setVentas(List<Venta> ventas) {
-		this.ventas = ventas;
-	}
-	
-	public Venta addVenta(Venta venta) {
-		getVentas().add(venta);
-		venta.setBloqueFolio(this);
-
-		return venta;
-	}
-
-	public Venta removeVenta(Venta venta) {
-		getVentas().remove(venta);
-		venta.setBloqueFolio(null);
-
-		return venta;
-	}*/
-
 }
 
 @Embeddable
 class BloqueFolioPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
+	
+	@JsonView(VentaView.interno.class)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
+	Integer id;
+	
 	@JsonView(VentaView.interno.class)
 	@Column(name="vendedor_clave", insertable=false, updatable=false)
 	private String vendedorClave;
@@ -122,6 +107,16 @@ class BloqueFolioPK implements Serializable {
 	public BloqueFolioPK() {
 	}
 	
+	public Integer getId() {
+		return id;
+	}
+
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getVendedorClave() {
 		return this.vendedorClave;
 	}
@@ -133,27 +128,5 @@ class BloqueFolioPK implements Serializable {
 	}
 	public void setFolioIdfolios(int folioIdfolios) {
 		this.folioIdfolios = folioIdfolios;
-	}
-
-	public boolean equals(Object other) {
-		if (this == other) {
-			return true;
-		}
-		if (!(other instanceof BloqueFolioPK)) {
-			return false;
-		}
-		BloqueFolioPK castOther = (BloqueFolioPK)other;
-		return 
-			this.vendedorClave.equals(castOther.vendedorClave)
-			&& (this.folioIdfolios == castOther.folioIdfolios);
-	}
-
-	public int hashCode() {
-		final int prime = 31;
-		int hash = 17;
-		hash = hash * prime + this.vendedorClave.hashCode();
-		hash = hash * prime + this.folioIdfolios;
-		
-		return hash;
 	}
 }

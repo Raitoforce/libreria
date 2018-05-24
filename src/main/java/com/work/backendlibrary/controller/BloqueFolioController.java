@@ -48,6 +48,11 @@ public class BloqueFolioController {
 		return bfservice.isInRange(valor,idfolio);
 	}
 	
+	@GetMapping("/isValidFolio")
+	public boolean isValidFolio(@RequestParam("clave")String clave,@RequestParam("valor")Integer valor){
+		return bfservice.isAValidFolio(clave, valor);
+	}
+	
 	@PostMapping(value = "/nuevo")
 	public ResponseEntity<String> insertarBloqueFolio(@RequestBody BloqueFolio bfolio){
 		bfservice.addBloqueFolio(bfolio);

@@ -31,7 +31,7 @@ public class VentaConverter {
 	
 	public Venta model2Entity(VentaModel vm){
 		Venta v=new Venta();
-		BloqueFolio bloque=bfService.consultarFolio(vm.getVendedor_clave(), vm.getIdfolios());
+		BloqueFolio bloque=bfService.isInRangeAndVendedor(vm.getVendedor_clave(),Integer.parseInt(vm.getFolio()));
 		Escuela escuela=escuelaService.consultarEscuela(vm.getEscuela_clave());
 		Profesor profesor=profesorService.consultarProfesor(vm.getIdprofesor());
 		v.setBloqueFolio(bloque);
@@ -44,7 +44,6 @@ public class VentaConverter {
 		v.setFolio(vm.getFolio());
 		if(vm.getPedidos()!=null)
 			v.setPedidos(hvConverter.model2ListEntity(vm.getPedidos(), v));
-		
 		return v;
 	}
 	

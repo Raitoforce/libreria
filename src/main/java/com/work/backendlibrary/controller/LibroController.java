@@ -48,9 +48,9 @@ public class LibroController{
 	}
 	
 	@PostMapping(value = "/nuevo")
-	public ResponseEntity<String> insertarLibro(@RequestBody Libro libro){
-		libroService.addLibro(libro);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+	public ResponseEntity<Libro> insertarLibro(@RequestBody Libro libro){
+		Libro libroC=libroService.addLibro(libro);
+		return new ResponseEntity<>(libroC,HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping(path="/{clave}")

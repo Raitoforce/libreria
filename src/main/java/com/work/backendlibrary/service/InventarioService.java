@@ -10,4 +10,6 @@ public interface InventarioService{
     public abstract void confirmarPedido(int idHistorial,int entregados);
 
     public abstract void generarReporte(String folio);
+    
+    public abstract int getStockActualTotal(String clave);
 }

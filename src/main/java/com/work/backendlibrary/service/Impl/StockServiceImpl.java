@@ -57,4 +57,10 @@ public class StockServiceImpl implements StockService {
 		// TODO Auto-generated method stub
 		return stockJPARepository.findByLibroClaveProducto(clave);
 	}
+
+	@Override
+	public Stock updtateInventario(Stock stock) {
+		// TODO Auto-generated method stub
+		return stockJPARepository.save(stock);
+	}
 }

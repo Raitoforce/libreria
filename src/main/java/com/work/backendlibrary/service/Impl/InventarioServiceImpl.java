@@ -73,16 +73,17 @@ public class InventarioServiceImpl implements InventarioService{
         HistorialVenta hv=hvService.consultarHistorialVenta(idHistorial);
         hv.setEntregados(hv.getEntregados()+entregados);
         hv.setFechaConfirmacion(new Timestamp(System.currentTimeMillis()));
-        hvService.updateInventario(hv);
         for(Stock stock: stockService.consultarByLibro(hv.getLibro().getClave_producto())){
-        	if(stock.getCantidad()>=entregados){
-        		stock.setCantidad(stock.getCantidad()-entregados);
+        	if(stock.getStock_actual()>=entregados){
+        		stock.setStock_actual(stock.getStock_actual()-entregados);
         		break;
         	}else{
-        		entregados=entregados-stock.getCantidad();
-        		stock.setCantidad(0);
+        		entregados=entregados-stock.getStock_actual();
+        		stock.setStock_actual(0);
         	}
+        	stockService.updtateInventario(stock);
         }
+        hvService.updateInventario(hv);
         
     }
 
@@ -133,5 +134,15 @@ public class InventarioServiceImpl implements InventarioService{
          }
          System.out.println("Done filling!!! ...");
      }
+
+	@Override
+	public int getStockActualTotal(String clave) {
+		// TODO Auto-generated method stub
+		int cont=0;
+		for(Stock stock: stockService.consultarByLibro(clave)){
+			cont+=stock.getStock_actual();
+		}
+		return cont;
+	}
 
 }

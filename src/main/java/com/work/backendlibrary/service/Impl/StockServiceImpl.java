@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 
@@ -30,6 +31,8 @@ public class StockServiceImpl implements StockService {
     @Override
     public Stock addStock(StockModel stockModel){
         Stock stock=stockConverter.model2entity(stockModel);
+        stock.setStock_actual(stock.getCantidad());
+        stock.setFecha_entrada(new Date(System.currentTimeMillis()));
         return stockJPARepository.save(stock);
     }
 

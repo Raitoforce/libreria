@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="612" pageHeight="792" whenNoDataType="BlankPage" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -278,7 +278,7 @@
 		</band>
 	</title>
 	<columnHeader>
-		<band height="30">
+		<band height="30" splitType="Prevent">
 			<staticText>
 				<reportElement x="0" y="0" width="80" height="30" uuid="2fbed702-7a53-42a2-b59b-127e6898f0f9"/>
 				<box>
@@ -347,7 +347,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="38" splitType="Stretch">
+		<band height="38" splitType="Immediate">
 			<subreport overflowType="Stretch">
 				<reportElement x="0" y="0" width="555" height="38" uuid="f58d37cc-7b28-4bdb-a302-55563b44082d"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
@@ -357,8 +357,8 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="103" splitType="Stretch">
-			<printWhenExpression><![CDATA[new Boolean($V{PAGE_NUMBER}.intValue() > $V{PAGE_COUNT}.intValue())]]></printWhenExpression>
+		<band height="103" splitType="Immediate">
+			<printWhenExpression><![CDATA[new Boolean($V{MASTER_CURRENT_PAGE}.equals($P{REPORT_PARAMETERS_MAP}.get("LastPageNumber")))]]></printWhenExpression>
 			<staticText>
 				<reportElement key="" positionType="Float" isPrintRepeatedValues="false" x="390" y="0" width="90" height="30" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="92b0f5d8-1b38-4441-9528-837204152cf7"/>
 				<box>
@@ -401,7 +401,7 @@
 				</textElement>
 				<text><![CDATA[TOTAL:]]></text>
 			</staticText>
-			<textField pattern="¤#,##0.00;¤-#,##0.00">
+			<textField isStretchWithOverflow="true" evaluationTime="Auto" pattern="¤#,##0.00;¤-#,##0.00" isBlankWhenNull="true">
 				<reportElement key="" positionType="Float" isPrintRepeatedValues="false" x="480" y="30" width="75" height="30" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="b642e48d-ba06-46d8-b5a4-46a2c5d3173e"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -415,7 +415,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descuento}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤#,##0.00;¤-#,##0.00">
+			<textField isStretchWithOverflow="true" evaluationTime="Auto" pattern="¤#,##0.00;¤-#,##0.00" isBlankWhenNull="true">
 				<reportElement key="" positionType="Float" isPrintRepeatedValues="false" x="480" y="60" width="75" height="30" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="59981b8f-9d6c-4329-a63f-058d1c13fe27"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -429,7 +429,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cantidadTotal}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤#,##0.00;¤-#,##0.00">
+			<textField isStretchWithOverflow="true" evaluationTime="Auto" pattern="¤#,##0.00;¤-#,##0.00" isBlankWhenNull="true">
 				<reportElement key="" positionType="Float" isPrintRepeatedValues="false" x="480" y="0" width="75" height="30" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="d3c415bb-54e7-4c39-835b-248f2e98ef6d"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -446,7 +446,7 @@
 		</band>
 	</columnFooter>
 	<lastPageFooter>
-		<band height="241">
+		<band height="241" splitType="Immediate">
 			<staticText>
 				<reportElement x="80" y="5" width="300" height="30" uuid="68b3344c-2dba-463f-899f-21ac47fa148d"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
@@ -470,7 +470,7 @@
 				<textElement verticalAlignment="Bottom"/>
 				<text><![CDATA[La cantidad de:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="185" y="90" width="370" height="20" uuid="a5f0457b-cb7b-44d7-bd6a-35965d99ac95"/>
 				<box>
 					<bottomPen lineWidth="1.0"/>

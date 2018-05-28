@@ -12,4 +12,5 @@ public interface InventarioService{
     public abstract void generarReporte(String folio);
     
     public abstract int getStockActualTotal(String clave);
+     
 }

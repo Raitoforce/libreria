@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.work.backendlibrary.Views.VentaView;
 import com.work.backendlibrary.entity.Venta;
+import com.work.backendlibrary.model.HistorialVentaModel;
 import com.work.backendlibrary.model.VentaModel;
 import com.work.backendlibrary.service.VentaService;
 
@@ -39,6 +40,12 @@ public class VentaController {
 	public ResponseEntity<Venta> consultaVenta(@PathVariable("id") String id){
 		Venta venta= ventaService.consultarVenta(id);
 		return new ResponseEntity<Venta>(venta,HttpStatus.OK);
+	}
+	
+	@PostMapping("/resurtido={folio}")
+	public ResponseEntity<String> resurtidos(@PathVariable("folio") String folio,@RequestBody List<HistorialVentaModel> pedidos){
+		Venta venta=ventaService.appendPedidos(folio, pedidos);
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/nuevo")

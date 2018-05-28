@@ -3,6 +3,7 @@ package com.work.backendlibrary.service;
 import java.util.List;
 
 import com.work.backendlibrary.entity.Venta;
+import com.work.backendlibrary.model.HistorialVentaModel;
 import com.work.backendlibrary.model.VentaModel;
 
 public interface VentaService {
@@ -12,6 +13,6 @@ public interface VentaService {
 	public abstract Venta updateVenta(VentaModel venta);
 	public abstract Venta consultarVenta(String folio);
 	public abstract Venta consultarVentaByVendedorAndTemporada(String clave,int id);
-	
+	public abstract Venta appendPedidos(String folio,List<HistorialVentaModel> pedidos);
 	public abstract boolean VentaIsOnDB(String folio);
 }

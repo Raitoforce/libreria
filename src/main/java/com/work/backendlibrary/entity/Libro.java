@@ -2,6 +2,7 @@ package com.work.backendlibrary.entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.work.backendlibrary.Views.VentaView;
 import org.hibernate.annotations.Cascade;
@@ -159,6 +160,15 @@ public class Libro{
 
 	public void setNivel(String nivel) {
 		this.nivel = nivel;
+	}
+	
+	@JsonIgnore
+	public List<Stock> getStocks() {
+		return stocks;
+	}
+
+	public void setStocks(List<Stock> stocks) {
+		this.stocks = stocks;
 	}
 
 	@Transactional

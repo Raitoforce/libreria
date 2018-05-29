@@ -55,7 +55,7 @@ public class HistorialVenta implements Serializable {
 	private String tipoMovimiento;
 
 	@JsonView(VentaView.Todo.class)
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="venta_folio",referencedColumnName="folio")
 	private Venta venta;
 	
@@ -140,4 +140,5 @@ public class HistorialVenta implements Serializable {
 	public void setLibro(Libro libro) {
 		this.libro = libro;
 	}
+	
 }

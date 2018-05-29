@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.work.backendlibrary.entity.HistorialVenta;
+import com.work.backendlibrary.model.LibroStockModel;
 import com.work.backendlibrary.service.InventarioService;
 
 @RestController
@@ -35,6 +36,12 @@ public class InventarioController{
 	@GetMapping("")
 	public ResponseEntity<List<HistorialVenta>> devolverInventario(){
 		List<HistorialVenta> inventario=inventarioService.getPedidosPendientes();
+		return new ResponseEntity<>(inventario,HttpStatus.OK);
+	}
+	
+	@GetMapping("/stocks")
+	public ResponseEntity<List<LibroStockModel>> devolverStocks(){
+		List<LibroStockModel> inventario=inventarioService.getStocks();
 		return new ResponseEntity<>(inventario,HttpStatus.OK);
 	}
 	

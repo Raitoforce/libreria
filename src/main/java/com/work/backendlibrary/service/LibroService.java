@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 import com.work.backendlibrary.entity.Libro;
+import com.work.backendlibrary.model.LibroStockModel;
 
 public interface LibroService {
 	public abstract List<Libro> listAllLibros();
@@ -13,6 +14,5 @@ public interface LibroService {
 	public abstract Libro updateLibro(Libro libro);
 	public abstract Libro consultarLibro(String clave_producto);
 	public abstract List<Libro> listPage(Pageable pageable);
-	
 	public abstract boolean LibroIsOnDB(String clave_producto);
 }

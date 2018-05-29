@@ -1,9 +1,11 @@
 package com.work.backendlibrary.service.Impl;
 
+import com.work.backendlibrary.converter.LibroStockConverter;
 import com.work.backendlibrary.converter.VentaReportConverter;
 import com.work.backendlibrary.entity.HistorialVenta;
 import com.work.backendlibrary.entity.Stock;
 import com.work.backendlibrary.entity.Venta;
+import com.work.backendlibrary.model.LibroStockModel;
 import com.work.backendlibrary.model.VentaReportModel;
 import com.work.backendlibrary.service.HistorialVentaService;
 import com.work.backendlibrary.service.InventarioService;
@@ -42,6 +44,10 @@ public class InventarioServiceImpl implements InventarioService{
 	String destFile=null;
 	String jasperMaster;
 	
+	@Autowired
+	@Qualifier("libroStockConverter")
+	LibroStockConverter lsc;
+	
     @Autowired
     @Qualifier("historialVentaService")
     HistorialVentaService hvService;
@@ -74,17 +80,26 @@ public class InventarioServiceImpl implements InventarioService{
         hv.setEntregados(hv.getEntregados()+entregados);
         hv.setFechaConfirmacion(new Timestamp(System.currentTimeMillis()));
         for(Stock stock: stockService.consultarByLibro(hv.getLibro().getClave_producto())){
-        	if(stock.getStock_actual()>=entregados){
-        		stock.setStock_actual(stock.getStock_actual()-entregados);
-        		break;
-        	}else{
-        		entregados=entregados-stock.getStock_actual();
-        		stock.setStock_actual(0);
-        	}
+        	if(entregados>0 && stock.getCantidad()>0){
+	        	if(stock.getStock_actual()>=entregados){
+	        		stock.setStock_actual(stock.getStock_actual()-entregados);
+	        		break;
+	        	}else{
+	        		entregados=entregados-stock.getStock_actual();
+	        		stock.setStock_actual(0);
+	        	}
+	        }else{
+	        		if(stock.getCantidad()>Math.abs(entregados)+stock.getStock_actual()){
+	        			stock.setStock_actual(stock.getStock_actual()-entregados);
+	        			break;
+	        		}else{
+	        			entregados=entregados+stock.getCantidad()-stock.getStock_actual();
+	        			stock.setStock_actual(stock.getCantidad());
+	        		}
+	        }
         	stockService.updtateInventario(stock);
         }
-        hvService.updateInventario(hv);
-        
+        hvService.updateInventario(hv);        
     }
 
     @Override
@@ -143,6 +158,12 @@ public class InventarioServiceImpl implements InventarioService{
 			cont+=stock.getStock_actual();
 		}
 		return cont;
+	}
+
+	@Override
+	public List<LibroStockModel> getStocks() {
+		// TODO Auto-generated method stub
+		return lsc.convertir();
 	}
 
 }

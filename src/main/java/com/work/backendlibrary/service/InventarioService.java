@@ -1,6 +1,7 @@
 package com.work.backendlibrary.service;
 
 import com.work.backendlibrary.entity.HistorialVenta;
+import com.work.backendlibrary.model.LibroStockModel;
 
 import java.util.List;
 
@@ -12,5 +13,6 @@ public interface InventarioService{
     public abstract void generarReporte(String folio);
     
     public abstract int getStockActualTotal(String clave);
-     
+    
+    public abstract List<LibroStockModel> getStocks();
 }

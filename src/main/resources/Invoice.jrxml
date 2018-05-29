@@ -451,7 +451,7 @@
 		</band>
 	</lastPageFooter>
 	<summary>
-		<band height="90" splitType="Immediate">
+		<band height="90" splitType="Stretch">
 			<textField isStretchWithOverflow="true" evaluationTime="Master" pattern="¤#,##0.00;¤-#,##0.00" isBlankWhenNull="true">
 				<reportElement key="" positionType="Float" isPrintRepeatedValues="false" x="480" y="60" width="75" height="30" isPrintInFirstWholeBand="true" uuid="ae7df3b5-2830-4c4b-bc99-aabceb87220f"/>
 				<box>

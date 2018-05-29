@@ -16,6 +16,9 @@ import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.transaction.Transactional;
+
+import org.hibernate.annotations.Cascade;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -146,7 +149,9 @@ public class Venta implements Serializable {
 		this.pedidos = pedidos;
 	}
 	
+	@Transactional
 	@PreRemove
+	//@Cascade(org.hibernate.annotations.CascadeType.REMOVE)
 	public void Nullable(){
 		for (HistorialVenta pedido: pedidos) {
 			pedido=null;

@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+
 
 @Entity
 @Table(name="zona")
@@ -47,6 +49,7 @@ public class Zona implements Serializable {
 	}
 	
 	@PreRemove
+	@Cascade(org.hibernate.annotations.CascadeType.REMOVE)
 	public void Nullable(){
 		for (Escuela escuela: escuelas) {
 			escuela.setZona(null);

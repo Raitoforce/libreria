@@ -3,6 +3,7 @@ package com.work.backendlibrary.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -54,7 +55,7 @@ public class HistorialVenta implements Serializable {
 	private String tipoMovimiento;
 
 	@JsonView(VentaView.Todo.class)
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="venta_folio",referencedColumnName="folio")
 	private Venta venta;
 	

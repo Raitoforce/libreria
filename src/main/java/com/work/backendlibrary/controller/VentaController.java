@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -42,8 +43,8 @@ public class VentaController {
 		return new ResponseEntity<Venta>(venta,HttpStatus.OK);
 	}
 	
-	@PostMapping("/resurtido={folio}")
-	public ResponseEntity<String> resurtidos(@PathVariable("folio") String folio,@RequestBody List<HistorialVentaModel> pedidos){
+	@PostMapping("resurtido")
+	public ResponseEntity<String> resurtidos(@RequestParam("folio") String folio,@RequestBody List<HistorialVentaModel> pedidos){
 		Venta venta=ventaService.appendPedidos(folio, pedidos);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}

@@ -15,4 +15,5 @@ public interface VentaService {
 	public abstract Venta consultarVentaByVendedorAndTemporada(String clave,int id);
 	public abstract Venta appendPedidos(String folio,List<HistorialVentaModel> pedidos);
 	public abstract boolean VentaIsOnDB(String folio);
+	public abstract boolean VentaHasConfirmed(String folio);
 }

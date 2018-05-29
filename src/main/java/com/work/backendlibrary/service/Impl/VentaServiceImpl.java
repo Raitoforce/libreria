@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.work.backendlibrary.converter.VentaConverter;
+import com.work.backendlibrary.entity.HistorialVenta;
 import com.work.backendlibrary.entity.Venta;
 import com.work.backendlibrary.model.HistorialVentaModel;
 import com.work.backendlibrary.model.VentaModel;
@@ -73,5 +74,16 @@ public class VentaServiceImpl implements VentaService{
 	public Venta appendPedidos(String folio,List<HistorialVentaModel> pedidos) {
 		Venta venta=vConverter.appendPedidos(folio, pedidos);
 		return ventaJPA.save(venta);
+	}
+
+	@Override
+	public boolean VentaHasConfirmed(String folio) {
+		// TODO Auto-generated method stub
+		Venta venta= ventaJPA.findByFolio(folio);
+		for (HistorialVenta pedido: venta.getPedidos()) {
+			if(pedido.getFechaConfirmacion()!=null)
+				return true;
+		}
+		return false;
 	}
 }

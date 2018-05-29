@@ -57,8 +57,11 @@ public class VentaController {
 	
 	@DeleteMapping(path="/{id}")
 	public ResponseEntity<String> eliminarVenta(@PathVariable("id") String id){
-		ventaService.removeVenta(id);
-		return new ResponseEntity<String>(HttpStatus.OK);
+		if(!ventaService.VentaHasConfirmed(id)){
+			ventaService.removeVenta(id);
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}else
+			return new ResponseEntity<String>(HttpStatus.CONFLICT);
 	}
 	
 	@PutMapping(path="",consumes="application/json")

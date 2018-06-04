@@ -12,6 +12,8 @@ public interface InventarioService{
 
     public abstract void generarReporte(String folio);
     
+    public abstract void generarReportePedido(String folio, int idHistorial);
+    
     public abstract int getStockActualTotal(String clave);
     
     public abstract List<LibroStockModel> getStocks();

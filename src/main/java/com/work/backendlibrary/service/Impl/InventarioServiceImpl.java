@@ -166,4 +166,54 @@ public class InventarioServiceImpl implements InventarioService{
 		return lsc.convertir();
 	}
 
+	@Override
+	public void generarReportePedido(String folio,int idhistorial) {
+		if(path==null){
+	    	try {
+				path=resourceLoader.getResource(resourceLoader.CLASSPATH_URL_PREFIX+"Invoice.jrxml").getURL().getPath().replaceAll("%20"," ");
+				path=path.replaceAll("Invoice.jrxml","");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	masterReportFileName=path+"Invoice.jrxml";
+	    	subReportFileName=path+"pedidos.jrxml";
+	    	jasperMaster=path+"Invoice.jasper";
+	    	destFile=path+"reporte.pdf";
+    	}
+    	try {
+    		Venta v=ventaService.consultarVenta(folio);
+    		VentaReportModel venta=ventaReportC.entity2model(v);
+    		List<HistorialVenta> pedidos=new ArrayList<>();
+    		pedidos.add(hvService.consultarHistorialVenta(idhistorial));
+    		venta.setPedidos(ventaReportC.entity2modelPedidos(pedidos));
+    		venta.Calcular(v.getComisionProfesor());
+    		ArrayList<VentaReportModel> ventas=new ArrayList<>();
+    		ventas.add(venta);
+    	    JRBeanCollectionDataSource sourceVenta = new JRBeanCollectionDataSource(ventas);
+    	    //JRBeanCollectionDataSource sourcePedidos=new JRBeanCollectionDataSource(venta.getPedidos());
+    		
+            /* Compile the master and sub report */
+            //JasperReport jasperMasterReport = JasperCompileManager
+               //.compileReport(masterReportFileName);
+    	    //JasperCompileManager.compileReportToFile(subReportFileName,path+"pedidos.jasper");
+            JasperReport jasperSubReport = JasperCompileManager
+               .compileReport(subReportFileName);
+            JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
+            
+            Map parameters = new HashMap();
+            parameters.put("subreportParameter", jasperSubReport);
+            
+            System.out.println("Llenando...");
+            reporte=JasperFillManager.fillReportToFile(jasperMaster,parameters,sourceVenta);
+            if(reporte!=null){
+            	JasperExportManager.exportReportToPdfFile(reporte, destFile);
+            }
+         } catch (JRException e) {
+
+            e.printStackTrace();
+         }
+         System.out.println("Done filling!!! ...");
+	}
+
 }

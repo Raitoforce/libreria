@@ -20,6 +20,7 @@ public class VentaReportModel{
 	private float descuento;
 	private float cantidadTotal;
 	private String cantidad;
+	private float precioventa;
 	private List<PedidosReportModel> pedidos;
 	
 	public String getEscuela_nombre() {
@@ -130,7 +131,7 @@ public class VentaReportModel{
 		float subtotalC=0;
 		float descuentoC=0;
 		for (PedidosReportModel pedido: pedidos) {
-			subtotalC+=pedido.getLibro_precio()*pedido.getCantidad();
+			subtotalC+=pedido.getPrecioventa()*pedido.getCantidad();
 			descuentoC+=pedido.getCantidad()*comision;
 		}
 		setSubtotal(subtotalC);

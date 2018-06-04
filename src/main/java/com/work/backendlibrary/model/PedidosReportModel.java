@@ -6,6 +6,7 @@ public class PedidosReportModel {
 	private String libro_grado;
 	private float libro_precio;
 	private float libro_importe;
+	private float precioventa;
 	
 	public int getCantidad() {
 		return cantidad;
@@ -36,6 +37,12 @@ public class PedidosReportModel {
 	}
 	public void setLibro_importe(float libro_importe) {
 		this.libro_importe = libro_importe;
+	}
+	public float getPrecioventa() {
+		return precioventa;
+	}
+	public void setPrecioventa(float precioventa) {
+		this.precioventa = precioventa;
 	}
 	
 }

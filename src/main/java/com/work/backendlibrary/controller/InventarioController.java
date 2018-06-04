@@ -88,4 +88,36 @@ public class InventarioController{
 	    headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
 		return new ResponseEntity<byte[]>(data,HttpStatus.ACCEPTED);
 	}
+	
+	@GetMapping("/pdfPedido")
+	public ResponseEntity<byte[]> crearPDFPedido(@RequestParam("folio")String folio,@RequestParam("idHistorial")int idHistorial){
+		inventarioService.generarReportePedido(folio, idHistorial);
+		String path="";
+		try {
+			path = resourceLoader.getResource(resourceLoader.CLASSPATH_URL_PREFIX+"reporte.pdf").getURI().getPath().replaceAll("%20"," ");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.parseMediaType("application/pdf"));
+	    //String filename =path+"reporte.pdf";
+	    byte[] data=null;
+	    try {
+	    	File file = new File(path);
+	        data = new byte[(int) file.length()];
+	        InputStream is = new FileInputStream(file);
+	        is.read(data);
+	        is.close();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}  
+	    
+	    headers.setContentDispositionFormData(path,path);
+	    headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+		return new ResponseEntity<byte[]>(data,HttpStatus.ACCEPTED);
+	}
+	
 }

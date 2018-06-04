@@ -53,6 +53,10 @@ public class HistorialVenta implements Serializable {
 	@JsonView(VentaView.Todo.class)
 	@Column(name="tipo_movimiento")
 	private String tipoMovimiento;
+	
+	@JsonView(VentaView.interno.class)
+	@Column(name="precioventa")
+	private float precioventa;
 
 	@JsonView(VentaView.Todo.class)
 	@ManyToOne(cascade=CascadeType.PERSIST)
@@ -139,6 +143,14 @@ public class HistorialVenta implements Serializable {
 
 	public void setLibro(Libro libro) {
 		this.libro = libro;
+	}
+
+	public float getPrecioventa() {
+		return precioventa;
+	}
+
+	public void setPrecioventa(float precioventa) {
+		this.precioventa = precioventa;
 	}
 	
 }

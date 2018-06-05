@@ -64,5 +64,4 @@ public class HistorialVentaController {
 		hvService.updateHistorialVenta(hventa);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
-
 }

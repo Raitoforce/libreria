@@ -167,7 +167,7 @@ public class InventarioServiceImpl implements InventarioService{
 	}
 
 	@Override
-	public void generarReportePedido(String folio,int idhistorial) {
+	public void generarReportePedido(String folio,int numresurtido) {
 		if(path==null){
 	    	try {
 				path=resourceLoader.getResource(resourceLoader.CLASSPATH_URL_PREFIX+"Invoice.jrxml").getURL().getPath().replaceAll("%20"," ");
@@ -184,9 +184,7 @@ public class InventarioServiceImpl implements InventarioService{
     	try {
     		Venta v=ventaService.consultarVenta(folio);
     		VentaReportModel venta=ventaReportC.entity2model(v);
-    		List<HistorialVenta> pedidos=new ArrayList<>();
-    		pedidos.add(hvService.consultarHistorialVenta(idhistorial));
-    		venta.setPedidos(ventaReportC.entity2modelPedidos(pedidos));
+    		venta.setPedidos(ventaReportC.entity2modelPedidos(hvService.consultarByNumResurtido(numresurtido)));
     		venta.Calcular(v.getComisionProfesor());
     		ArrayList<VentaReportModel> ventas=new ArrayList<>();
     		ventas.add(venta);

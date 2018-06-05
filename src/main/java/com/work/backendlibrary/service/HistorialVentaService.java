@@ -14,4 +14,5 @@ public interface HistorialVentaService {
 	public abstract HistorialVenta updateInventario(HistorialVenta historialVenta);
 	public abstract List<HistorialVenta> consultarByVenta(String idVenta);
 	public abstract Integer getMaximo(String folio);
+	public abstract List<HistorialVenta> consultarByNumResurtido(int numresurtido);
 }

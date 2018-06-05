@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.work.backendlibrary.converter.ResurtidosVentaConverter;
 import com.work.backendlibrary.entity.HistorialVenta;
 import com.work.backendlibrary.model.LibroStockModel;
+import com.work.backendlibrary.model.ResurtidosModel;
 import com.work.backendlibrary.service.InventarioService;
 
 @RestController
@@ -31,6 +33,10 @@ public class InventarioController{
 	InventarioService inventarioService;
 	
 	@Autowired
+	@Qualifier("resurtidosVentaConverter")
+	ResurtidosVentaConverter rsc;
+	
+	@Autowired
 	ResourceLoader resourceLoader;
 	
 	@GetMapping("")
@@ -38,6 +44,15 @@ public class InventarioController{
 		List<HistorialVenta> inventario=inventarioService.getPedidosPendientes();
 		return new ResponseEntity<>(inventario,HttpStatus.OK);
 	}
+	
+	
+	@GetMapping("/resurtidos={folio}")
+	public ResponseEntity<ResurtidosModel> devolverResurtidos(@PathVariable("folio")String folio){
+		ResurtidosModel resurtidos= rsc.convertir(folio);
+		return new ResponseEntity<>(resurtidos,HttpStatus.OK);
+	}
+	
+	
 	
 	@GetMapping("/stocks")
 	public ResponseEntity<List<LibroStockModel>> devolverStocks(){

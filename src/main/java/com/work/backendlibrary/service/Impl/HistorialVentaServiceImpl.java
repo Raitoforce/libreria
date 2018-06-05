@@ -71,4 +71,10 @@ public class HistorialVentaServiceImpl implements HistorialVentaService{
 		return hvJPA.getMAX(folio);
 	}
 
+	@Override
+	public List<HistorialVenta> consultarByNumResurtido(int numresurtido) {
+		// TODO Auto-generated method stub
+		return hvJPA.findByNumresurtido(numresurtido);
+	}
+
 }

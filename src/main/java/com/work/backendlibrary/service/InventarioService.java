@@ -12,7 +12,7 @@ public interface InventarioService{
 
     public abstract void generarReporte(String folio);
     
-    public abstract void generarReportePedido(String folio, int idHistorial);
+    public abstract void generarReportePedido(String folio, int numresurtido);
     
     public abstract int getStockActualTotal(String clave);
     

@@ -1,6 +1,7 @@
 package com.work.backendlibrary.repository;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,7 +20,13 @@ public interface HistorialVentaJPARepository extends JpaRepository<HistorialVent
 	@Query("select max(hv.numresurtido) from HistorialVenta hv where venta.folio=?1")
 	public abstract int getMAX(String folio);
 	
+	public abstract List<HistorialVenta> findByNumresurtido(int num);
 	
+	@Query("select max(hv.fechaSolicitud) from HistorialVenta hv where venta.folio=?1 and hv.numresurtido= ?2")
+	public abstract Date getDate(String folio,int num);
+	
+	@Query("select DISTINCT  hv.numresurtido from HistorialVenta hv where venta.folio=?1")
+	public abstract List<Integer> getNumResurtidos(String folio);
 	
 	//public abstract List<HistorialVenta> findBy;
 	

@@ -33,7 +33,7 @@ public class VentaReportConverter {
 			pedidom=new PedidosReportModel();
 			pedidom.setCantidad(pedido.getPedidos());
 			pedidom.setLibro_grado(pedido.getLibro().getNivel());
-			pedidom.setLibro_importe(pedido.getPedidos()*pedido.getLibro().getPrecio());
+			pedidom.setLibro_importe(pedido.getPedidos()*pedido.getPrecioventa());
 			pedidom.setLibro_nombre(pedido.getLibro().getTitulo());
 			pedidom.setLibro_precio(pedido.getLibro().getPrecio());
 			pedidom.setPrecioventa(pedido.getPrecioventa());

@@ -1,6 +1,7 @@
 package com.work.backendlibrary.converter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class HistorialVentaConverter {
 		hv.setEntregados(hvm.getEntregados());
 		hv.setFechaConfirmacion(hvm.getFecha_confirmacion());
 		hv.setPedidos(hvm.getPedidos());
-		hv.setFechaSolicitud(hvm.getFecha_solicitud());
+		hv.setFechaSolicitud(new Date(System.currentTimeMillis()));
 		hv.setIdHistorial(hvm.getIdHistorial());
 		hv.setPrecioventa(hvm.getPrecioventa());
 		hv.setMotivo(hvm.getMotivo());

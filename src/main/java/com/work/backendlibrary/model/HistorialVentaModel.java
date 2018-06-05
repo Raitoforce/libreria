@@ -13,7 +13,7 @@ public class HistorialVentaModel {
 	private Timestamp fecha_confirmacion;
 	private String tipo_movimiento;
 	private String motivo;
-	private float precioventa;
+	private Float precioventa;
 	
 	public int getIdHistorial() {
 		return idHistorial;

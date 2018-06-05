@@ -15,4 +15,6 @@ public interface HistorialVentaJPARepository extends JpaRepository<HistorialVent
 	
 	public abstract HistorialVenta findByIdHistorial(int id);
 	
+	//public abstract List<HistorialVenta> findBy;
+	
 }

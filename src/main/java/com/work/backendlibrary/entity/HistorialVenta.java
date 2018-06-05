@@ -56,7 +56,7 @@ public class HistorialVenta implements Serializable {
 	
 	@JsonView(VentaView.interno.class)
 	@Column(name="precioventa")
-	private float precioventa;
+	private Float precioventa;
 
 	@JsonView(VentaView.Todo.class)
 	@ManyToOne(cascade=CascadeType.PERSIST)

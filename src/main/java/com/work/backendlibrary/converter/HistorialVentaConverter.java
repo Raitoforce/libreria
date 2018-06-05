@@ -32,6 +32,7 @@ public class HistorialVentaConverter {
 		hv.setPedidos(hvm.getPedidos());
 		hv.setFechaSolicitud(hvm.getFecha_solicitud());
 		hv.setIdHistorial(hvm.getIdHistorial());
+		hv.setPrecioventa(hvm.getPrecioventa());
 		hv.setMotivo(hvm.getMotivo());
 		hv.setTipoMovimiento(hvm.getTipo_movimiento());
 		return hv;

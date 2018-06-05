@@ -91,4 +91,11 @@ public class VentaModel {
 	}
 	
 	public VentaModel(){}
+	
+	public void setNumResurtido(int num){
+		for (HistorialVentaModel pedido : pedidos) {
+			pedido.setNumresurtido(num);
+		}
+	}
+	
 }

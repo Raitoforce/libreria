@@ -21,6 +21,13 @@ public class Stock {
 
     @Column(name="stock_actual")
     private int stock_actual;
+    
+    
+    @Column(name="tipomovimiento")
+    private String tipomovimiento;
+    
+    @Column(name="motivo")
+    private String motivo;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="clave_producto",referencedColumnName="clave_producto")
@@ -65,4 +72,20 @@ public class Stock {
     public void setLibro(Libro libro) {
         this.libro = libro;
     }
+
+	public String getTipomovimiento() {
+		return tipomovimiento;
+	}
+
+	public void setTipomovimiento(String tipomovimiento) {
+		this.tipomovimiento = tipomovimiento;
+	}
+
+	public String getMotivo() {
+		return motivo;
+	}
+
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
 }

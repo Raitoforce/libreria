@@ -65,4 +65,10 @@ public class HistorialVentaServiceImpl implements HistorialVentaService{
 		return hvJPA.findByVentaFolio(idVenta);
 	}
 
+	@Override
+	public Integer getMaximo(String folio) {
+		// TODO Auto-generated method stub
+		return hvJPA.getMAX(folio);
+	}
+
 }

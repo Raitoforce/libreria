@@ -21,6 +21,7 @@ import com.work.backendlibrary.Views.VentaView;
 import com.work.backendlibrary.entity.Venta;
 import com.work.backendlibrary.model.HistorialVentaModel;
 import com.work.backendlibrary.model.VentaModel;
+import com.work.backendlibrary.service.HistorialVentaService;
 import com.work.backendlibrary.service.VentaService;
 
 @RestController
@@ -29,6 +30,10 @@ public class VentaController {
 	@Autowired
 	@Qualifier("ventaService")
 	VentaService ventaService;
+	
+	@Autowired
+	@Qualifier("historialVentaService")
+	HistorialVentaService hvService;
 	
 	@JsonView(VentaView.interno.class)
 	@GetMapping("")
@@ -45,12 +50,17 @@ public class VentaController {
 	
 	@PostMapping("resurtido")
 	public ResponseEntity<String> resurtidos(@RequestParam("folio") String folio,@RequestBody List<HistorialVentaModel> pedidos){
+		int num=hvService.getMaximo(folio)+1;
+		for (HistorialVentaModel pedido : pedidos) {
+			pedido.setNumresurtido(num);
+		}
 		Venta venta=ventaService.appendPedidos(folio, pedidos);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/nuevo")
 	public ResponseEntity<String> insertarVenta(@RequestBody VentaModel venta){
+		venta.setNumResurtido(0);
 		ventaService.addVenta(venta);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}

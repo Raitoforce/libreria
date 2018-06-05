@@ -19,6 +19,8 @@ public class StockConverter {
         stock.setCantidad(stockModel.getCantidad());
         stock.setFecha_entrada(stockModel.getFecha_entrada());
         stock.setStock_actual(stockModel.getStock_actual());
+        stock.setMotivo(stockModel.getMotivo());
+        stock.setTipomovimiento(stockModel.getTipomovimiento());
         stock.setIdstock(stockModel.getIdstock());
         return stock;
     }

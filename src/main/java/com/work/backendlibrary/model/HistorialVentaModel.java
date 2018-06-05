@@ -14,6 +14,7 @@ public class HistorialVentaModel {
 	private String tipo_movimiento;
 	private String motivo;
 	private Float precioventa;
+	private Integer numresurtido;
 	
 	public int getIdHistorial() {
 		return idHistorial;
@@ -69,11 +70,18 @@ public class HistorialVentaModel {
 	public void setMotivo(String motivo) {
 		this.motivo = motivo;
 	}
-	public float getPrecioventa() {
-		return precioventa;
+	
+	public Integer getNumresurtido() {
+		return numresurtido;
 	}
-	public void setPrecioventa(float precioventa) {
+	public void setNumresurtido(Integer numresurtido) {
+		this.numresurtido = numresurtido;
+	}
+	public void setPrecioventa(Float precioventa) {
 		this.precioventa = precioventa;
+	}
+	public Float getPrecioventa() {
+		return precioventa;
 	}
 	
 }

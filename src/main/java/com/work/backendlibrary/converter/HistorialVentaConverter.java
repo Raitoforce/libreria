@@ -34,6 +34,7 @@ public class HistorialVentaConverter {
 		hv.setFechaSolicitud(new Date(System.currentTimeMillis()));
 		hv.setIdHistorial(hvm.getIdHistorial());
 		hv.setPrecioventa(hvm.getPrecioventa());
+		hv.setNumresurtido(hvm.getNumresurtido());
 		hv.setMotivo(hvm.getMotivo());
 		hv.setTipoMovimiento(hvm.getTipo_movimiento());
 		return hv;

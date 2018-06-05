@@ -12,6 +12,10 @@ public class StockModel {
     private int stock_actual;
 
     private String libro;
+    
+    private String motivo;
+    
+    private String tipomovimiento;
 
     public int getIdstock() {
         return idstock;
@@ -52,4 +56,20 @@ public class StockModel {
     public void setLibro(String libro) {
         this.libro = libro;
     }
+
+	public String getMotivo() {
+		return motivo;
+	}
+
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
+
+	public String getTipomovimiento() {
+		return tipomovimiento;
+	}
+
+	public void setTipomovimiento(String tipomovimiento) {
+		this.tipomovimiento = tipomovimiento;
+	}
 }

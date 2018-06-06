@@ -20,7 +20,7 @@ public interface HistorialVentaJPARepository extends JpaRepository<HistorialVent
 	@Query("select max(hv.numresurtido) from HistorialVenta hv where venta.folio=?1")
 	public abstract int getMAX(String folio);
 	
-	public abstract List<HistorialVenta> findByNumresurtido(int num);
+	public abstract List<HistorialVenta> findByNumresurtidoAndVentaFolio(int num,String folio);
 	
 	@Query("select max(hv.fechaSolicitud) from HistorialVenta hv where venta.folio=?1 and hv.numresurtido= ?2")
 	public abstract Date getDate(String folio,int num);

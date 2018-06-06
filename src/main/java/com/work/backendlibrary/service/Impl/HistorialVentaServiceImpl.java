@@ -72,9 +72,8 @@ public class HistorialVentaServiceImpl implements HistorialVentaService{
 	}
 
 	@Override
-	public List<HistorialVenta> consultarByNumResurtido(int numresurtido) {
+	public List<HistorialVenta> consultarByNumResurtido(int numresurtido,String folio) {
 		// TODO Auto-generated method stub
-		return hvJPA.findByNumresurtido(numresurtido);
+		return hvJPA.findByNumresurtidoAndVentaFolio(numresurtido, folio);
 	}
-
 }

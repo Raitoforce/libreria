@@ -184,7 +184,7 @@ public class InventarioServiceImpl implements InventarioService{
     	try {
     		Venta v=ventaService.consultarVenta(folio);
     		VentaReportModel venta=ventaReportC.entity2model(v);
-    		venta.setPedidos(ventaReportC.entity2modelPedidos(hvService.consultarByNumResurtido(numresurtido)));
+    		venta.setPedidos(ventaReportC.entity2modelPedidos(hvService.consultarByNumResurtido(numresurtido,folio)));
     		venta.Calcular(v.getComisionProfesor());
     		ArrayList<VentaReportModel> ventas=new ArrayList<>();
     		ventas.add(venta);

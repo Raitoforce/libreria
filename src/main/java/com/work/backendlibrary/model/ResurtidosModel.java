@@ -1,31 +1,24 @@
 package com.work.backendlibrary.model;
 
 import java.sql.Date;
-import java.util.List;
 
 public class ResurtidosModel {
-	private String folio;
-	private List<Integer> numresurtidos;
-	private List<Date> fechas;
+	private Integer numresurtido;
+	private Date fecha;
 	
-	public String getFolio() {
-		return folio;
+	public Integer getNumresurtido() {
+		return numresurtido;
 	}
-	public void setFolio(String folio) {
-		this.folio = folio;
+	public void setNumresurtido(Integer numresurtido) {
+		this.numresurtido = numresurtido;
 	}
-	public List<Integer> getNumresurtidos() {
-		return numresurtidos;
+	public Date getFecha() {
+		return fecha;
 	}
-	public void setNumresurtidos(List<Integer> numresurtidos) {
-		this.numresurtidos = numresurtidos;
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
-	public List<Date> getFechas() {
-		return fechas;
-	}
-	public void setFechas(List<Date> fechas) {
-		this.fechas = fechas;
-	}
+	
 	
 	
 }

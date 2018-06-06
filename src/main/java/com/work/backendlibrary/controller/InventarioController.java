@@ -47,8 +47,8 @@ public class InventarioController{
 	
 	
 	@GetMapping("/resurtidos={folio}")
-	public ResponseEntity<ResurtidosModel> devolverResurtidos(@PathVariable("folio")String folio){
-		ResurtidosModel resurtidos= rsc.convertir(folio);
+	public ResponseEntity<List<ResurtidosModel>> devolverResurtidos(@PathVariable("folio")String folio){
+		List<ResurtidosModel> resurtidos= rsc.convertir(folio);
 		return new ResponseEntity<>(resurtidos,HttpStatus.OK);
 	}
 	

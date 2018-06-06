@@ -1,6 +1,6 @@
 package com.work.backendlibrary.converter;
 
-import java.sql.Date;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,15 +18,14 @@ public class ResurtidosVentaConverter {
 	HistorialVentaJPARepository hvJPA;
 	
 
-	public ResurtidosModel convertir(String folio){
-		ResurtidosModel rm=new ResurtidosModel();
-		rm.setFolio(folio);
-		rm.setNumresurtidos(hvJPA.getNumResurtidos(folio));
-		List<Date> fechas= new ArrayList<>();
-		for (Integer resurtido : rm.getNumresurtidos()) {
-			fechas.add(hvJPA.getDate(folio, resurtido));
+	public List<ResurtidosModel> convertir(String folio){
+		List<ResurtidosModel> rms=new ArrayList<>();
+		for (Integer resurtido: hvJPA.getNumResurtidos(folio)) {
+			ResurtidosModel rm=new ResurtidosModel();
+			rm.setNumresurtido(resurtido);
+			rm.setFecha(hvJPA.getDate(folio, resurtido));
+			rms.add(rm);
 		}
-		rm.setFechas(fechas);
-		return rm;
+		return rms;
 	}
 }

@@ -21,6 +21,8 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
@@ -64,6 +66,9 @@ public class InventarioServiceImpl implements InventarioService{
     @Qualifier("ventaReportConverter")
     VentaReportConverter ventaReportC;
     
+    @Value("/resources/Invoice.jrxml")
+	private Resource reporte_model;
+    
     @Override
     public List<HistorialVenta> getPedidosPendientes(){
         List<HistorialVenta> cola=new ArrayList<HistorialVenta>();
@@ -106,7 +111,8 @@ public class InventarioServiceImpl implements InventarioService{
     public void generarReporte(String folio){
     	if(path==null){
 	    	try {
-				path=resourceLoader.getResource(resourceLoader.CLASSPATH_URL_PREFIX+"Invoice.jrxml").getURL().getPath().replaceAll("%20"," ");
+	    		path= reporte_model.getURL().getPath().replaceAll("%20"," ");
+				//path=resourceLoader.getResource("Invoice.jrxml").getURL().getPath().replaceAll("%20"," ");
 				path=path.replaceAll("Invoice.jrxml","");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

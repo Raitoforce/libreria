@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -38,6 +40,10 @@ public class InventarioController{
 	
 	@Autowired
 	ResourceLoader resourceLoader;
+	
+	@Value("/resources/reporte.pdf")
+	private Resource reporte;
+
 	
 	@GetMapping("")
 	public ResponseEntity<List<HistorialVenta>> devolverInventario(){
@@ -78,7 +84,8 @@ public class InventarioController{
 		
 		String path="";
 		try {
-			path = resourceLoader.getResource(resourceLoader.CLASSPATH_URL_PREFIX+"reporte.pdf").getURI().getPath().replaceAll("%20"," ");
+			path = reporte.getURI().getPath().replaceAll("%20"," ");
+			//path = resourceLoader.getResource("reporte.pdf").getURI().getPath().replaceAll("%20"," ");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -109,7 +116,8 @@ public class InventarioController{
 		inventarioService.generarReportePedido(folio, idHistorial);
 		String path="";
 		try {
-			path = resourceLoader.getResource(resourceLoader.CLASSPATH_URL_PREFIX+"reporte.pdf").getURI().getPath().replaceAll("%20"," ");
+			path = reporte.getURI().getPath().replaceAll("%20"," ");
+			//path = resourceLoader.getResource("reporte.pdf").getURI().getPath().replaceAll("%20"," ");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -41,7 +41,7 @@ public class InventarioController{
 	@Autowired
 	ResourceLoader resourceLoader;
 	
-	@Value("/resources/reporte.pdf")
+	@Value("classpath:/Invoice.jrxml")
 	private Resource reporte;
 
 	
@@ -84,8 +84,9 @@ public class InventarioController{
 		
 		String path="";
 		try {
-			path = reporte.getURI().getPath().replaceAll("%20"," ");
-			//path = resourceLoader.getResource("reporte.pdf").getURI().getPath().replaceAll("%20"," ");
+			path= reporte.getURL().getPath().replaceAll("%20"," ");
+			//path=resourceLoader.getResource("Invoice.jrxml").getURL().getPath().replaceAll("%20"," ");
+			path=path.replaceAll("Invoice.jrxml","")+"reporte.pdf";
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -116,8 +117,9 @@ public class InventarioController{
 		inventarioService.generarReportePedido(folio, idHistorial);
 		String path="";
 		try {
-			path = reporte.getURI().getPath().replaceAll("%20"," ");
-			//path = resourceLoader.getResource("reporte.pdf").getURI().getPath().replaceAll("%20"," ");
+			path= reporte.getURL().getPath().replaceAll("%20"," ");
+			//path=resourceLoader.getResource("Invoice.jrxml").getURL().getPath().replaceAll("%20"," ");
+			path=path.replaceAll("Invoice.jrxml","")+"reporte.pdf";
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

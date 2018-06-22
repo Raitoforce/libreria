@@ -22,25 +22,10 @@ public class DataSourceConfig{
 	public DataSource dataSource(){
 		return DataSourceBuilder
 				.create()
-		        .username("root")
+		        .username("clinitec")
 		        .password("huevos123")
-		        .url("jdbc:mysql://aakzfq4orgfq7f.chimtynwqqkf.us-east-2.rds.amazonaws.com:3306/DB_libreraLozano")
+		        .url("jdbc:mysql://localhost:3306/DB_libreraLozano")
 		        .driverClassName("com.mysql.jdbc.Driver")
 		        .build();
 	}
-}
-
-@Configuration
-@EnableWebMvc
-@ComponentScan("com.work.backendlibrary.configurations")
-class MvcWebConfig implements WebMvcConfigurer{
-
-   @Override
-   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
-      // Register resources
-	   registry
-       .addResourceHandler("/**","/**")
-       .addResourceLocations("/","/WEB-INF/classes/");
-	   } 
 }

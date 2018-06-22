@@ -36,9 +36,8 @@ import java.util.Map;
 @Service("inventarioService")
 public class InventarioServiceImpl implements InventarioService{
 	
-	@Autowired
-	ResourceLoader resourceLoader;
-	
+	//@Autowired
+	//ResourceLoader resourceLoader;
 	String path=null;
 	String masterReportFileName =null;
 	String subReportFileName =null;
@@ -66,7 +65,7 @@ public class InventarioServiceImpl implements InventarioService{
     @Qualifier("ventaReportConverter")
     VentaReportConverter ventaReportC;
     
-    @Value("/resources/Invoice.jrxml")
+    @Value("classpath:/Invoice.jrxml")
 	private Resource reporte_model;
     
     @Override
@@ -176,7 +175,8 @@ public class InventarioServiceImpl implements InventarioService{
 	public void generarReportePedido(String folio,int numresurtido) {
 		if(path==null){
 	    	try {
-				path=resourceLoader.getResource(resourceLoader.CLASSPATH_URL_PREFIX+"Invoice.jrxml").getURL().getPath().replaceAll("%20"," ");
+	    		path= reporte_model.getURL().getPath().replaceAll("%20"," ");
+				//path=resourceLoader.getResource("Invoice.jrxml").getURL().getPath().replaceAll("%20"," ");
 				path=path.replaceAll("Invoice.jrxml","");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" whenResourceMissingType="Empty" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -137,10 +137,6 @@
 				</textElement>
 				<text><![CDATA[FECHA:]]></text>
 			</staticText>
-			<image scaleImage="RealSize" hAlign="Center" vAlign="Middle">
-				<reportElement x="0" y="0" width="80" height="80" uuid="94883631-a913-43e2-b182-ab8d77d0181e"/>
-				<imageExpression><![CDATA["src/main/resources/logo.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="90" y="25" width="290" height="25" uuid="c226e44d-3bb5-4145-b0b3-903bf1d79fde"/>
 				<textElement verticalAlignment="Middle"/>
@@ -275,6 +271,10 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{folio}]]></textFieldExpression>
 			</textField>
+			<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+				<reportElement x="0" y="0" width="80" height="80" uuid="72db82aa-5df8-4fa0-be15-669dd041262a"/>
+				<imageExpression><![CDATA["logo.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>
@@ -355,7 +355,7 @@
 				<reportElement x="0" y="0" width="555" height="38" uuid="f58d37cc-7b28-4bdb-a302-55563b44082d"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
                   ($F{pedidos})]]></dataSourceExpression>
-				<subreportExpression><![CDATA["src/main/resources/pedidos.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["pedidos.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

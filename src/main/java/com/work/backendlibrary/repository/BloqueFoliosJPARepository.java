@@ -28,4 +28,7 @@ public interface BloqueFoliosJPARepository extends JpaRepository<BloqueFolio, Se
 	@Query("select bf from BloqueFolio bf where inicio <= ?2 and fin >= ?2 and vendedor_clave=?1 and folio.tipo='VENTA'")
 	public abstract BloqueFolio findByVendedorAndRange(String clave,int valor);
 	
+	@Query("select bf from BloqueFolio bf where inicio <= ?2 and fin >= ?2 and vendedor_clave=?1 and folio.tipo=?3")
+	public abstract BloqueFolio findByVendedorAndRangeType(String clave,int valor,String type);
+	
 }

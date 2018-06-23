@@ -1,4 +1,4 @@
-package com.work.backendlibrary.service.Impl;
+ package com.work.backendlibrary.service.Impl;
 
 import java.util.List;
 
@@ -71,4 +71,13 @@ public class BloqueFolioServiceImpl implements BloqueFolioService{
 			return true;
 		return false;
 	}
+
+	@Override
+	public boolean isAValidFolioType(String clave, int valor, String type) {
+		if(bfJPA.findByVendedorAndRangeType(clave, valor, type)!=null)
+			return true;
+		return false;
+	}
+	
+	
 }

@@ -15,4 +15,6 @@ public interface BloqueFolioService {
 	
 	public abstract BloqueFolio isInRangeAndVendedor(String clave,int valor);
 	public abstract boolean isAValidFolio(String clave,int valor);
+	
+	public abstract boolean isAValidFolioType(String clave,int valor, String type);
 }

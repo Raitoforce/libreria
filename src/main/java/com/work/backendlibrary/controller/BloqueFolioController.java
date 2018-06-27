@@ -49,13 +49,13 @@ public class BloqueFolioController {
 	}
 	
 	@GetMapping("/isValidFolio")
-	public boolean isValidFolio(@RequestParam("clave")String clave,@RequestParam("valor")Integer valor){
-		return bfservice.isAValidFolio(clave, valor);
+	public boolean isValidFolio(@RequestParam("clave")String clave,@RequestParam("valor")Integer valor,@RequestParam("idtemporada")int idtemporada){
+		return bfservice.isAValidFolio(clave, valor,idtemporada);
 	}
 	
 	@GetMapping("/isValidFolioType")
-	public boolean isValidFolioType(@RequestParam("clave")String clave,@RequestParam("valor")Integer valor,@RequestParam("type")String type){
-		return bfservice.isAValidFolioType(clave,valor, type);
+	public boolean isValidFolioType(@RequestParam("clave")String clave,@RequestParam("valor")Integer valor,@RequestParam("type")String type,@RequestParam("idtemporada")int idtemporada){
+		return bfservice.isAValidFolioType(clave,valor, type,idtemporada);
 	}
 	
 	@PostMapping(value = "/nuevo")

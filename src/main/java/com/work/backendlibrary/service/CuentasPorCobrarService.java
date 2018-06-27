@@ -10,4 +10,6 @@ public interface CuentasPorCobrarService {
 	public abstract void removeCuenta(int idmoviento);
 	public abstract CuentasPorCobrar updateCuenta(CuentasPorCobrar cuenta);
 	public abstract CuentasPorCobrar consultarCuenta(int idmovimiento);
+	
+	public abstract CuentasPorCobrar insertarMonto(int monto,String claveV, String claveE,int idprofesor,int idtemporada);
 }

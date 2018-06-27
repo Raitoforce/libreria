@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.work.backendlibrary.entity.CuentasPorCobrar;
@@ -29,6 +30,12 @@ public class CuentasPorCobrarController {
 	public ResponseEntity<List<CuentasPorCobrar>> devolverCuentasPorCobrar(){
 		List<CuentasPorCobrar> cuentas = cpcService.listAllCuentas();
 		return new ResponseEntity<List<CuentasPorCobrar>>(cuentas,HttpStatus.OK);
+	}
+	
+	@GetMapping("/abonar")
+	public ResponseEntity<String> abanonarCuentas(@RequestParam("monto")int monto,@RequestParam("claveV")String claveV,@RequestParam("claveE")String claveE,@RequestParam("idprofesor")int idprofesor,@RequestParam("idtemporada")int idtemporada){
+		CuentasPorCobrar cuenta=cpcService.insertarMonto(monto, claveV, claveE, idprofesor,idtemporada);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{id}")

@@ -9,7 +9,6 @@ import com.work.backendlibrary.entity.Venta;
 
 @Repository("ventaJPARepository")
 public interface VentaJPARepository extends JpaRepository<Venta, Serializable>{
-	public abstract Venta findByFolio(String folio);
-	
+	public abstract Venta findByFolio(String folio);	
 	public abstract Venta findByFolioAndBloqueFolioVendedorClaveAndBloqueFolioFolioIdtemporada(String folio,String clave,int idtemporada);
 }

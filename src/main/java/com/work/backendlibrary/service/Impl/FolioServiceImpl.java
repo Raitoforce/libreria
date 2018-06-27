@@ -52,8 +52,8 @@ public class FolioServiceImpl implements FolioService{
 	}
 
 	@Override
-	public boolean isInRange(int valor, String tipo) {
-		if(fjpa.findByIsRange(valor,tipo)!=null)
+	public boolean isInRange(int valor, String tipo, int idtemporada) {
+		if(fjpa.findByIsRange(valor,tipo,idtemporada)!=null)
 			return true;
 		return false;
 	}

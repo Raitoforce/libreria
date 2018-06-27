@@ -13,8 +13,7 @@ public interface BloqueFolioService {
 	public abstract boolean isInRange(int valor,int idfolio);
 	public abstract BloqueFolio consultarByVendedorAndTemporada(String clave,int idtemporada);
 	
-	public abstract BloqueFolio isInRangeAndVendedor(String clave,int valor);
-	public abstract boolean isAValidFolio(String clave,int valor);
-	
-	public abstract boolean isAValidFolioType(String clave,int valor, String type);
+	public abstract BloqueFolio isInRangeAndVendedor(String clave,int valor,int idtemporada);
+	public abstract boolean isAValidFolio(String clave,int valor, int idtemporada);
+	public abstract boolean isAValidFolioType(String clave,int valor, String type, int idtemporada);
 }

@@ -40,8 +40,8 @@ public class FolioController {
 	}
 	
 	@GetMapping("/range")
-	public boolean rangoFolio(@RequestParam("valor")int valor,@RequestParam("tipo")String tipo){
-		return fs.isInRange(valor,tipo);
+	public boolean rangoFolio(@RequestParam("valor")int valor,@RequestParam("tipo")String tipo,@RequestParam("valor")int idtemporada){
+		return fs.isInRange(valor,tipo,idtemporada);
 	}
 	
 	@GetMapping("/Temporada/{id}")

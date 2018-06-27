@@ -12,5 +12,5 @@ public interface FolioService {
 	public abstract Folio updateFolio(Folio folio);
 	public abstract Folio consultarFolio(int id);
 	public abstract List<Folio> consultarTemporada(int id);
-	public abstract boolean isInRange(int valor,String tipo);
+	public abstract boolean isInRange(int valor,String tipo, int idtemporada);
 }

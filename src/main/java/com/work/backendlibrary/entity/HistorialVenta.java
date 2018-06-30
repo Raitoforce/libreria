@@ -17,6 +17,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.work.backendlibrary.Views.VentaView;
+import com.work.backendlibrary.model.PedidosReportModel;
 
 @Entity
 @Table(name="historial_venta")
@@ -167,5 +168,13 @@ public class HistorialVenta implements Serializable {
 		this.precioventa = precioventa;
 	}
 	
-	
+	public float CalcularDeuda(){
+		float subtotalC=0;
+		float descuentoC=0;
+		if(this.getPrecioventa()!=0){
+				subtotalC+=this.getPrecioventa()*this.getPedidos();
+				descuentoC+=this.getPedidos()*this.getVenta().getComisionProfesor();
+		}
+		return subtotalC-descuentoC;
+	}
 }

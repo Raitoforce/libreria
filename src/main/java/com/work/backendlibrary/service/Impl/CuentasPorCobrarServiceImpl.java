@@ -12,7 +12,6 @@ import com.work.backendlibrary.entity.HistorialVenta;
 import com.work.backendlibrary.repository.CuentasPorCobrarJPARepository;
 import com.work.backendlibrary.repository.HistorialVentaJPARepository;
 import com.work.backendlibrary.service.CuentasPorCobrarService;
-import com.work.backendlibrary.service.HistorialVentaService;
 
 @Service("cuentasPorCobrarService")
 public class CuentasPorCobrarServiceImpl implements CuentasPorCobrarService{
@@ -55,24 +54,58 @@ public class CuentasPorCobrarServiceImpl implements CuentasPorCobrarService{
 	}
 
 	@Override
-	public CuentasPorCobrar insertarMonto(int monto,String claveV,String claveE,int idprofesor,int idtemporada){
+	public void insertarMonto(float monto,String claveV,String claveE,int idprofesor,int idtemporada){
 		// TODO Auto-generated method stub
-		CuentasPorCobrar cpc = new CuentasPorCobrar();
-		cpc.setFecha(new Date(System.currentTimeMillis()));
-		cpc.setPago(monto);
-		List<HistorialVenta> historialVentas = null;//hvJPA.(claveV, claveE, idprofesor);
-		float total=0;
-		for (HistorialVenta historialVenta : historialVentas) {
-			List<CuentasPorCobrar> cuentas=cpcJPA.findByHistorialVentaIdHistorial(historialVenta.getIdHistorial());
-			for (CuentasPorCobrar cuenta : cuentas) {
-				total+=cuenta.getPago();
-			}
-			if (total+monto<=historialVenta.getPedidos()*historialVenta.getPrecioventa()) {
-				cpc.setIdMovimiento(historialVenta.getIdHistorial());
+		List<CuentasPorCobrar> cuentasPorCobrar= null;
+		CuentasPorCobrar cpc = null;
+		Date currentDate=new Date(System.currentTimeMillis());
+		//Se obtienen los pedidos por  Temporada,Vendedor,Escuela,Profesor
+		float total;
+		List<HistorialVenta> historialVentas = hvJPA.findByVentaBloqueFolioVendedorClaveAndVentaEscuelaClaveAndVentaProfesorIdprofesorAndVentaBloqueFolioFolioIdtemporadaIdtemporada(claveV, claveE, idprofesor, idtemporada);
+		for (HistorialVenta historialVenta : historialVentas){
+			if(monto==0)
 				break;
+			total=0;
+			cpc=new CuentasPorCobrar();
+			cuentasPorCobrar= cpcJPA.findByHistorialVentaIdHistorial(historialVenta.getIdHistorial());
+			for (CuentasPorCobrar cuenta : cuentasPorCobrar) {
+				total+=cuenta.getPago();
+			} //Se hace la sumatoria
+			if(total+monto>historialVenta.CalcularDeuda()){
+				monto=monto-historialVenta.CalcularDeuda();
+				cpc.setPago(monto);
+			}else{
+				cpc.setPago(monto);
+				monto=0;
 			}
+			cpc.setFecha(currentDate);
+			cpc.setHistorialVenta(historialVenta);
+			cpcJPA.save(cpc);
 		}
-		return cpcJPA.save(cpc);
+	}
+
+	@Override
+	public float consultaCuentaByVenta(String folio, int idtemporada) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float consultaCuentaByProfesor() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float consultaCuentaByEscuela() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float consultaCuentaByVendedor(String claveV, int idtemporada) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

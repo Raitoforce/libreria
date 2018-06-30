@@ -34,7 +34,7 @@ public class CuentasPorCobrarController {
 	
 	@GetMapping("/abonar")
 	public ResponseEntity<String> abanonarCuentas(@RequestParam("monto")int monto,@RequestParam("claveV")String claveV,@RequestParam("claveE")String claveE,@RequestParam("idprofesor")int idprofesor,@RequestParam("idtemporada")int idtemporada){
-		CuentasPorCobrar cuenta=cpcService.insertarMonto(monto, claveV, claveE, idprofesor,idtemporada);
+		cpcService.insertarMonto(monto, claveV, claveE, idprofesor,idtemporada);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	

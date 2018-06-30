@@ -28,10 +28,10 @@ public interface HistorialVentaJPARepository extends JpaRepository<HistorialVent
 	@Query("select DISTINCT  hv.numresurtido from HistorialVenta hv where venta.folio=?1")
 	public abstract List<Integer> getNumResurtidos(String folio);
 	
-	/*public abstract List<HistorialVenta> findByVentaBloqueFolioVendedorClaveAndVentaBloqueFolioFolioIdtemporadaIdtemporada(String clave,int idtemporada);
-	public abstract List<HistorialVenta> findByVentaBloqueFolioVendedorClaveAndVentaEscuelaClaveVentaBloqueFolioFolioIdtemporadaIdtemporada(String claveV,String claveE,int idtemporada);
-	public abstract List<HistorialVenta> findByVentaBloqueFolioVendedorClaveAndVentaEscuelaClaveAndVentaProfesorIdprofesorVentaBloqueFolioFolioIdtemporadaIdtemporada(String claveV,String claveE,int idprofesor,int idtemporada);
-	*/
+	public abstract List<HistorialVenta> findByVentaBloqueFolioVendedorClaveAndVentaBloqueFolioFolioIdtemporadaIdtemporada(String clave,int idtemporada);
+	public abstract List<HistorialVenta> findByVentaBloqueFolioVendedorClaveAndVentaEscuelaClaveAndVentaBloqueFolioFolioIdtemporadaIdtemporada(String claveV,String claveE,int idtemporada);
+	public abstract List<HistorialVenta> findByVentaBloqueFolioVendedorClaveAndVentaEscuelaClaveAndVentaProfesorIdprofesorAndVentaBloqueFolioFolioIdtemporadaIdtemporada(String claveV,String claveE,int idprofesor,int idtemporada);
+	
 	//public abstract List<HistorialVenta> findBy;
 	
 }

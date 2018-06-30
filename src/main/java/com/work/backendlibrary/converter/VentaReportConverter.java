@@ -20,7 +20,7 @@ public class VentaReportConverter {
 		ventam.setProfesor_nombre(venta.getProfesor().getNombre()+" "+venta.getProfesor().getApellidos());
 		ventam.setProfesor_telefono(venta.getProfesor().getTelefono());
 		ventam.setEscuela_nombre(venta.getEscuela().getNombre()+" ("+venta.getEscuela().getClave()+")");
-		ventam.setEscuela_domicilio(venta.getEscuela().getDireccion());
+		ventam.setEscuela_domicilio(venta.getEscuela().getDireccion()+" "+venta.getEscuela().getColonia()+"("+venta.getEscuela().getCodigoPostal()+")");
 		ventam.setFolio(venta.getFolio());
 		ventam.setMunicipio_escuela(venta.getEscuela().getMunicipio());	
 		return ventam;
@@ -32,7 +32,8 @@ public class VentaReportConverter {
 		for (HistorialVenta pedido:pedidos) {
 			pedidom=new PedidosReportModel();
 			pedidom.setCantidad(pedido.getPedidos());
-			pedidom.setLibro_grado(pedido.getLibro().getNivel());
+			pedidom.setFechap(pedido.getFechaSolicitud());
+			pedidom.setLibro_grado(pedido.getLibro().getCurso());
 			pedidom.setLibro_importe(pedido.getPedidos()*pedido.getPrecioventa());
 			pedidom.setLibro_nombre(pedido.getLibro().getTitulo());
 			pedidom.setLibro_precio(pedido.getLibro().getPrecio());

@@ -1,5 +1,7 @@
 package com.work.backendlibrary.model;
 
+import java.util.Date;
+
 public class PedidosReportModel {
 	private int cantidad;
 	private String libro_nombre;
@@ -7,6 +9,7 @@ public class PedidosReportModel {
 	private float libro_precio;
 	private float libro_importe;
 	private float precioventa;
+	private Date fechap;
 	
 	public int getCantidad() {
 		return cantidad;
@@ -43,6 +46,12 @@ public class PedidosReportModel {
 	}
 	public void setPrecioventa(float precioventa) {
 		this.precioventa = precioventa;
+	}
+	public Date getFechap() {
+		return fechap;
+	}
+	public void setFechap(Date fechap) {
+		this.fechap = fechap;
 	}
 	
 }

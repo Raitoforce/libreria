@@ -1,7 +1,6 @@
 package com.work.backendlibrary.entity;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.sun.glass.ui.View;
 import com.work.backendlibrary.Views.VentaView;
 
 import javax.persistence.*;

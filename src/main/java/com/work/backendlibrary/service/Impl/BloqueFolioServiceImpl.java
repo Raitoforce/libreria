@@ -65,16 +65,16 @@ public class BloqueFolioServiceImpl implements BloqueFolioService{
 	}
 
 	@Override
-	public boolean isAValidFolio(String clave, int valor,int idtemporada) {
+	public boolean isAValidFolio(String clave, int valor) {
 		// TODO Auto-generated method stub
-		if(isInRangeAndVendedor(clave, valor,idtemporada)!=null)
+		if(isInRangeAndVendedor(clave, valor)!=null)
 			return true;
 		return false;
 	}
 
 	@Override
-	public boolean isAValidFolioType(String clave, int valor, String type,int idtemporada) {
-		if(bfJPA.findByVendedorAndRangeType(clave, valor, type,idtemporada)!=null)
+	public boolean isAValidFolioType(String clave, int valor, String type) {
+		if(bfJPA.findByVendedorAndRangeType(clave, valor, type)!=null)
 			return true;
 		return false;
 	}

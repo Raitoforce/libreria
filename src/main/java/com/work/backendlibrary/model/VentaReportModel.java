@@ -131,8 +131,10 @@ public class VentaReportModel{
 		float subtotalC=0;
 		float descuentoC=0;
 		for (PedidosReportModel pedido: pedidos) {
-			subtotalC+=pedido.getPrecioventa()*pedido.getCantidad();
-			descuentoC+=pedido.getCantidad()*comision;
+			//if(pedido.getPrecioventa()!=0){
+				subtotalC+=pedido.getPrecioventa()*pedido.getCantidad();
+				descuentoC+=pedido.getCantidad()*comision;
+			//}
 		}
 		setSubtotal(subtotalC);
 		setDescuento(descuentoC);

@@ -63,23 +63,25 @@ public class CuentasPorCobrarServiceImpl implements CuentasPorCobrarService{
 		float total;
 		List<HistorialVenta> historialVentas = hvJPA.findByVentaBloqueFolioVendedorClaveAndVentaEscuelaClaveAndVentaProfesorIdprofesorAndVentaBloqueFolioFolioIdtemporadaIdtemporada(claveV, claveE, idprofesor, idtemporada);
 		for (HistorialVenta historialVenta : historialVentas){
-			if(monto==0)
-				break;
 			total=0;
+			if(monto==0)break;
 			cpc=new CuentasPorCobrar();
 			cuentasPorCobrar= cpcJPA.findByHistorialVentaIdHistorial(historialVenta.getIdHistorial());
 			for (CuentasPorCobrar cuenta : cuentasPorCobrar) {
 				total+=cuenta.getPago();
 			} //Se hace la sumatoria
-			if(total+monto>historialVenta.CalcularDeuda()){
-				monto=monto-historialVenta.CalcularDeuda();
-				cpc.setPago(monto);
-			}else{
+			
+			if(total==historialVenta.CalcularDeuda())continue;
+			
+			if(total+monto<=historialVenta.CalcularDeuda()){
 				cpc.setPago(monto);
 				monto=0;
+			}else{
+				monto-=(historialVenta.CalcularDeuda()-total);
+				cpc.setPago(historialVenta.CalcularDeuda()-total);
 			}
 			cpc.setFecha(currentDate);
-			cpc.setHistorialVenta(historialVenta);
+			cpc.setHistorialVenta(historialVenta); 
 			cpcJPA.save(cpc);
 		}
 	}

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.work.backendlibrary.entity.CuentasPorCobrar;
+import com.work.backendlibrary.model.CuentasProfesorModel;
+import com.work.backendlibrary.model.CuentasVEModel;
 import com.work.backendlibrary.service.CuentasPorCobrarService;
 
 @RestController
@@ -35,7 +37,23 @@ public class CuentasPorCobrarController {
 	@GetMapping("/abonar")
 	public ResponseEntity<String> abanonarCuentas(@RequestParam("monto")int monto,@RequestParam("claveV")String claveV,@RequestParam("claveE")String claveE,@RequestParam("idprofesor")int idprofesor,@RequestParam("idtemporada")int idtemporada){
 		cpcService.insertarMonto(monto, claveV, claveE, idprofesor,idtemporada);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	}
+	
+	@GetMapping("/cuentasByProfesor")
+	public ResponseEntity<List<CuentasProfesorModel>> cuentaProfesor(@RequestParam("claveV")String claveV,@RequestParam("claveE")String claveE,@RequestParam("idtemporada")int idtemporada){
+		return new ResponseEntity<>(cpcService.consultaCuentaByProfesor(claveE, claveV, idtemporada),HttpStatus.OK);
+	}
+	
+	@GetMapping("/cuentasByEscuela")
+	public ResponseEntity<List<CuentasVEModel>> cuentaEscuela(@RequestParam("claveV")String claveV,@RequestParam("idtemporada")int idtemporada){
+		
+		return new ResponseEntity<>(cpcService.consultaCuentaByEscuela(claveV, idtemporada),HttpStatus.OK);
+	}
+	
+	@GetMapping("/cuentasByVendedor")
+	public ResponseEntity<List<CuentasVEModel>> cuentaVendedor(@RequestParam("idtemporada")int idtemporada){
+		return new ResponseEntity<>(cpcService.consultaCuentaByVendedor(idtemporada),HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")

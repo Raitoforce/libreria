@@ -2,6 +2,7 @@ package com.work.backendlibrary.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,13 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.work.backendlibrary.Views.VentaView;
-import com.work.backendlibrary.model.PedidosReportModel;
 
 @Entity
 @Table(name="historial_venta")
@@ -68,7 +70,9 @@ public class HistorialVenta implements Serializable {
 	@JoinColumn(name="venta_folio",referencedColumnName="folio")
 	private Venta venta;
 	
-	
+//	@JsonIgnore
+//	@OneToMany(mappedBy="historialVenta")
+//	private List<CuentasPorCobrar> cuentas;
 	
 	@JsonView(VentaView.Todo.class)
 	@ManyToOne
@@ -177,4 +181,6 @@ public class HistorialVenta implements Serializable {
 		}
 		return subtotalC-descuentoC;
 	}
+	
+	
 }

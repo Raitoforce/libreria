@@ -1,5 +1,6 @@
 package com.work.backendlibrary.service.Impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,10 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.work.backendlibrary.converter.CuentasConverter;
 import com.work.backendlibrary.entity.CuentasPorCobrar;
+import com.work.backendlibrary.entity.Escuela;
 import com.work.backendlibrary.entity.HistorialVenta;
+import com.work.backendlibrary.entity.Profesor;
+import com.work.backendlibrary.entity.Vendedor;
+import com.work.backendlibrary.model.CuentasProfesorModel;
+import com.work.backendlibrary.model.CuentasVEModel;
 import com.work.backendlibrary.repository.CuentasPorCobrarJPARepository;
+import com.work.backendlibrary.repository.EscuelaJPARepository;
 import com.work.backendlibrary.repository.HistorialVentaJPARepository;
+import com.work.backendlibrary.repository.ProfesorJPARepository;
+import com.work.backendlibrary.repository.VendedorRepository;
 import com.work.backendlibrary.service.CuentasPorCobrarService;
 
 @Service("cuentasPorCobrarService")
@@ -22,6 +32,23 @@ public class CuentasPorCobrarServiceImpl implements CuentasPorCobrarService{
 	@Autowired
 	@Qualifier("historialVentaJPARepository")
 	HistorialVentaJPARepository hvJPA;
+	
+	@Autowired
+	@Qualifier("cuentasConverter")
+	CuentasConverter cuentasC;
+	
+	@Autowired
+	@Qualifier("vendedorRepository")
+	VendedorRepository vendedorJPA;
+	
+	@Autowired
+	@Qualifier("escuelaJPARepository")
+	EscuelaJPARepository eJPA;
+	
+	
+	@Autowired
+	@Qualifier("profesorJPARepository")
+	ProfesorJPARepository pJPA;
 	
 	@Override
 	public List<CuentasPorCobrar> listAllCuentas() {
@@ -93,21 +120,46 @@ public class CuentasPorCobrarServiceImpl implements CuentasPorCobrarService{
 	}
 
 	@Override
-	public float consultaCuentaByProfesor() {
+	public	List<CuentasProfesorModel> consultaCuentaByProfesor(String claveE,String claveV,int idtemporada) {
 		// TODO Auto-generated method stub
-		return 0;
+		List<Profesor> profesores=pJPA.findAll();
+		List<CuentasProfesorModel> cuentas=new ArrayList<>();
+		CuentasProfesorModel cpm =null;
+		for (Profesor profesor : profesores){
+			cpm = cuentasC.CuentasProfesor(claveE, claveV,profesor.getIdprofesor(), idtemporada);
+			if(cpm.getDeuda()>0)
+				cuentas.add(cpm);
+		}
+		return cuentas;
 	}
 
 	@Override
-	public float consultaCuentaByEscuela() {
+	public List<CuentasVEModel> consultaCuentaByEscuela(String claveV,int idtemporada) {
 		// TODO Auto-generated method stub
-		return 0;
+		List<CuentasVEModel> cuentas=new ArrayList<>();
+		List<Escuela> escuelas=eJPA.findAll();
+		CuentasVEModel cvem=null;
+		for (Escuela escuela : escuelas) {
+			cvem = cuentasC.CuentasEscuela(escuela.getClave(), claveV, idtemporada);
+			if(cvem.getDeuda()>0)
+				cuentas.add(cvem);
+		}
+		return cuentas;
 	}
 
 	@Override
-	public float consultaCuentaByVendedor(String claveV, int idtemporada) {
+	public List<CuentasVEModel> consultaCuentaByVendedor(int idtemporada) {
 		// TODO Auto-generated method stub
-		return 0;
+		// TODO Auto-generated method stub
+		List<CuentasVEModel> cuentas=new ArrayList<>();
+		List<Vendedor> vendedores=vendedorJPA.findAll();
+		CuentasVEModel cvem=null;
+		for (Vendedor vendedor: vendedores) {
+			cvem=cuentasC.CuentasVendedor(vendedor.getClave(), idtemporada);
+			if(cvem.getDeuda()>0)
+				cuentas.add(cvem);
+		}
+		return cuentas;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.work.backendlibrary.entity;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,11 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.lang.Nullable;
 
 @Entity
-@Table(name="comision")
+@Table(name="Comision")
 public class Comision implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +27,8 @@ public class Comision implements Serializable {
 	private int idComision;
 	
 	@Column(name="fecha")
-	private String fecha;
+	@Temporal(TemporalType.DATE)
+	private Date fecha;
 
 	@Column(name="monto")
 	private String monto;
@@ -49,5 +53,61 @@ public class Comision implements Serializable {
 	@Nullable
 	@JoinColumn(name="vendedor_clave")
 	private Vendedor vendedor;
+
+	public int getIdComision() {
+		return idComision;
+	}
+
+	public void setIdComision(int idComision) {
+		this.idComision = idComision;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public String getMonto() {
+		return monto;
+	}
+
+	public void setMonto(String monto) {
+		this.monto = monto;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public Temporada getTemporada() {
+		return temporada;
+	}
+
+	public void setTemporada(Temporada temporada) {
+		this.temporada = temporada;
+	}
+
+	public Director getDirector() {
+		return director;
+	}
+
+	public void setDirector(Director director) {
+		this.director = director;
+	}
+
+	public Vendedor getVendedor() {
+		return vendedor;
+	}
+
+	public void setVendedor(Vendedor vendedor) {
+		this.vendedor = vendedor;
+	}
 
 }

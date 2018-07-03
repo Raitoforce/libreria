@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.work.backendlibrary.entity.Comision;
+import com.work.backendlibrary.model.ComisionModel;
 import com.work.backendlibrary.repository.ComisionJPARepository;
 import com.work.backendlibrary.service.ComisionService;
 
@@ -44,6 +45,18 @@ public class ComisionServiceImpl implements ComisionService{
 	public Comision consultarComision(int idComision) {
 		// TODO Auto-generated method stub
 		return comisionJPA.findByIdComision(idComision);
+	}
+
+	@Override
+	public Comision addComisionVendedor(ComisionModel cm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Comision addComisionDirector(ComisionModel cm) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

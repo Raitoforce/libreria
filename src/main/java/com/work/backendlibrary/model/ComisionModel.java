@@ -5,7 +5,7 @@ import java.sql.Date;
 public class ComisionModel {
 	private int idComision;
 	private Date fecha;
-	private String monto;
+	private float monto;
 	private String tipo;
 	private int temporada;
 	private int director;
@@ -23,10 +23,10 @@ public class ComisionModel {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public String getMonto() {
+	public float getMonto() {
 		return monto;
 	}
-	public void setMonto(String monto) {
+	public void setMonto(float monto) {
 		this.monto = monto;
 	}
 	public String getTipo() {

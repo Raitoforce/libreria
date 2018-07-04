@@ -31,7 +31,7 @@ public class Comision implements Serializable {
 	private Date fecha;
 
 	@Column(name="monto")
-	private String monto;
+	private float monto;
 
 	@Column(name="tipo")
 	private String tipo;
@@ -70,11 +70,11 @@ public class Comision implements Serializable {
 		this.fecha = fecha;
 	}
 
-	public String getMonto() {
+	public float getMonto() {
 		return monto;
 	}
 
-	public void setMonto(String monto) {
+	public void setMonto(float monto) {
 		this.monto = monto;
 	}
 

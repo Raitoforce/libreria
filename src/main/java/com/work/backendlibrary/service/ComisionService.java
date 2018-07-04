@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.work.backendlibrary.entity.Comision;
 import com.work.backendlibrary.model.ComisionModel;
+import com.work.backendlibrary.model.ComisionesVistaModel;
 
 public interface ComisionService {
 	public abstract List<Comision> listAllComisiones();
@@ -15,4 +16,7 @@ public interface ComisionService {
 	
 	public abstract Comision addComisionVendedor(ComisionModel cm);
 	public abstract Comision addComisionDirector(ComisionModel cm);
+	
+	public abstract ComisionesVistaModel consultarComisionesByVendedor(String clave,int idtemporada);
+	public abstract ComisionesVistaModel consultarComisionesByDirector(int iddirector,int idtemporada);
 }

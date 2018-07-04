@@ -55,5 +55,19 @@ public class ComisionController {
 		comisionService.updateComision(comision);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
+	
+	
+	@PutMapping(path="",consumes="application/json")
+	public ResponseEntity<String> abonarVendedor(@RequestBody Comision comision){
+		comisionService.updateComision(comision);
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	@PutMapping(path="",consumes="application/json")
+	public ResponseEntity<String> abonarDirector(@RequestBody Comision comision){
+		comisionService.updateComision(comision);
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
 
 }

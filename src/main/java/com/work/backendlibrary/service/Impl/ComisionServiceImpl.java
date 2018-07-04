@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.work.backendlibrary.converter.ComisionConverter;
+import com.work.backendlibrary.converter.ComisionesModuloConverter;
 import com.work.backendlibrary.entity.Comision;
 import com.work.backendlibrary.model.ComisionModel;
+import com.work.backendlibrary.model.ComisionesVistaModel;
 import com.work.backendlibrary.repository.ComisionJPARepository;
 import com.work.backendlibrary.service.ComisionService;
 
@@ -16,6 +19,15 @@ public class ComisionServiceImpl implements ComisionService{
 	@Autowired
 	@Qualifier("comisionJPARepository")
 	ComisionJPARepository comisionJPA;
+	
+
+	@Autowired
+	@Qualifier("comisionesModuloConverter")
+	ComisionesModuloConverter cmc;
+	
+	@Autowired
+	@Qualifier("comisionConverter")
+	ComisionConverter cc;
 
 	@Override
 	public List<Comision> listAllComisiones() {
@@ -50,13 +62,25 @@ public class ComisionServiceImpl implements ComisionService{
 	@Override
 	public Comision addComisionVendedor(ComisionModel cm) {
 		// TODO Auto-generated method stub
-		return null;
+		return comisionJPA.save(cc.entity2modelV(cm));
 	}
 
 	@Override
 	public Comision addComisionDirector(ComisionModel cm) {
 		// TODO Auto-generated method stub
-		return null;
+		return comisionJPA.save(cc.entity2modelD(cm));
+	}
+
+	@Override
+	public ComisionesVistaModel consultarComisionesByVendedor(String clave, int idtemporada) {
+		// TODO Auto-generated method stub
+		return cmc.cuentaVendedor(clave, idtemporada);
+	}
+
+	@Override
+	public ComisionesVistaModel consultarComisionesByDirector(int iddirector, int idtemporada) {
+		// TODO Auto-generated method stub
+		return cmc.cuentaDirector(iddirector, idtemporada);
 	}
 
 }

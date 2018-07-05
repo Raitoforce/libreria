@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 import org.springframework.lang.Nullable;
 
 @Entity
-@Table(name="Comision")
+@Table(name="comision")
 public class Comision implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -27,7 +27,7 @@ public class Comision implements Serializable {
 	private int idComision;
 	
 	@Column(name="fecha")
-	@Temporal(TemporalType.DATE)
+	//@Temporal(TemporalType.DATE)
 	private Date fecha;
 
 	@Column(name="monto")

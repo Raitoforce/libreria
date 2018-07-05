@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.work.backendlibrary.entity.Comision;
+import com.work.backendlibrary.model.ComisionModel;
+import com.work.backendlibrary.model.ComisionesVistaModel;
 import com.work.backendlibrary.service.ComisionService;
 
 @RestController
@@ -57,17 +60,28 @@ public class ComisionController {
 	}
 	
 	
-	@PutMapping(path="",consumes="application/json")
-	public ResponseEntity<String> abonarVendedor(@RequestBody Comision comision){
-		comisionService.updateComision(comision);
+	@PostMapping(path="/abonarVendedor",consumes="application/json")
+	public ResponseEntity<String> abonarVendedor(@RequestBody ComisionModel comision){
+		comisionService.addComisionVendedor(comision);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
-	@PutMapping(path="",consumes="application/json")
-	public ResponseEntity<String> abonarDirector(@RequestBody Comision comision){
-		comisionService.updateComision(comision);
+	@PostMapping(path="/abonarDirector",consumes="application/json")
+	public ResponseEntity<String> abonarDirector(@RequestBody ComisionModel comision){
+		comisionService.addComisionDirector(comision);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
-
+	@GetMapping("/comisionVendedor")
+	public ResponseEntity<List<ComisionesVistaModel>> getComisionesVendedor(@RequestParam int idtemporada){
+		List<ComisionesVistaModel> comisiones = comisionService.consultarComisionesByVendedors(idtemporada); 
+		return new ResponseEntity<List<ComisionesVistaModel>>(comisiones,HttpStatus.OK);
+	}
+	
+	@GetMapping("/comisionDirector")
+	public ResponseEntity<List<ComisionesVistaModel>> getComisionesDirector(@RequestParam int idtemporada){
+		List<ComisionesVistaModel> comisiones = comisionService.consultarComisionesByDirectors(idtemporada);
+		return new ResponseEntity<List<ComisionesVistaModel>>(comisiones,HttpStatus.OK);
+	}
+	
 }

@@ -52,7 +52,7 @@ public class ComisionesModuloConverter {
 			pedidos=hvJPA.findByVentaFolio(venta.getFolio());
 			for (HistorialVenta pedido : pedidos) {
 				if(pedido.getPrecioventa()!=0)
-					deuda+=pedido.getPedidos()*venta.getComisionVendedor();
+					deuda+=(pedido.getPedidos()*venta.getComisionVendedor());
 			}
 		}
 		for (Comision comision : comisiones) {
@@ -77,8 +77,10 @@ public class ComisionesModuloConverter {
 		for (Venta venta : ventas) {
 			pedidos=hvJPA.findByVentaFolio(venta.getFolio());
 			for (HistorialVenta pedido : pedidos) {
-				if(pedido.getPrecioventa()!=0)
-					deuda+=pedido.getPedidos()*venta.getComisionDirector();
+				if(pedido.getPrecioventa()!=0){
+					deuda+=(pedido.getPedidos()*venta.getComisionDirector());
+					System.out.println(deuda+":"+venta.getFolio()+":"+iddirector);
+				}
 			}
 		}
 		for (Comision comision : comisiones) {

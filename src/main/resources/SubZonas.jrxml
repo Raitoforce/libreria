@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pedidos" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isFloatColumnFooter="true" isIgnorePagination="true" uuid="9fcf79cf-9e7b-45e9-8746-26e4c4994779">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="net.sf.jasperreports.print.create.bookmarks" value="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="libro_grado" class="java.lang.String">
+		<fieldDescription><![CDATA[libro_grado]]></fieldDescription>
+	</field>
+	<field name="libro_nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[libro_nombre]]></fieldDescription>
+	</field>
+	<field name="cantidad" class="java.lang.Integer">
+		<fieldDescription><![CDATA[cantidad]]></fieldDescription>
+	</field>
+	<field name="libro_importe" class="java.lang.Float">
+		<fieldDescription><![CDATA[libro_importe]]></fieldDescription>
+	</field>
+	<field name="libro_precio" class="java.lang.Float">
+		<fieldDescription><![CDATA[libro_precio]]></fieldDescription>
+	</field>
+	<field name="precioventa" class="java.lang.Float">
+		<fieldDescription><![CDATA[precioventa]]></fieldDescription>
+	</field>
+	<field name="fechap" class="java.util.Date">
+		<fieldDescription><![CDATA[fechap]]></fieldDescription>
+	</field>
+	<title>
+		<band height="40">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="40" uuid="08f53db5-c949-4663-bddf-0959e14719cb"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[	ZONA:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="39" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="39" uuid="9d9b65f0-f0b0-4be2-afaf-9f0fe1487293"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["REscuelas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

@@ -59,10 +59,11 @@ public class ComisionesModuloConverter {
 			total+=comision.getMonto();
 		}
 		
-		cvm.setNombre("("+vendedor.getClave()+")"+vendedor.getNombre()+" "+vendedor.getApellidos());
+		cvm.setNombre(vendedor.getNombre()+" "+vendedor.getApellidos());
 		cvm.setDeuda(deuda);
 		cvm.setPagado(total);
 		cvm.setRestante(deuda-total);
+		cvm.setClave(clave);
 		return cvm;
 	}
 	
@@ -90,6 +91,7 @@ public class ComisionesModuloConverter {
 		cvm.setDeuda(deuda);
 		cvm.setPagado(total);
 		cvm.setRestante(deuda-total);
+		cvm.setIddirector(iddirector);
 		return cvm;
 	}
 }

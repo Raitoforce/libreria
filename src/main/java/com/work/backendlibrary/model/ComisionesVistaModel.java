@@ -6,6 +6,8 @@ public class ComisionesVistaModel {
 	private float deuda;
 	private float pagado;
 	private float restante;
+	private String clave;
+	private int iddirector;
 	
 	public String getNombre() {
 		return nombre;
@@ -31,6 +33,17 @@ public class ComisionesVistaModel {
 	public void setRestante(float restante) {
 		this.restante = restante;
 	}
-	
+	public String getClave() {
+		return clave;
+	}
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+	public int getIddirector() {
+		return iddirector;
+	}
+	public void setIddirector(int iddirector) {
+		this.iddirector = iddirector;
+	}
 	
 }

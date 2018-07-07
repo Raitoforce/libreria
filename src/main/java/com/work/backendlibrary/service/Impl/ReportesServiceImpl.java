@@ -47,20 +47,20 @@ public class ReportesServiceImpl implements ReportesService{
 	    	jasperMaster=path+"Invoice.jasper";
 	    	destFile=path+"reporte.pdf";
     	}
-    	try {
-    		Venta v=ventaService.consultarVenta(folio);
+    	//try {
+    		/*Venta v=ventaService.consultarVenta(folio);
     		VentaReportModel venta=ventaReportC.entity2model(v);
     		venta.setPedidos(ventaReportC.entity2modelPedidos(hvService.consultarByVenta(folio)));
     		venta.Calcular(v.getComisionProfesor());
     		ArrayList<VentaReportModel> ventas=new ArrayList<>();
     		ventas.add(venta);
     	    JRBeanCollectionDataSource sourceVenta = new JRBeanCollectionDataSource(ventas);
-    	    //JRBeanCollectionDataSource sourcePedidos=new JRBeanCollectionDataSource(venta.getPedidos());
+    	    JRBeanCollectionDataSource sourcePedidos=new JRBeanCollectionDataSource(venta.getPedidos());
     		
-            /* Compile the master and sub report */
-            //JasperReport jasperMasterReport = JasperCompileManager
-               //.compileReport(masterReportFileName);
-    	    //JasperCompileManager.compileReportToFile(subReportFileName,path+"pedidos.jasper");
+             ///Compile the master and sub report 
+            JasperReport jasperMasterReport = JasperCompileManager
+               .compileReport(masterReportFileName);
+    	    JasperCompileManager.compileReportToFile(subReportFileName,path+"pedidos.jasper");
             JasperReport jasperSubReport = JasperCompileManager
                .compileReport(subReportFileName);
             JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
@@ -72,11 +72,11 @@ public class ReportesServiceImpl implements ReportesService{
             reporte=JasperFillManager.fillReportToFile(jasperMaster,parameters,sourceVenta);
             if(reporte!=null){
             	JasperExportManager.exportReportToPdfFile(reporte, destFile);
-            }
-         } catch (JRException e) {
+            }*/
+         //} catch (JRException e) {
 
-            e.printStackTrace();
-         }
+           // e.printStackTrace();
+         //}
          System.out.println("Done filling!!! ...");
 	}
 

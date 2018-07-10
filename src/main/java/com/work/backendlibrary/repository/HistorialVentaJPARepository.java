@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -32,6 +35,9 @@ public interface HistorialVentaJPARepository extends JpaRepository<HistorialVent
 	public abstract List<HistorialVenta> findByVentaBloqueFolioVendedorClaveAndVentaEscuelaClaveAndVentaBloqueFolioFolioIdtemporadaIdtemporada(String claveV,String claveE,int idtemporada);
 	public abstract List<HistorialVenta> findByVentaBloqueFolioVendedorClaveAndVentaEscuelaClaveAndVentaProfesorIdprofesorAndVentaBloqueFolioFolioIdtemporadaIdtemporada(String claveV,String claveE,int idprofesor,int idtemporada);
 	
-	//public abstract List<HistorialVenta> findBy;
+	@Modifying
+	@Transactional
+	@Query("delete from HistorialVenta hventa where venta.folio=?1 and hventa.numresurtido= ?2")
+	public abstract void DeleteByNumresurtidoAndFolioVenta(String folio,int numresurtido);
 	
 }

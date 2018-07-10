@@ -76,4 +76,20 @@ public class HistorialVentaServiceImpl implements HistorialVentaService{
 		// TODO Auto-generated method stub
 		return hvJPA.findByNumresurtidoAndVentaFolio(numresurtido, folio);
 	}
+
+	@Override
+	public void eliminarByResurtido(String folio, int numresurtido) {
+		hvJPA.DeleteByNumresurtidoAndFolioVenta(folio, numresurtido);
+	}
+
+	@Override
+	public boolean numresurtidoHasConfirmed(String folio, int numresurtido) {
+		// TODO Auto-generated method stub
+		List<HistorialVenta> pedidos= hvJPA.findByNumresurtidoAndVentaFolio(numresurtido, folio);
+		for (HistorialVenta pedido : pedidos) {
+			if(pedido.getFechaConfirmacion()!=null)
+				return true;
+		}
+		return false;
+	}
 }

@@ -15,4 +15,7 @@ public interface HistorialVentaService {
 	public abstract List<HistorialVenta> consultarByVenta(String idVenta);
 	public abstract Integer getMaximo(String folio);
 	public abstract List<HistorialVenta> consultarByNumResurtido(int numresurtido,String folio);
+	public abstract void eliminarByResurtido(String folio,int numresurtido);
+	public abstract boolean numresurtidoHasConfirmed(String folio, int numresurtido);
+
 }

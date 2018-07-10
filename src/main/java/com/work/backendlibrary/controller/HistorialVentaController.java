@@ -2,6 +2,8 @@ package com.work.backendlibrary.controller;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -56,6 +58,14 @@ public class HistorialVentaController {
 	@DeleteMapping(path="/{id}")
 	public ResponseEntity<String> eliminarHistorialVenta(@PathVariable("id") int id){
 		hvService.removeHistorialVenta(id);
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/deleteResurtido")
+	public ResponseEntity<String> eliminarResurtido(@PathParam("folio") String folio, @PathParam("numresurtido") int numresurtido){
+		if(hvService.numresurtidoHasConfirmed(folio, numresurtido))
+			return new ResponseEntity<String>(HttpStatus.CONFLICT);
+		hvService.eliminarByResurtido(folio,numresurtido);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	

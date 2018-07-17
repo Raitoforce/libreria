@@ -7,42 +7,9 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="idzona" class="java.lang.String">
-		<fieldDescription><![CDATA[idzona]]></fieldDescription>
+	<field name="ventas" class="java.util.List">
+		<fieldDescription><![CDATA[ventas]]></fieldDescription>
 	</field>
-	<field name="escuelas" class="java.util.List">
-		<fieldDescription><![CDATA[escuelas]]></fieldDescription>
-	</field>
-	<title>
-		<band height="43">
-			<staticText>
-				<reportElement x="0" y="0" width="230" height="43" uuid="08f53db5-c949-4663-bddf-0959e14719cb"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11"/>
-				</textElement>
-				<text><![CDATA[	ZONA:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="230" y="0" width="310" height="43" uuid="f8d144b1-6328-4332-a81c-cc559355efe2"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isItalic="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{idzona}]]></textFieldExpression>
-			</textField>
-		</band>
-	</title>
 	<detail>
 		<band height="39" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>

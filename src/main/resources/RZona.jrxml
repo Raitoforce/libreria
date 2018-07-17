@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" whenResourceMissingType="Empty" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -78,6 +78,9 @@
 	<field name="nombre" class="java.lang.String">
 		<fieldDescription><![CDATA[nombre]]></fieldDescription>
 	</field>
+	<field name="zonas" class="java.util.List">
+		<fieldDescription><![CDATA[zonas]]></fieldDescription>
+	</field>
 	<title>
 		<band height="80" splitType="Stretch">
 			<staticText>
@@ -94,9 +97,9 @@
 		</band>
 	</title>
 	<detail>
-		<band height="160" splitType="Immediate">
+		<band height="70" splitType="Prevent">
 			<textField isBlankWhenNull="true">
-				<reportElement x="470" y="0" width="100" height="30" uuid="18075904-1eeb-47c3-9c0e-67af6709b3ae"/>
+				<reportElement x="460" y="0" width="80" height="30" uuid="18075904-1eeb-47c3-9c0e-67af6709b3ae"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -110,10 +113,10 @@
 			<staticText>
 				<reportElement x="0" y="0" width="100" height="30" uuid="f49cb30b-6c25-4328-bffc-ca1b08dbbe99"/>
 				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11"/>
@@ -132,22 +135,22 @@
 				<textFieldExpression><![CDATA[$F{nombre}+" "+$F{apellidos}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="370" y="0" width="100" height="30" uuid="8a9c5966-dbf5-44e3-993e-2904afddda8b"/>
+				<reportElement x="370" y="0" width="90" height="30" uuid="8a9c5966-dbf5-44e3-993e-2904afddda8b"/>
 				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11"/>
 				</textElement>
 				<text><![CDATA[CLAVE:]]></text>
 			</staticText>
-			<subreport>
-				<reportElement x="0" y="30" width="570" height="130" uuid="bb3282ef-5a9f-41e2-a04f-2d82cf40abd0"/>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["src/main/resources/Zona.jasper"]]></subreportExpression>
+			<subreport overflowType="Stretch">
+				<reportElement key="" x="0" y="30" width="560" height="29" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="bb3282ef-5a9f-41e2-a04f-2d82cf40abd0"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{zonas})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["SubZonas.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

@@ -5,12 +5,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import com.work.backendlibrary.entity.Venta;
 import com.work.backendlibrary.model.VentaReportModel;
+import com.work.backendlibrary.repository.EscuelaJPARepository;
+import com.work.backendlibrary.repository.VendedorRepository;
+import com.work.backendlibrary.repository.ZonaJPARepository;
 import com.work.backendlibrary.service.ReportesService;
 
 import net.sf.jasperreports.engine.JRException;
@@ -23,6 +28,18 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 @Service("reportesService")
 public class ReportesServiceImpl implements ReportesService{
 	
+	@Autowired
+	@Qualifier("escuelaJPARepository")
+	EscuelaJPARepository eJPA;
+	
+	@Autowired
+	@Qualifier("vendedorRepository")
+	VendedorRepository vJPA;
+	
+	@Autowired
+	@Qualifier("zonaJPARepository")
+	ZonaJPARepository zJPA;
+	
 	@Value("classpath:/RZona.jrxml")
 	private Resource reporte_model;
 	
@@ -32,6 +49,8 @@ public class ReportesServiceImpl implements ReportesService{
 	String subEscuela=null;
 	String destFile=null;
 	String jasperMaster=null;
+	String subsubReportFileName=null;
+	String reporte;
 	
 	@Override
 	public void generarReporteZonas() {
@@ -42,41 +61,39 @@ public class ReportesServiceImpl implements ReportesService{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-	    	masterReportFileName=path+"Invoice.jrxml";
-	    	subReportFileName=path+"pedidos.jrxml";
-	    	jasperMaster=path+"Invoice.jasper";
+	    	masterReportFileName=path+"RZona.jrxml";
+	    	subReportFileName=path+"SubZonas.jrxml";
+	    	subsubReportFileName=path+"REscuelas.jrxml";
+	    	jasperMaster=path+"RZona.jasper";
 	    	destFile=path+"reporte.pdf";
     	}
-    	//try {
-    		/*Venta v=ventaService.consultarVenta(folio);
-    		VentaReportModel venta=ventaReportC.entity2model(v);
-    		venta.setPedidos(ventaReportC.entity2modelPedidos(hvService.consultarByVenta(folio)));
-    		venta.Calcular(v.getComisionProfesor());
-    		ArrayList<VentaReportModel> ventas=new ArrayList<>();
-    		ventas.add(venta);
-    	    JRBeanCollectionDataSource sourceVenta = new JRBeanCollectionDataSource(ventas);
-    	    JRBeanCollectionDataSource sourcePedidos=new JRBeanCollectionDataSource(venta.getPedidos());
+    	try {
     		
+    	    JRBeanCollectionDataSource sourceVendedor = new JRBeanCollectionDataSource(vJPA.findAll());
+    	    
              ///Compile the master and sub report 
-            JasperReport jasperMasterReport = JasperCompileManager
-               .compileReport(masterReportFileName);
-    	    JasperCompileManager.compileReportToFile(subReportFileName,path+"pedidos.jasper");
-            JasperReport jasperSubReport = JasperCompileManager
-               .compileReport(subReportFileName);
+            
+            JasperCompileManager.compileReportToFile(subsubReportFileName,path+"REscuela.jasper");
+            JasperReport jasperSubReport2= JasperCompileManager.compileReport(subReportFileName);
+    	    
+            JasperCompileManager.compileReportToFile(subReportFileName,path+"SubZonas.jasper");
+            JasperReport jasperSubReport = JasperCompileManager.compileReport(subsubReportFileName);
+            
             JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
             
-            Map parameters = new HashMap();
-            parameters.put("subreportParameter", jasperSubReport);
+            //Map parameters = new HashMap();
+            //parameters.put("subreportParameter", jasperSubReport);
+            //parameters.put("subreportParameter2",jasperSubReport2);
             
             System.out.println("Llenando...");
-            reporte=JasperFillManager.fillReportToFile(jasperMaster,parameters,sourceVenta);
+            reporte=JasperFillManager.fillReportToFile(jasperMaster,null,sourceVendedor);
             if(reporte!=null){
             	JasperExportManager.exportReportToPdfFile(reporte, destFile);
-            }*/
-         //} catch (JRException e) {
+            }
+         } catch (JRException e) {
 
-           // e.printStackTrace();
-         //}
+            e.printStackTrace();
+         }
          System.out.println("Done filling!!! ...");
 	}
 

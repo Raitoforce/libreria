@@ -47,7 +47,16 @@ public class Zona implements Serializable {
 	public void setIdzona(String idzona) {
 		this.idzona = idzona;
 	}
+
 	
+	public List<Escuela> getEscuelas() {
+		return escuelas;
+	}
+
+	public void setEscuelas(List<Escuela> escuelas) {
+		this.escuelas = escuelas;
+	}
+
 	@PreRemove
 	@Cascade(org.hibernate.annotations.CascadeType.REMOVE)
 	public void Nullable(){

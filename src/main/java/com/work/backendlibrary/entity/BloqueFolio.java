@@ -1,10 +1,12 @@
 package com.work.backendlibrary.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.work.backendlibrary.Views.VentaView;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -14,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
 @Table(name="bloque_folio")
@@ -38,9 +41,10 @@ public class BloqueFolio implements Serializable {
 	@JoinColumn(name="vendedor_clave",referencedColumnName="clave", insertable=false, updatable=false)
 	private Vendedor vendedor;
 
-	/*//bi-directional many-to-one association to Venta
+	//bi-directional many-to-one association to Venta
+	@JsonIgnore
 	@OneToMany(mappedBy="bloqueFolio")
-	private List<Venta> ventas;*/
+	private List<Venta> ventas;
 
 	public BloqueFolio() {
 	}
@@ -85,6 +89,15 @@ public class BloqueFolio implements Serializable {
 	public void setVendedor(Vendedor vendedor) {
 		this.vendedor = vendedor;
 	}
+
+	public List<Venta> getVentas() {
+		return ventas;
+	}
+
+	public void setVentas(List<Venta> ventas) {
+		this.ventas = ventas;
+	}
+	
 }
 
 @Embeddable
@@ -129,4 +142,6 @@ class BloqueFolioPK implements Serializable {
 	public void setFolioIdfolios(int folioIdfolios) {
 		this.folioIdfolios = folioIdfolios;
 	}
+	
+	
 }

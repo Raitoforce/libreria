@@ -23,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -81,29 +80,31 @@ public class InventarioServiceImpl implements InventarioService{
     @Override
     public void confirmarPedido(int idHistorial, int entregados){
         HistorialVenta hv=hvService.consultarHistorialVenta(idHistorial);
-        hv.setEntregados(hv.getEntregados()+entregados);
-        hv.setFechaConfirmacion(new Timestamp(System.currentTimeMillis()));
-        for(Stock stock: stockService.consultarByLibro(hv.getLibro().getClave_producto())){
-        	if(entregados>0 && stock.getCantidad()>0){
-	        	if(stock.getStock_actual()>=entregados){
-	        		stock.setStock_actual(stock.getStock_actual()-entregados);
-	        		break;
-	        	}else{
-	        		entregados=entregados-stock.getStock_actual();
-	        		stock.setStock_actual(0);
-	        	}
-	        }else{
-	        		if(stock.getCantidad()>Math.abs(entregados)+stock.getStock_actual()){
-	        			stock.setStock_actual(stock.getStock_actual()-entregados);
-	        			break;
-	        		}else{
-	        			entregados=entregados+stock.getCantidad()-stock.getStock_actual();
-	        			stock.setStock_actual(stock.getCantidad());
-	        		}
+        if(hv.getPedidos()>hv.getEntregados()){
+	        hv.setEntregados(hv.getEntregados()+entregados);
+	        hv.setFechaConfirmacion(new Timestamp(System.currentTimeMillis()));
+	        for(Stock stock: stockService.consultarByLibro(hv.getLibro().getClave_producto())){
+	        	if(entregados>0 && stock.getCantidad()>0){
+		        	if(stock.getStock_actual()>=entregados){
+		        		stock.setStock_actual(stock.getStock_actual()-entregados);
+		        		break;
+		        	}else{
+		        		entregados=entregados-stock.getStock_actual();
+		        		stock.setStock_actual(0);
+		        	}
+		        }else{
+		        		if(stock.getCantidad()>Math.abs(entregados)+stock.getStock_actual()){
+		        			stock.setStock_actual(stock.getStock_actual()-entregados);
+		        			break;
+		        		}else{
+		        			entregados=entregados+stock.getCantidad()-stock.getStock_actual();
+		        			stock.setStock_actual(stock.getCantidad());
+		        		}
+		        }
+	        	stockService.updtateInventario(stock);
 	        }
-        	stockService.updtateInventario(stock);
+	        hvService.updateInventario(hv);
         }
-        hvService.updateInventario(hv);        
     }
 
     @Override

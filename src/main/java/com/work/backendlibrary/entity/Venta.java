@@ -3,7 +3,6 @@ package com.work.backendlibrary.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -70,6 +69,11 @@ public class Venta implements Serializable {
 	
 	@OneToMany(mappedBy="venta",cascade=CascadeType.ALL)
 	private List<HistorialVenta> pedidos;
+	
+	
+	@JsonView(VentaView.interno.class)
+	@OneToMany(mappedBy="venta")
+	private List<LideresComisiones> lideres;
 
 	public Venta(){
 	}
@@ -146,7 +150,15 @@ public class Venta implements Serializable {
 	public void setPedidos(List<HistorialVenta> pedidos) {
 		this.pedidos = pedidos;
 	}
-	
+
+	public List<LideresComisiones> getLideres() {
+		return lideres;
+	}
+
+	public void setLideres(List<LideresComisiones> lideres) {
+		this.lideres = lideres;
+	}
+
 	@PreRemove
 	public void Nullable(){
 		for (HistorialVenta pedido: pedidos){

@@ -40,6 +40,12 @@ public class CuentasPorCobrarController {
 		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 	
+	@GetMapping("/abonoRapido")
+	public ResponseEntity<String> abanonarFolio(@RequestParam("monto")int monto,@RequestParam("folio")String folio){
+		cpcService.abonoRapido(monto, folio);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+	}
+	
 	@GetMapping("/cuentasByProfesor")
 	public ResponseEntity<List<CuentasProfesorModel>> cuentaProfesor(@RequestParam("claveV")String claveV,@RequestParam("claveE")String claveE,@RequestParam("idtemporada")int idtemporada){
 		return new ResponseEntity<>(cpcService.consultaCuentaByProfesor(claveE, claveV, idtemporada),HttpStatus.OK);

@@ -10,6 +10,7 @@ public class ComisionModel {
 	private int temporada;
 	private int director;
 	private String vendedor;
+	private int lider;
 	
 	public int getIdComision() {
 		return idComision;
@@ -52,6 +53,12 @@ public class ComisionModel {
 	}
 	public void setVendedor(String vendedor) {
 		this.vendedor = vendedor;
+	}
+	public int getLider() {
+		return lider;
+	}
+	public void setLider(int lider) {
+		this.lider = lider;
 	}
 	
 }

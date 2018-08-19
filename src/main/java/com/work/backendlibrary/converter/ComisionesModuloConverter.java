@@ -9,12 +9,15 @@ import org.springframework.stereotype.Component;
 import com.work.backendlibrary.entity.Comision;
 import com.work.backendlibrary.entity.Director;
 import com.work.backendlibrary.entity.HistorialVenta;
+import com.work.backendlibrary.entity.Profesor;
 import com.work.backendlibrary.entity.Vendedor;
 import com.work.backendlibrary.entity.Venta;
 import com.work.backendlibrary.model.ComisionesVistaModel;
 import com.work.backendlibrary.repository.ComisionJPARepository;
 import com.work.backendlibrary.repository.DirectorJPARepository;
 import com.work.backendlibrary.repository.HistorialVentaJPARepository;
+import com.work.backendlibrary.repository.LideresComisionesJPARepository;
+import com.work.backendlibrary.repository.ProfesorJPARepository;
 import com.work.backendlibrary.repository.VendedorRepository;
 import com.work.backendlibrary.repository.VentaJPARepository;
 
@@ -40,6 +43,14 @@ public class ComisionesModuloConverter {
 	@Qualifier("historialVentaJPARepository")
 	HistorialVentaJPARepository hvJPA;
 	
+	@Autowired
+	@Qualifier("profesorJPARepository")
+	ProfesorJPARepository pJPA;
+	
+	@Autowired
+	@Qualifier("lideresComisionesJPARepository")
+	LideresComisionesJPARepository lcJPA;
+	
 	public ComisionesVistaModel cuentaVendedor(String clave,int idtemporada){
 		ComisionesVistaModel cvm=new ComisionesVistaModel();
 		Vendedor vendedor=vJPA.findByClave(clave);
@@ -55,10 +66,11 @@ public class ComisionesModuloConverter {
 					deuda+=(pedido.getPedidos()*venta.getComisionVendedor());
 			}
 		}
-		for (Comision comision : comisiones) {
-			total+=comision.getMonto();
+		if(comisiones!=null){
+			for (Comision comision : comisiones) {
+				total+=comision.getMonto();
+			}
 		}
-		
 		cvm.setNombre(vendedor.getNombre()+" "+vendedor.getApellidos());
 		cvm.setDeuda(deuda);
 		cvm.setPagado(total);
@@ -80,18 +92,50 @@ public class ComisionesModuloConverter {
 			for (HistorialVenta pedido : pedidos) {
 				if(pedido.getPrecioventa()!=0){
 					deuda+=(pedido.getPedidos()*venta.getComisionDirector());
-					System.out.println(deuda+":"+venta.getFolio()+":"+iddirector);
+					//System.out.println(deuda+":"+venta.getFolio()+":"+iddirector);
 				}
 			}
 		}
-		for (Comision comision : comisiones) {
-			total+=comision.getMonto();
+		if(comisiones!=null){
+			for (Comision comision : comisiones) {
+				total+=comision.getMonto();
+			}
 		}
 		cvm.setNombre(director.getNombre()+" "+director.getApellidos());
 		cvm.setDeuda(deuda);
 		cvm.setPagado(total);
 		cvm.setRestante(deuda-total);
 		cvm.setIddirector(iddirector);
+		return cvm;
+	}
+	
+	public ComisionesVistaModel cuentaLider(int idprofesor,int idtemporada){
+		ComisionesVistaModel cvm=new ComisionesVistaModel();
+		Profesor profesor = pJPA.findByIdprofesor(idprofesor);
+		List<Comision> comisiones=cJPA.findByTemporadaIdtemporadaAndDirectorIddirectorAndTipo(idtemporada, idprofesor,"LIDER");
+		List<Venta> ventas=ventaJPA.findByLideresLiderIdprofesorAndBloqueFolioFolioIdtemporadaIdtemporada(idprofesor, idtemporada);
+		float total=0;
+		float deuda=0;
+		List<HistorialVenta> pedidos=null;
+		for (Venta venta : ventas) {
+			pedidos=hvJPA.findByVentaFolio(venta.getFolio());
+			for (HistorialVenta pedido : pedidos) {
+				if(pedido.getPrecioventa()!=0){
+					deuda+=(pedido.getPedidos()*venta.getLiderComision(idprofesor));
+					System.out.println(deuda+":"+venta.getFolio()+":"+idprofesor);
+				}
+			}
+		}
+		if(comisiones!=null){
+			for (Comision comision : comisiones) {
+				total+=comision.getMonto();
+			}
+		}
+		cvm.setNombre(profesor.getNombre()+" "+profesor.getApellidos());
+		cvm.setDeuda(deuda);
+		cvm.setPagado(total);
+		cvm.setRestante(deuda-total);
+		cvm.setIdprofesor(idprofesor);
 		return cvm;
 	}
 }

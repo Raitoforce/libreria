@@ -1,7 +1,11 @@
 package com.work.backendlibrary.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+import com.work.backendlibrary.entity.LideresComisiones;
+import com.work.backendlibrary.entity.LideresComisionesPK;
+
 public class VentaModel {
 	private String folio;
 	private Date fecha;
@@ -13,6 +17,7 @@ public class VentaModel {
 	private String escuela_clave;
 	private int idprofesor;
 	private List<HistorialVentaModel> pedidos;
+	private List<Lider> lideres; 
 	
 	public String getFolio() {
 		return folio;
@@ -76,6 +81,13 @@ public class VentaModel {
 	public void setPedidos(List<HistorialVentaModel> pedidos) {
 		this.pedidos = pedidos;
 	}
+	
+	public List<Lider> getLideres() {
+		return lideres;
+	}
+	public void setLideres(List<Lider> lideres) {
+		this.lideres = lideres;
+	}
 	public VentaModel(String folio, Date fecha, float comision_vendedor, float comision_profesor,
 			float comision_director, String vendedor_clave, int idfolios, String escuela_clave, int idprofesor) {
 		super();
@@ -98,4 +110,35 @@ public class VentaModel {
 		}
 	}
 	
+	public List<LideresComisiones> lider2entity(){
+		List<LideresComisiones> lideresC = new ArrayList<>();
+		LideresComisiones liderC;
+		for (Lider lider : lideres) {
+			liderC = new LideresComisiones();
+			liderC.setComision_lider(lider.getComision_lider());
+			liderC.setId(new LideresComisionesPK(lider.getLider(),folio));
+			lideresC.add(liderC);
+		}
+		
+		return lideresC;
+	}
+}
+
+class Lider{
+	private int lider;
+	private float comision_lider;
+	
+	
+	public int getLider() {
+		return lider;
+	}
+	public void setLider(int lider) {
+		this.lider = lider;
+	}
+	public float getComision_lider() {
+		return comision_lider;
+	}
+	public void setComision_lider(float comision_lider) {
+		this.comision_lider = comision_lider;
+	}
 }

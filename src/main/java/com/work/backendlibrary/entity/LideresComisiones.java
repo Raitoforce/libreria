@@ -2,13 +2,15 @@ package com.work.backendlibrary.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
@@ -17,16 +19,19 @@ public class LideresComisiones implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId
+	@JsonIgnore
 	private LideresComisionesPK id;
 	
-	private int comision_lider;
+	private float comision_lider;
 
 	@ManyToOne
 	@JoinColumn(name="venta_folio",referencedColumnName="folio", insertable=false, updatable=false)
+	@JsonIgnore
 	private Venta venta;
 	
 	@ManyToOne
 	@JoinColumn(name="profesor",referencedColumnName="idprofesor", insertable=false, updatable=false)
+	@JsonIgnoreProperties("escuelas")
 	private Profesor lider;
 	
 	public LideresComisionesPK getId() {
@@ -37,42 +42,27 @@ public class LideresComisiones implements Serializable {
 		this.id = id;
 	}
 
-	public int getComision_lider() {
+	public float getComision_lider() {
 		return comision_lider;
 	}
 
-	public void setComision_lider(int comision_lider) {
+	public void setComision_lider(float comision_lider) {
 		this.comision_lider = comision_lider;
 	}
 
-	
-}
-
-
-@Embeddable
-class LideresComisionesPK implements Serializable{
-	private static final long serialVersionUID = 1L;
-
-	@Column(name="profesor", insertable=false, updatable=false)
-	private Integer profesor;
-	
-	@Column(name="venta_folio", insertable=false, updatable=false)
-	private String venta;
-
-	public int getProfesor() {
-		return profesor;
-	}
-
-	public void setProfesor(int profesor) {
-		this.profesor = profesor;
-	}
-
-	public String getVenta() {
+	public Venta getVenta() {
 		return venta;
 	}
 
-	public void setVenta(String venta) {
+	public void setVenta(Venta venta) {
 		this.venta = venta;
-	}	
-	
+	}
+
+	public Profesor getLider() {
+		return lider;
+	}
+
+	public void setLider(Profesor lider) {
+		this.lider = lider;
+	}
 }

@@ -94,6 +94,9 @@ public class CuentasPorCobrarServiceImpl implements CuentasPorCobrarService{
 			if(monto==0)break;
 			cpc=new CuentasPorCobrar();
 			cuentasPorCobrar= cpcJPA.findByHistorialVentaIdHistorial(historialVenta.getIdHistorial());
+			
+			//Ignorar resurtidos
+			if(historialVenta.getPedidos()<0)continue;
 			for (CuentasPorCobrar cuenta : cuentasPorCobrar) {
 				total+=cuenta.getPago();
 			} //Se hace la sumatoria
@@ -160,6 +163,42 @@ public class CuentasPorCobrarServiceImpl implements CuentasPorCobrarService{
 				cuentas.add(cvem);
 		}
 		return cuentas;
+	}
+
+	@Override
+	public void abonoRapido(float monto, String folio) {
+		// TODO Auto-generated method stub
+				List<CuentasPorCobrar> cuentasPorCobrar= null;
+				CuentasPorCobrar cpc = null;
+				Date currentDate=new Date(System.currentTimeMillis());
+				//Se obtienen los pedidos por folio solamente...
+				float total;
+				List<HistorialVenta> historialVentas = hvJPA.findByVentaFolio(folio);
+				for (HistorialVenta historialVenta : historialVentas){
+					total=0;
+					if(monto==0)break;
+					cpc=new CuentasPorCobrar();
+					cuentasPorCobrar= cpcJPA.findByHistorialVentaIdHistorial(historialVenta.getIdHistorial());
+					//Ignorar resurtidos
+					if(historialVenta.getPedidos()<0)continue;
+					
+					for (CuentasPorCobrar cuenta : cuentasPorCobrar) {
+						total+=cuenta.getPago();
+					} //Se hace la sumatoria
+					
+					if(total==historialVenta.CalcularDeuda())continue;
+					if(total+monto<=historialVenta.CalcularDeuda()){
+						cpc.setPago(monto);
+						monto=0;
+					}else{
+						monto-=(historialVenta.CalcularDeuda()-total);
+						cpc.setPago(historialVenta.CalcularDeuda()-total);
+					}
+					cpc.setFecha(currentDate);
+					cpc.setHistorialVenta(historialVenta); 
+					cpcJPA.save(cpc);
+				}
+		
 	}
 
 }

@@ -15,9 +15,10 @@ import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
+import javax.validation.constraints.Null;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.work.backendlibrary.Views.VentaView;
 
@@ -72,7 +73,8 @@ public class Venta implements Serializable {
 	
 	
 	@JsonView(VentaView.interno.class)
-	@OneToMany(mappedBy="venta")
+	@OneToMany(cascade= CascadeType.ALL,mappedBy="venta",orphanRemoval=true)
+	@JsonIgnoreProperties({"venta"})
 	private List<LideresComisiones> lideres;
 
 	public Venta(){
@@ -157,6 +159,17 @@ public class Venta implements Serializable {
 
 	public void setLideres(List<LideresComisiones> lideres) {
 		this.lideres = lideres;
+	}
+	
+	public float getLiderComision(int lider){
+		float comision = 0;
+		for (LideresComisiones lideresComisiones : lideres) {
+			if(lideresComisiones.getLider().getIdprofesor()==lider){
+				comision = lideresComisiones.getComision_lider();
+				break;
+			}
+		}
+		return comision;
 	}
 
 	@PreRemove

@@ -11,11 +11,13 @@ import com.work.backendlibrary.converter.ComisionConverter;
 import com.work.backendlibrary.converter.ComisionesModuloConverter;
 import com.work.backendlibrary.entity.Comision;
 import com.work.backendlibrary.entity.Director;
+import com.work.backendlibrary.entity.Profesor;
 import com.work.backendlibrary.entity.Vendedor;
 import com.work.backendlibrary.model.ComisionModel;
 import com.work.backendlibrary.model.ComisionesVistaModel;
 import com.work.backendlibrary.repository.ComisionJPARepository;
 import com.work.backendlibrary.repository.DirectorJPARepository;
+import com.work.backendlibrary.repository.ProfesorJPARepository;
 import com.work.backendlibrary.repository.VendedorRepository;
 import com.work.backendlibrary.service.ComisionService;
 
@@ -41,6 +43,10 @@ public class ComisionServiceImpl implements ComisionService{
 	@Autowired
 	@Qualifier("directorJPARepository")
 	DirectorJPARepository dJPA;
+	
+	@Autowired
+	@Qualifier("profesorJPARepository")
+	ProfesorJPARepository pJPA;
 
 	@Override
 	public List<Comision> listAllComisiones() {
@@ -117,6 +123,32 @@ public class ComisionServiceImpl implements ComisionService{
 		ComisionesVistaModel cvm=null;
 		for (Director director : directores) {
 			cvm=consultarComisionesByDirector(director.getIddirector(),idtemporada);
+			if(cvm.getDeuda()!=0)
+				cvms.add(cvm);
+		}
+		return cvms;
+	}
+
+	@Override
+	public Comision addComisionLider(ComisionModel cm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ComisionesVistaModel consultarComisionesByLider(int idprofesor, int idtemporada) {
+		// TODO Auto-generated method stub
+		return cmc.cuentaLider(idprofesor, idtemporada);
+	}
+
+	@Override
+	public List<ComisionesVistaModel> consultarComisionesByLideres(int idtemporada) {
+		// TODO Auto-generated method stub
+		List<Profesor> profesores=pJPA.findAll();
+		List<ComisionesVistaModel> cvms= new ArrayList<>();
+		ComisionesVistaModel cvm=null;
+		for (Profesor profesors : profesores) {
+			cvm=consultarComisionesByLider(profesors.getIdprofesor(), idtemporada);
 			if(cvm.getDeuda()!=0)
 				cvms.add(cvm);
 		}

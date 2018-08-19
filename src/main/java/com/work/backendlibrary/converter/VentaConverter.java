@@ -51,6 +51,9 @@ public class VentaConverter {
 		v.setComisionVendedor(vm.getComision_vendedor());
 		v.setFecha(vm.getFecha());
 		v.setFolio(vm.getFolio());
+		if(vm.getLideres()!=null){
+			v.setLideres(vm.lider2entity());
+		}
 		if(vm.getPedidos()!=null)
 			v.setPedidos(hvConverter.model2ListEntity(vm.getPedidos(), v));
 		return v;

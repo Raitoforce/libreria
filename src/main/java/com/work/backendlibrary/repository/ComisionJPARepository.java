@@ -14,5 +14,6 @@ public interface ComisionJPARepository extends JpaRepository<Comision, Serializa
 	
 	public abstract List<Comision> findByTemporadaIdtemporadaAndDirectorIddirectorAndTipo(int idtemporada,int iddirector,String tipo);
 	public abstract List<Comision> findByTemporadaIdtemporadaAndVendedorClaveAndTipo(int idtemporada,String claveV,String tipo);
+	public abstract List<Comision> findByTemporadaIdtemporadaAndLiderLiderIdprofesorAndTipo(int idtemporada,int idlider,String tipo);
 
 }

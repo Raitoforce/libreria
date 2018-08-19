@@ -14,6 +14,8 @@ public interface CuentasPorCobrarService {
 	public abstract CuentasPorCobrar consultarCuenta(int idmovimiento);
 	
 	public abstract void insertarMonto(float monto,String claveV, String claveE,int idprofesor,int idtemporada);
+	
+	public abstract void abonoRapido(float monto,String folio);
 	public abstract float consultaCuentaByVenta(String folio,int idtemporada);
 	public abstract List<CuentasProfesorModel> consultaCuentaByProfesor(String claveE,String claveV,int idtemporada);
 	public abstract List<CuentasVEModel> consultaCuentaByEscuela(String claveV,int idtemporada);

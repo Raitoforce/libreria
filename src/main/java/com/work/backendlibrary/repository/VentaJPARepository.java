@@ -14,4 +14,5 @@ public interface VentaJPARepository extends JpaRepository<Venta, Serializable>{
 	public abstract Venta findByFolioAndBloqueFolioVendedorClaveAndBloqueFolioFolioIdtemporada(String folio,String clave,int idtemporada);
 	public abstract List<Venta> findByBloqueFolioVendedorClaveAndBloqueFolioFolioIdtemporadaIdtemporada(String clave,int idtemporada);
 	public abstract List<Venta> findByEscuelaDirectorIddirectorAndBloqueFolioFolioIdtemporadaIdtemporada(int iddirector,int idtemporada);
+	public abstract List<Venta> findByLideresLiderIdprofesorAndBloqueFolioFolioIdtemporadaIdtemporada(int idprofesor,int idtemporada);
 }

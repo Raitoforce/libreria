@@ -15,6 +15,7 @@ import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Null;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -76,6 +77,18 @@ public class Venta implements Serializable {
 	@OneToMany(cascade= CascadeType.ALL,mappedBy="venta",orphanRemoval=true)
 	@JsonIgnoreProperties({"venta"})
 	private List<LideresComisiones> lideres;
+	
+	@JsonView(VentaView.interno.class)
+	@Transient
+	private float deuda;
+	
+	@JsonView(VentaView.interno.class)
+	@Transient 
+	private float pagado;
+	
+	@JsonView(VentaView.interno.class)
+	@Transient
+	private float restante;
 
 	public Venta(){
 	}
@@ -161,6 +174,30 @@ public class Venta implements Serializable {
 		this.lideres = lideres;
 	}
 	
+	public float getDeuda() {
+		return deuda;
+	}
+
+	public void setDeuda(float deuda) {
+		this.deuda = deuda;
+	}
+
+	public float getPagado() {
+		return pagado;
+	}
+
+	public void setPagado(float pagado) {
+		this.pagado = pagado;
+	}
+
+	public float getRestante() {
+		return restante;
+	}
+
+	public void setRestante(float restante) {
+		this.restante = restante;
+	}
+
 	public float getLiderComision(int lider){
 		float comision = 0;
 		for (LideresComisiones lideresComisiones : lideres) {
@@ -177,6 +214,30 @@ public class Venta implements Serializable {
 		for (HistorialVenta pedido: pedidos){
 			pedido=null;
 		}
+	}
+	
+	public void calcularDeuda(){
+		float total = 0;
+		for (HistorialVenta pedido :getPedidos()) {
+			total+=pedido.CalcularDeuda();
+		}
+		this.setDeuda(total);
+	}
+	
+	public void calcularPagado(){
+		float total = 0;
+		for (HistorialVenta pedido :getPedidos()) {
+			for (CuentasPorCobrar cpc:pedido.getCuentas()) {
+				total+=cpc.getPago();
+			}
+		}
+		this.setPagado(total);
+	}
+	
+	public void calcularAll(){
+		this.calcularDeuda();
+		this.calcularPagado();
+		this.setRestante(this.getDeuda()-this.getPagado());
 	}
 	
 }

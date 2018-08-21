@@ -70,9 +70,9 @@ public class HistorialVenta implements Serializable {
 	@JoinColumn(name="venta_folio",referencedColumnName="folio")
 	private Venta venta;
 	
-//	@JsonIgnore
-//	@OneToMany(mappedBy="historialVenta")
-//	private List<CuentasPorCobrar> cuentas;
+	@JsonIgnore
+	@OneToMany(mappedBy="historialVenta")
+	private List<CuentasPorCobrar> cuentas;
 	
 	@JsonView(VentaView.Todo.class)
 	@ManyToOne
@@ -172,12 +172,26 @@ public class HistorialVenta implements Serializable {
 		this.precioventa = precioventa;
 	}
 	
+	public List<CuentasPorCobrar> getCuentas() {
+		return cuentas;
+	}
+
+	public void setCuentas(List<CuentasPorCobrar> cuentas) {
+		this.cuentas = cuentas;
+	}
+
 	public float CalcularDeuda(){
 		float subtotalC=0;
 		float descuentoC=0;
+		float descLider = 0;
 		if(this.getPrecioventa()!=0){
 				subtotalC+=this.getPrecioventa()*this.getPedidos();
 				descuentoC+=this.getPedidos()*this.getVenta().getComisionProfesor();
+				for(LideresComisiones lider:getVenta().getLideres()){
+					descLider+=this.getVenta().getLiderComision(lider.getLider().getIdprofesor());
+				}
+				descuentoC+=descLider;
+				descLider = 0;
 		}
 		return subtotalC-descuentoC;
 	}

@@ -27,7 +27,11 @@ public class VentaServiceImpl implements VentaService{
 	@Override
 	public List<Venta> listAllVentas() {
 		// TODO Auto-generated method stub
-		return ventaJPA.findAll();
+		List<Venta> ventas = ventaJPA.findAll();
+		for (Venta venta : ventas) {
+			venta.calcularAll();
+		}
+		return ventas;
 	}
 
 	@Override

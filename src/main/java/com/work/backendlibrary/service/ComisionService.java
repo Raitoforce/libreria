@@ -25,4 +25,9 @@ public interface ComisionService {
 	public abstract List<ComisionesVistaModel> consultarComisionesByVendedors(int idtemporada);
 	public abstract List<ComisionesVistaModel> consultarComisionesByDirectors(int idtemporada);
 	public abstract List<ComisionesVistaModel> consultarComisionesByLideres(int idtemporada);
+	
+	public abstract List<Comision> consultarHistorialComisionesByVendedors(int idtemporada,String clave);
+	public abstract List<Comision> consultarHistorialComisionesByDirectors(int idtemporada,int iddirector);
+	public abstract List<Comision> consultarHistorialComisionesByLideres(int idtemporada,int idprofesor);
+
 }

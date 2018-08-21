@@ -16,23 +16,29 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.springframework.lang.Nullable;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.work.backendlibrary.Views.VentaView;
+
 @Entity
 @Table(name="comision")
 public class Comision implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="idComision")
 	private int idComision;
 	
+	@JsonView(VentaView.comision.class)
 	@Column(name="fecha")
 	//@Temporal(TemporalType.DATE)
 	private Date fecha;
-
+	
+	@JsonView(VentaView.comision.class)
 	@Column(name="monto")
 	private float monto;
-
+	
+	@JsonView(VentaView.comision.class)
 	@Column(name="tipo")
 	private String tipo;
 
@@ -49,6 +55,7 @@ public class Comision implements Serializable {
 		private Director director;
 
 	//bi-directional many-to-one association to Vendedor
+	@JsonView(VentaView.comision.class)
 	@ManyToOne
 	@Nullable
 	@JoinColumn(name="vendedor_clave")

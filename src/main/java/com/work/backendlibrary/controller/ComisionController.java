@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.work.backendlibrary.Views.VentaView;
 import com.work.backendlibrary.entity.Comision;
 import com.work.backendlibrary.model.ComisionModel;
 import com.work.backendlibrary.model.ComisionesVistaModel;
@@ -94,6 +96,25 @@ public class ComisionController {
 	public ResponseEntity<List<ComisionesVistaModel>> getComisionesLider(@RequestParam int idtemporada){
 		List<ComisionesVistaModel> comisiones = comisionService.consultarComisionesByLideres(idtemporada);
 		return new ResponseEntity<List<ComisionesVistaModel>>(comisiones,HttpStatus.OK);
+	}
+	
+	@JsonView(VentaView.comision.class)
+	@GetMapping("/comisionesVendedor")
+	public ResponseEntity<List<Comision>> getComisionesHVendedor(@RequestParam int idtemporada,@RequestParam String clave){
+		List<Comision> comisiones = comisionService.consultarHistorialComisionesByVendedors(idtemporada, clave);
+		return new ResponseEntity<List<Comision>>(comisiones,HttpStatus.OK);
+	}
+	
+	@GetMapping("/comisionesDirector")
+	public ResponseEntity<List<Comision>> getComisionesHDirector(@RequestParam int idtemporada,@RequestParam int iddirector){
+		List<Comision> comisiones = comisionService.consultarHistorialComisionesByDirectors(idtemporada, iddirector);
+		return new ResponseEntity<List<Comision>>(comisiones,HttpStatus.OK);
+	}
+	
+	@GetMapping("/comisionesLider")
+	public ResponseEntity<List<Comision>> getComisionesHLider(@RequestParam int idtemporada,@RequestParam int idlider){
+		List<Comision> comisiones = comisionService.consultarHistorialComisionesByLideres(idtemporada, idlider);
+		return new ResponseEntity<List<Comision>>(comisiones,HttpStatus.OK);
 	}
 	
 }

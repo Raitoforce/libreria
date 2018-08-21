@@ -155,4 +155,22 @@ public class ComisionServiceImpl implements ComisionService{
 		return cvms;
 	}
 
+	@Override
+	public List<Comision> consultarHistorialComisionesByVendedors(int idtemporada, String clave) {
+		// TODO Auto-generated method stub
+		return comisionJPA.findByTemporadaIdtemporadaAndVendedorClaveAndTipo(idtemporada,clave,"VENDEDOR");
+	}
+
+	@Override
+	public List<Comision> consultarHistorialComisionesByDirectors(int idtemporada, int iddirector) {
+		// TODO Auto-generated method stub
+		return comisionJPA.findByTemporadaIdtemporadaAndDirectorIddirectorAndTipo(idtemporada,iddirector,"DIRECTOR");
+	}
+
+	@Override
+	public List<Comision> consultarHistorialComisionesByLideres(int idtemporada, int idprofesor) {
+		// TODO Auto-generated method stub
+		return comisionJPA.findByTemporadaIdtemporadaAndLiderLiderIdprofesorAndTipo(idtemporada, idprofesor,"LIDER");
+	}
+
 }

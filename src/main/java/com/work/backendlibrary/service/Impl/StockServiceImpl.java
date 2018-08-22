@@ -1,8 +1,10 @@
 package com.work.backendlibrary.service.Impl;
 
 import com.work.backendlibrary.converter.StockConverter;
+import com.work.backendlibrary.entity.Libro;
 import com.work.backendlibrary.entity.Stock;
 import com.work.backendlibrary.model.StockModel;
+import com.work.backendlibrary.repository.LibroJPARepository;
 import com.work.backendlibrary.repository.StockJPARepository;
 import com.work.backendlibrary.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,10 @@ public class StockServiceImpl implements StockService {
     @Autowired
     @Qualifier("stockConverter")
     StockConverter stockConverter;
+    
+    @Autowired
+    @Qualifier("libroJPARepository")
+    LibroJPARepository libroJPA;
 
     @Override
     public List<Stock> listAllStock() {

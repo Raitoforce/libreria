@@ -31,6 +31,13 @@ public class StockController {
         return new ResponseEntity<Stock>(stock,HttpStatus.OK);
 
     }
+    
+    @GetMapping("/libro={libro}")
+    public ResponseEntity<List<Stock>> consultarStock(@PathVariable("libro")String libro){
+    	List<Stock> stocks=stockService.consultarByLibro(libro);
+        return new ResponseEntity<List<Stock>>(stocks,HttpStatus.OK);
+
+    }
 
     @PostMapping(path="/nuevo",consumes="application/json")
     public ResponseEntity<String> insertarStock(@RequestBody StockModel stockModel){

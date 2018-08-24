@@ -112,7 +112,7 @@ public class ComisionesModuloConverter {
 	public ComisionesVistaModel cuentaLider(int idprofesor,int idtemporada){
 		ComisionesVistaModel cvm=new ComisionesVistaModel();
 		Profesor profesor = pJPA.findByIdprofesor(idprofesor);
-		List<Comision> comisiones=cJPA.findByTemporadaIdtemporadaAndDirectorIddirectorAndTipo(idtemporada, idprofesor,"LIDER");
+		List<Comision> comisiones=cJPA.findByTemporadaIdtemporadaAndLiderLiderIdprofesorAndTipo(idtemporada, idprofesor,"LIDER");
 		List<Venta> ventas=ventaJPA.findByLideresLiderIdprofesorAndBloqueFolioFolioIdtemporadaIdtemporada(idprofesor, idtemporada);
 		float total=0;
 		float deuda=0;

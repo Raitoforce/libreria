@@ -10,6 +10,5 @@ import com.work.backendlibrary.entity.LideresComisiones;
 
 @Repository("lideresComisionesJPARepository")
 public interface LideresComisionesJPARepository extends JpaRepository<LideresComisiones,Serializable>{
-	
-	
+	public abstract LideresComisiones findByIdProfesorAndIdVenta(int idprofesor,String folio);	
 }

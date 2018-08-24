@@ -130,9 +130,9 @@ public class ComisionServiceImpl implements ComisionService{
 	}
 
 	@Override
-	public Comision addComisionLider(ComisionModel cm) {
+	public void addComisionLider(ComisionModel cm) {
 		// TODO Auto-generated method stub
-		return null;
+		cc.entity2modelP(cm);
 	}
 
 	@Override

@@ -40,4 +40,5 @@ public interface HistorialVentaJPARepository extends JpaRepository<HistorialVent
 	@Query("delete from HistorialVenta hventa where venta.folio=?1 and hventa.numresurtido= ?2")
 	public abstract void DeleteByNumresurtidoAndFolioVenta(String folio,int numresurtido);
 	
+	public abstract List<HistorialVenta> findByVentaBloqueFolioFolioIdtemporadaIdtemporadaAndVentaLideresLiderIdprofesor(int idtemporada,int idlider);
 }

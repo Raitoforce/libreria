@@ -195,6 +195,4 @@ public class HistorialVenta implements Serializable {
 		}
 		return subtotalC-descuentoC;
 	}
-	
-	
 }

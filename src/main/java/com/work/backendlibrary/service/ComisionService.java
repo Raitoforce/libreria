@@ -16,7 +16,7 @@ public interface ComisionService {
 	
 	public abstract Comision addComisionVendedor(ComisionModel cm);
 	public abstract Comision addComisionDirector(ComisionModel cm);
-	public abstract Comision addComisionLider(ComisionModel cm);
+	public abstract void addComisionLider(ComisionModel cm);
 	
 	public abstract ComisionesVistaModel consultarComisionesByVendedor(String clave,int idtemporada);
 	public abstract ComisionesVistaModel consultarComisionesByDirector(int iddirector,int idtemporada);

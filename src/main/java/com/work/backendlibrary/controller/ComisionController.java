@@ -74,11 +74,11 @@ public class ComisionController {
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
-	/*@PostMapping(path="/abonarLider",consumes="application/json")
+	@PostMapping(path="/abonarLider",consumes="application/json")
 	public ResponseEntity<String> abonarLider(@RequestBody ComisionModel comision){
 		comisionService.addComisionLider(comision);
 		return new ResponseEntity<String>(HttpStatus.OK);
-	}*/
+	}
 	
 	@GetMapping("/comisionVendedor")
 	public ResponseEntity<List<ComisionesVistaModel>> getComisionesVendedor(@RequestParam int idtemporada){

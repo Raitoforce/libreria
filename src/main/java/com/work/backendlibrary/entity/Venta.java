@@ -208,6 +208,17 @@ public class Venta implements Serializable {
 		}
 		return comision;
 	}
+	
+	public float getLiderComisionTotal(int lider){
+		float comision = 0;
+		for (HistorialVenta pedido : pedidos){
+			if(pedido.getPrecioventa()!=0){
+				comision+= pedido.getPedidos()*this.getLiderComision(lider);
+			}
+		}
+		return comision;
+	}
+
 
 	@PreRemove
 	public void Nullable(){

@@ -184,7 +184,7 @@ public class HistorialVenta implements Serializable {
 		float subtotalC=0;
 		float descuentoC=0;
 		float descLider = 0;
-		if(this.getPrecioventa()!=0){
+		if(this.getVenta()!=null && this.getPrecioventa()!=0){
 				subtotalC+=this.getPrecioventa()*this.getPedidos();
 				descuentoC+=this.getPedidos()*this.getVenta().getComisionProfesor();
 				for(LideresComisiones lider:getVenta().getLideres()){

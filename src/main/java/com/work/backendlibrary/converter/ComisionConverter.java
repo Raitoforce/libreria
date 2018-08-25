@@ -27,6 +27,8 @@ import com.work.backendlibrary.repository.VentaJPARepository;
 
 @Component("comisionConverter")
 public class ComisionConverter {
+	private float restante=0;
+	
 	@Autowired
 	@Qualifier("temporadaJPARepository")
 	TemporadaJPARepository tJPA;
@@ -90,26 +92,32 @@ public class ComisionConverter {
 		float monto=0;
 		while(cm.getMonto()!=0){
 			c=new Comision();
-			venta = obtenerVentaActual(cm.getLider(), cm.getTemporada());
+			venta = obtenerVentaActual(cm.getLider(), cm.getTemporada(),cm.getMonto());
 			if(venta==null)break;
 			c.setTemporada(t);
-			if(cm.getMonto()<=venta.getLiderComisionTotal(cm.getLider())){
-				monto=cm.getMonto();
-				cm.setMonto(0);
+			if(restante==0){
+				if(cm.getMonto()<=venta.getLiderComisionTotal(cm.getLider())){
+					monto=cm.getMonto();
+					cm.setMonto(0);
+				}else{
+					monto=venta.getLiderComisionTotal(cm.getLider());
+					cm.setMonto(cm.getMonto()-venta.getLiderComisionTotal(cm.getLider()));
+				}
+				c.setMonto(monto);
 			}else{
-				monto=venta.getLiderComisionTotal(cm.getLider());
-				cm.setMonto(cm.getMonto()-venta.getLiderComisionTotal(cm.getLider()));
+				c.setMonto(restante);
+				cm.setMonto(cm.getMonto()-restante);
 			}
-			c.setMonto(monto);
 			c.setTipo("LIDER");
 			lider = clJPA.findByIdProfesorAndIdVenta(cm.getLider(), venta.getFolio());
 			c.setLider(lider);
 			c.setFecha(new Date(System.currentTimeMillis()));
 			cmJPA.save(c);
+			restante=0;
 		}
 	}
 	
-	public Venta obtenerVentaActual(int idprofesor,int idtemporada){
+	public Venta obtenerVentaActual(int idprofesor,int idtemporada,float amount){
 		float totalC=0;
 		float totalP=0;
 		Venta ventar=null;
@@ -120,8 +128,19 @@ public class ComisionConverter {
 			totalP+=venta.getLiderComisionTotal(idprofesor);
 			ventar = venta;
 			if(venta.getLiderComisionTotal(idprofesor)==0)continue; //No asignar a las ventas 0
-			if (totalC<totalP) {
-				break;
+			if(amount>totalC){
+				if (totalC<totalP){
+					break;
+				}
+			}else{
+				if (totalC+amount<=totalP){
+					break;
+				}else{
+					if(totalC-totalP<0){
+						restante=totalP-totalC;
+						break;
+					}
+				}
 			}
 		}
 		return ventar;

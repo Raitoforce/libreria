@@ -81,6 +81,47 @@ public class ReportesServiceImpl implements ReportesService{
             
             JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
             
+            System.out.println("Llenando...");
+            reporte=JasperFillManager.fillReportToFile(jasperMaster,null,sourceVendedor);
+            if(reporte!=null){
+            	JasperExportManager.exportReportToPdfFile(reporte, destFile);
+            }
+         } catch (JRException e) {
+
+            e.printStackTrace();
+         }
+         System.out.println("Done filling!!! ...");
+	}
+
+	@Override
+	public void generarReporteInventario() {
+		if(path==null){
+	    	try {
+	    		path= reporte_model.getURL().getPath().replaceAll("%20"," ");
+				path=path.replaceAll("RZona.jrxml","");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    	masterReportFileName=path+"RZona.jrxml";
+	    	subReportFileName=path+"SubZonas.jrxml";
+	    	subsubReportFileName=path+"REscuelas.jrxml";
+	    	jasperMaster=path+"RZona.jasper";
+	    	destFile=path+"reporte.pdf";
+    	}
+    	try {
+    		
+    	    JRBeanCollectionDataSource sourceVendedor = new JRBeanCollectionDataSource(vJPA.findAll());
+    	    
+             ///Compile the master and sub report 
+            
+            JasperCompileManager.compileReportToFile(subsubReportFileName,path+"REscuela.jasper");
+            JasperReport jasperSubReport2= JasperCompileManager.compileReport(subReportFileName);
+    	    
+            JasperCompileManager.compileReportToFile(subReportFileName,path+"SubZonas.jasper");
+            JasperReport jasperSubReport = JasperCompileManager.compileReport(subsubReportFileName);
+            
+            JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
+            
             //Map parameters = new HashMap();
             //parameters.put("subreportParameter", jasperSubReport);
             //parameters.put("subreportParameter2",jasperSubReport2);

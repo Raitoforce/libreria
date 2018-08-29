@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
+import com.work.backendlibrary.converter.InventarioConverterRConverter;
 import com.work.backendlibrary.entity.Venta;
 import com.work.backendlibrary.model.VentaReportModel;
 import com.work.backendlibrary.repository.EscuelaJPARepository;
@@ -39,6 +40,10 @@ public class ReportesServiceImpl implements ReportesService{
 	@Autowired
 	@Qualifier("zonaJPARepository")
 	ZonaJPARepository zJPA;
+	
+	@Autowired
+	@Qualifier("inventarioConverterRConverter")
+	InventarioConverterRConverter icrc;
 	
 	@Value("classpath:/RZona.jrxml")
 	private Resource reporte_model;
@@ -102,23 +107,19 @@ public class ReportesServiceImpl implements ReportesService{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-	    	masterReportFileName=path+"RZona.jrxml";
-	    	subReportFileName=path+"SubZonas.jrxml";
-	    	subsubReportFileName=path+"REscuelas.jrxml";
-	    	jasperMaster=path+"RZona.jasper";
+	    	masterReportFileName=path+"ReporteInventario.jrxml";
+	    	subReportFileName=path+"StocksR.jrxml";
+	    	jasperMaster=path+"ReporteInventario.jasper";
 	    	destFile=path+"reporte.pdf";
     	}
     	try {
     		
-    	    JRBeanCollectionDataSource sourceVendedor = new JRBeanCollectionDataSource(vJPA.findAll());
+    	    JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(this.icrc.converterInventarioRModel());
     	    
              ///Compile the master and sub report 
-            
-            JasperCompileManager.compileReportToFile(subsubReportFileName,path+"REscuela.jasper");
-            JasperReport jasperSubReport2= JasperCompileManager.compileReport(subReportFileName);
     	    
-            JasperCompileManager.compileReportToFile(subReportFileName,path+"SubZonas.jasper");
-            JasperReport jasperSubReport = JasperCompileManager.compileReport(subsubReportFileName);
+            JasperCompileManager.compileReportToFile(subReportFileName,path+"StocksR.jasper");
+            JasperReport jasperSubReport = JasperCompileManager.compileReport(subReportFileName);
             
             JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
             
@@ -127,7 +128,7 @@ public class ReportesServiceImpl implements ReportesService{
             //parameters.put("subreportParameter2",jasperSubReport2);
             
             System.out.println("Llenando...");
-            reporte=JasperFillManager.fillReportToFile(jasperMaster,null,sourceVendedor);
+            reporte=JasperFillManager.fillReportToFile(jasperMaster,null,source);
             if(reporte!=null){
             	JasperExportManager.exportReportToPdfFile(reporte, destFile);
             }

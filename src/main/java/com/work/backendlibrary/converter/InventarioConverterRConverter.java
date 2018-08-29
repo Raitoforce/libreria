@@ -12,7 +12,7 @@ import com.work.backendlibrary.entity.Stock;
 import com.work.backendlibrary.model.InventarioReporteModel;
 import com.work.backendlibrary.service.LibroService;
 
-@Component
+@Component("inventarioConverterRConverter")
 public class InventarioConverterRConverter {
 	@Autowired
 	@Qualifier("libroServiceImpl")
@@ -22,6 +22,7 @@ public class InventarioConverterRConverter {
 		List<InventarioReporteModel> irm= new ArrayList<>();
 		InventarioReporteModel ir=null;
 		for (Libro libro: libroService.listAllLibros()){
+			ir=new InventarioReporteModel();
 			ir.setClaveProducto(libro.getClave_producto());
 			ir.setTitulo(libro.getTitulo());
 			int cont=0;

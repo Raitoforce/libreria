@@ -1,8 +1,17 @@
 package com.work.backendlibrary.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +26,66 @@ public class ReportesController {
 	@Qualifier("reportesService")
 	ReportesService rService;
 	
+	@Value("classpath:/Invoice.jrxml")
+	private Resource reporte;
+	
 	@GetMapping("/pdfZona")
-	public ResponseEntity<String> crearPDFZona(){
+	public ResponseEntity<byte[]> crearPDFZona(){
 		rService.generarReporteZonas();
-		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+		String path="";
+		try {
+			path= reporte.getURL().getPath().replaceAll("%20"," ");
+			path=path.replaceAll("Invoice.jrxml","")+"reporte.pdf";
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.parseMediaType("application/pdf"));
+	    //String filename =path+"reporte.pdf";
+	    byte[] data=null;
+	    try {
+	    	File file = new File(path);
+	        data = new byte[(int) file.length()];
+	        InputStream is = new FileInputStream(file);
+	        is.read(data);
+	        is.close();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}  
+	    
+	    headers.setContentDispositionFormData(path,path);
+	    headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+		return new ResponseEntity<byte[]>(data,HttpStatus.ACCEPTED);
+	}
+	
+	@GetMapping("/inventario")
+	public ResponseEntity<byte[]> crearPDFInventario(){
+		rService.generarReporteInventario();
+		String path="";
+		try {
+			path= reporte.getURL().getPath().replaceAll("%20"," ");
+			path=path.replaceAll("Invoice.jrxml","")+"reporte.pdf";
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.parseMediaType("application/pdf"));
+	    //String filename =path+"reporte.pdf";
+	    byte[] data=null;
+	    try {
+	    	File file = new File(path);
+	        data = new byte[(int) file.length()];
+	        InputStream is = new FileInputStream(file);
+	        is.read(data);
+	        is.close();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}  
+	    
+	    headers.setContentDispositionFormData(path,path);
+	    headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+		return new ResponseEntity<byte[]>(data,HttpStatus.ACCEPTED);
 	}
 }

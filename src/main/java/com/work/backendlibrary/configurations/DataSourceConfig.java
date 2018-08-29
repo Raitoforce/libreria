@@ -5,13 +5,9 @@ import javax.sql.DataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @Component
 public class DataSourceConfig{
@@ -23,7 +19,7 @@ public class DataSourceConfig{
 		return DataSourceBuilder
 				.create()
 		        .username("clinitec")
-		        .password("huevos123")
+		        .password("webos123")
 		        .url("jdbc:mysql://localhost:3306/DB_libreraLozano")
 		        .driverClassName("com.mysql.jdbc.Driver")
 		        .build();

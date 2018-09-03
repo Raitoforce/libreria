@@ -8,12 +8,18 @@ import com.work.backendlibrary.Views.VentaView;
 import org.hibernate.annotations.Cascade;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "libro")
-public class Libro{
+public class Libro implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@JsonView(VentaView.interno.class)
 	@Id
 	@Column(name="clave_producto")

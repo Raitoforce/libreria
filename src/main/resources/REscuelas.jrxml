@@ -47,7 +47,7 @@
 				<text><![CDATA[CLAVE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="70" y="0" width="160" height="30" uuid="a061b715-26d8-45f4-a23c-fa0c03a935a6">
+				<reportElement positionType="FixRelativeToBottom" x="70" y="0" width="130" height="30" uuid="a061b715-26d8-45f4-a23c-fa0c03a935a6">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="45bb1c51-73c4-4c79-aadc-aa3566613582"/>
 				</reportElement>
 				<box>
@@ -63,7 +63,7 @@
 				<text><![CDATA[NOMBRE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="230" y="0" width="180" height="30" uuid="6b7cb6b4-1f5e-4ab1-938f-7943af60a814">
+				<reportElement positionType="FixRelativeToBottom" x="200" y="0" width="150" height="30" uuid="6b7cb6b4-1f5e-4ab1-938f-7943af60a814">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bfaceff3-a7cf-47fb-8b79-40193135f9c8"/>
 				</reportElement>
 				<box>
@@ -79,7 +79,7 @@
 				<text><![CDATA[DIRECCION]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="490" y="0" width="122" height="30" uuid="443dcc6b-9ae7-47ad-9d06-f335b1cdf773">
+				<reportElement positionType="FixRelativeToBottom" x="430" y="0" width="110" height="30" uuid="443dcc6b-9ae7-47ad-9d06-f335b1cdf773">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6987d7a8-1fc3-40a5-9698-b2278fa8c552"/>
 				</reportElement>
 				<box>
@@ -95,7 +95,7 @@
 				<text><![CDATA[MUNICIPIO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="410" y="0" width="80" height="30" uuid="9ebab11b-1ea1-42aa-bf2d-a4229427a893">
+				<reportElement positionType="FixRelativeToBottom" x="350" y="0" width="80" height="30" uuid="9ebab11b-1ea1-42aa-bf2d-a4229427a893">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6987d7a8-1fc3-40a5-9698-b2278fa8c552"/>
 				</reportElement>
 				<box>
@@ -129,7 +129,7 @@
 				<textFieldExpression><![CDATA[$F{clave}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="70" y="0" width="160" height="41" isPrintInFirstWholeBand="true" uuid="8c385075-5261-4eb5-9e70-24fb9877b5f2">
+				<reportElement x="70" y="0" width="130" height="41" isPrintInFirstWholeBand="true" uuid="8c385075-5261-4eb5-9e70-24fb9877b5f2">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="45bb1c51-73c4-4c79-aadc-aa3566613582"/>
 				</reportElement>
 				<box>
@@ -142,7 +142,7 @@
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="230" y="0" width="180" height="41" isPrintInFirstWholeBand="true" uuid="8233c45e-8508-49e5-aab4-759b6a9c43d6">
+				<reportElement x="200" y="0" width="150" height="41" isPrintInFirstWholeBand="true" uuid="8233c45e-8508-49e5-aab4-759b6a9c43d6">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bfaceff3-a7cf-47fb-8b79-40193135f9c8"/>
 				</reportElement>
 				<box>
@@ -157,7 +157,7 @@
 				<textFieldExpression><![CDATA[$F{direccion}+" "+$F{colonia}+" "+$F{codigoPostal}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="490" y="0" width="122" height="41" isPrintInFirstWholeBand="true" uuid="b3b8706e-4b4f-40a9-997e-a9ad35da0569">
+				<reportElement x="430" y="0" width="110" height="41" isPrintInFirstWholeBand="true" uuid="b3b8706e-4b4f-40a9-997e-a9ad35da0569">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6987d7a8-1fc3-40a5-9698-b2278fa8c552"/>
 				</reportElement>
 				<box>
@@ -172,7 +172,7 @@
 				<textFieldExpression><![CDATA[$F{municipio}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="410" y="0" width="80" height="41" isPrintInFirstWholeBand="true" uuid="0151bab3-86e8-4cb8-844e-f37843439163">
+				<reportElement x="350" y="0" width="80" height="41" isPrintInFirstWholeBand="true" uuid="0151bab3-86e8-4cb8-844e-f37843439163">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6987d7a8-1fc3-40a5-9698-b2278fa8c552"/>
 				</reportElement>
 				<box>

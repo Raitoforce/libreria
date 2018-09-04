@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -94,9 +95,9 @@ public class ReportesController {
 	@GetMapping("/Venta")
 	public ResponseEntity<byte[]> crearPDFVenta(@RequestParam(name="vendedor",defaultValue="")String vendedor,
 			@RequestParam(name="libro",defaultValue="")String libro,
-			@RequestParam(name="fechaInicial",required=false)Date fechaInicial,
-			@RequestParam(name="fechaFinal",required=false)Date fechaFinal,
-			@RequestParam(name="vendedor",defaultValue="0")int tipoPedido
+			@RequestParam(name="fechaInicial",required=false)@DateTimeFormat(pattern="yyyy-MM-dd") Date fechaInicial,
+			@RequestParam(name="fechaFinal",required=false)@DateTimeFormat(pattern="yyyy-MM-dd") Date fechaFinal,
+			@RequestParam(name="tipoPedido",defaultValue="0")int tipoPedido
 			){
 		rService.generarReporteVentas(vendedor, libro, fechaInicial, fechaFinal, tipoPedido);
 		String path="";

@@ -48,14 +48,15 @@ public class QueryDSLRepository {
 		}
 		
 		if(tipoPedido>0){
-			predicate = QHistorialVenta.historialVenta.pedidos.gt(0);
+			predicate = QHistorialVenta.historialVenta.tipoMovimiento.eq("SALIDA");
 			predicateBuilder.and(predicate);
 		}else{
 			if(tipoPedido<0){
-				predicate = QHistorialVenta.historialVenta.pedidos.lt(0);
+				predicate = QHistorialVenta.historialVenta.tipoMovimiento.eq("ENTRADA");
 				predicateBuilder.and(predicate);
 			}
 		}
+		
 		return query.select(qVenta)
 				.distinct()
 				.from(qVenta)

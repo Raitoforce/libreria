@@ -2,6 +2,7 @@ package com.work.backendlibrary.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -9,6 +10,10 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.work.backendlibrary.Views.VentaView;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.IndexColumn;
+import org.hibernate.annotations.ListIndexBase;
 import org.springframework.transaction.annotation.Transactional;
 
 @Entity
@@ -55,12 +60,12 @@ public class Escuela implements Serializable {
 			},
 			inverseJoinColumns={@JoinColumn(name="profesor_idprofesor",nullable = false , insertable = false, updatable = false)}
 			)
-	private List<Profesor> profesores;
+	private Set<Profesor> profesores;
 
 	public Escuela() {
 	}
 
-	public Escuela(String clave, String nombre, String codigoPostal, String direccion, String colonia, String email, String estado, String municipio, String telefono, String turno, Director director, List<Profesor> profesores) {
+	public Escuela(String clave, String nombre, String codigoPostal, String direccion, String colonia, String email, String estado, String municipio, String telefono, String turno, Director director, Set<Profesor> profesores) {
 		this.clave = clave;
 		this.nombre = nombre;
 		this.codigoPostal = codigoPostal;
@@ -77,11 +82,11 @@ public class Escuela implements Serializable {
 	
 //	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="idprofesor")
 	@JsonIgnoreProperties({"escuelas"})
-	public List<Profesor> getProfesores() {
+	public Set<Profesor> getProfesores() {
 		return profesores;
 	}
 
-	public void setProfesores(List<Profesor> profesores) {
+	public void setProfesores(Set<Profesor> profesores) {
 		this.profesores = profesores;
 	}
 

@@ -1,14 +1,20 @@
 package com.work.backendlibrary.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.work.backendlibrary.Views.VentaView;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.ListIndexBase;
 
 
 @Entity
@@ -60,6 +66,9 @@ public class Vendedor {
     
     @OneToMany(mappedBy="vendedor")
 	private List<BloqueFolio> bloqueFolios;
+    
+    @Transient
+    private List<Escuela> escuelas;
 
     public Vendedor() {
     }
@@ -210,6 +219,23 @@ public class Vendedor {
             Zona zona = (Zona) iterator.next();
             zona.setVendedor(null);
         }
+    }
+    
+    @JsonIgnore
+    public List<Escuela> getEscuelas(){
+    	List<Escuela> escuelas = new ArrayList<Escuela>();
+    	for(Zona zona:this.getZonas()){
+    		for(Escuela escuela:zona.getEscuelas()){
+    			escuelas.add(escuela);
+    		}
+    	}
+    	return escuelas;
+    }
+    
+    @JsonIgnore
+    public List<Escuela> getListEscuelas(){
+    	this.escuelas = getEscuelas();
+    	return this.escuelas;
     }
 
 }

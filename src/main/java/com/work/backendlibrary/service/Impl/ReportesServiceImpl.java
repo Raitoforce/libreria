@@ -93,7 +93,7 @@ public class ReportesServiceImpl implements ReportesService{
     	    }
              ///Compile the master and sub report 
             
-            JasperCompileManager.compileReportToFile(subsubReportFileName,path+"REscuela.jasper");
+            JasperCompileManager.compileReportToFile(subsubReportFileName,path+"REscuelas.jasper");
             JasperReport jasperSubReport2= JasperCompileManager.compileReport(subReportFileName);
     	    
             JasperCompileManager.compileReportToFile(subReportFileName,path+"SubZonas.jasper");
@@ -177,6 +177,47 @@ public class ReportesServiceImpl implements ReportesService{
     	    
             JasperCompileManager.compileReportToFile(subReportFileName,path+"ReportePedidos.jasper");
             JasperReport jasperSubReport = JasperCompileManager.compileReport(subReportFileName);
+            
+            JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
+            
+            System.out.println("Llenando...");
+            reporte=JasperFillManager.fillReportToFile(jasperMaster,null,source);
+            if(reporte!=null){
+            	JasperExportManager.exportReportToPdfFile(reporte, destFile);
+            }
+         } catch (JRException e) {
+
+            e.printStackTrace();
+         }
+         System.out.println("Done filling!!! ...");
+	}
+	
+	@Override
+	public void generarReporteCobranza(String clave,String escuela,int profesor) {
+		if(path==null){
+	    	try {
+	    		path= reporte_model.getURL().getPath().replaceAll("%20"," ");
+				path=path.replaceAll("RZona.jrxml","");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	    	masterReportFileName=path+"ReporteCobranza.jrxml";
+	    	subReportFileName=path+"ReporteEscuelas.jrxml";
+	    	subsubReportFileName=path+"ReporteProfesores.jrxml";
+	    	jasperMaster=path+"ReporteCobranza.jasper";
+	    	destFile=path+"reporte.pdf";
+    	}
+    	try {
+    		
+    	    JRBeanCollectionDataSource source = null;
+    	    source = new JRBeanCollectionDataSource(this.qDSLR.findVendedorByClaveEscuelaProfesor(clave, escuela, profesor)); 
+             ///Compile the master and sub report 
+            
+            JasperCompileManager.compileReportToFile(subsubReportFileName,path+"ReporteProfesores.jasper");
+            JasperReport jasperSubReport2= JasperCompileManager.compileReport(subReportFileName);
+    	    
+            JasperCompileManager.compileReportToFile(subReportFileName,path+"ReporteEscuelas.jasper");
+            JasperReport jasperSubReport = JasperCompileManager.compileReport(subsubReportFileName);
             
             JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
             

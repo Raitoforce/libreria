@@ -5,9 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.*;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.ListIndexBase;
 
 
 @Entity
@@ -25,7 +30,7 @@ public class Zona implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(mappedBy="zona",fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
-	List<Escuela> escuelas;
+	Set<Escuela> escuelas;
 
 
 	@JsonIgnoreProperties({"bloqueFolios","zonas"})
@@ -49,11 +54,11 @@ public class Zona implements Serializable {
 	}
 
 	
-	public List<Escuela> getEscuelas() {
+	public Set<Escuela> getEscuelas() {
 		return escuelas;
 	}
 
-	public void setEscuelas(List<Escuela> escuelas) {
+	public void setEscuelas(Set<Escuela> escuelas) {
 		this.escuelas = escuelas;
 	}
 

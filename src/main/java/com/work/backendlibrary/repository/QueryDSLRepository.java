@@ -11,9 +11,15 @@ import org.springframework.stereotype.Repository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
+import com.work.backendlibrary.entity.QBloqueFolio;
+import com.work.backendlibrary.entity.QEscuela;
 import com.work.backendlibrary.entity.QHistorialVenta;
 import com.work.backendlibrary.entity.QLibro;
+import com.work.backendlibrary.entity.QProfesor;
+import com.work.backendlibrary.entity.QVendedor;
 import com.work.backendlibrary.entity.QVenta;
+import com.work.backendlibrary.entity.QZona;
+import com.work.backendlibrary.entity.Vendedor;
 import com.work.backendlibrary.entity.Venta;
 
 @Repository("queryDSLRepository")
@@ -66,6 +72,42 @@ public class QueryDSLRepository {
 				//.on(predicateBuilder2)
 				.where(predicateBuilder)
 				.orderBy(qVenta.bloqueFolio.vendedor.clave.asc(),qVenta.folio.asc())
+				.fetch();
+	}
+	
+	public List<Vendedor> findVendedorByClaveEscuelaProfesor(String clave,String escuela,int profesor){
+		JPAQuery<Vendedor> query = new JPAQuery<Vendedor>(em);
+		BooleanBuilder predicateBuilder = new BooleanBuilder();
+		//BooleanBuilder predicateBuilder2 = new BooleanBuilder();
+		Predicate predicate=null;
+		//Filtro vendedor
+		if(!clave.isEmpty()){
+			predicate = QVendedor.vendedor.clave.eq(clave);
+			predicateBuilder.and(predicate);
+			System.out.println("Filtro de vendedor");
+		}
+		if(!escuela.isEmpty()){
+			predicate = QEscuela.escuela.clave.eq(escuela);
+			predicateBuilder.and(predicate);
+			System.out.println("Filtro de escuela");
+		}
+		if(profesor!=0){
+			predicate = QProfesor.profesor.idprofesor.eq(profesor);
+			predicateBuilder.and(predicate);
+			System.out.println("Filtro de profesor");
+		}
+		
+		return query.select(QVendedor.vendedor)
+				.distinct()
+				.from(QVendedor.vendedor)
+				.innerJoin(QVendedor.vendedor.zonas,QZona.zona)
+				.fetchJoin()
+				.innerJoin(QZona.zona.escuelas,QEscuela.escuela)
+				.fetchJoin()
+				.innerJoin(QEscuela.escuela.profesores,QProfesor.profesor)
+				.fetchJoin()
+				.where(predicateBuilder)
+				.orderBy(QVendedor.vendedor.clave.asc(),QEscuela.escuela.clave.asc(),QProfesor.profesor.idprofesor.asc())
 				.fetch();
 	}
 }

@@ -1,6 +1,7 @@
 package com.work.backendlibrary.converter;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -59,10 +60,10 @@ public class VentaConverter {
 		return v;
 	}
 	
-	public Venta appendPedidos(String folio,List<HistorialVentaModel> vpedidos){
+	public Venta appendPedidos(String folio,Set<HistorialVentaModel> vpedidos){
 		Venta venta=ventaService.consultarVenta(folio);
-		List<HistorialVenta> pedidosN=hvConverter.model2ListEntity(vpedidos, venta);
-		List<HistorialVenta> pedidos=venta.getPedidos();
+		Set<HistorialVenta> pedidosN=hvConverter.model2ListEntity(vpedidos, venta);
+		Set<HistorialVenta> pedidos=venta.getPedidos();
 		for (HistorialVenta pedido : pedidosN)
 			pedidos.add(pedido);
 		return venta;

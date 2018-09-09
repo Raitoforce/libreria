@@ -1,6 +1,7 @@
 package com.work.backendlibrary.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -49,7 +50,7 @@ public class VentaController {
 	}
 	
 	@PostMapping("resurtido")
-	public ResponseEntity<String> resurtidos(@RequestParam("folio") String folio,@RequestBody List<HistorialVentaModel> pedidos){
+	public ResponseEntity<String> resurtidos(@RequestParam("folio") String folio,@RequestBody Set<HistorialVentaModel> pedidos){
 		int num=hvService.getMaximo(folio)+1;
 		for (HistorialVentaModel pedido : pedidos) {
 			pedido.setNumresurtido(num);

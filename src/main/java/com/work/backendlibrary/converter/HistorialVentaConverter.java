@@ -2,7 +2,9 @@ package com.work.backendlibrary.converter;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,9 +42,9 @@ public class HistorialVentaConverter {
 		return hv;
 	}
 	
-	public List<HistorialVenta> model2ListEntity(List<HistorialVentaModel> hvms, Venta venta){
-		List<HistorialVenta> hvs=new ArrayList<>();
-		for (HistorialVentaModel historialVentam : hvms){
+	public Set<HistorialVenta> model2ListEntity(Set<HistorialVentaModel> vpedidos, Venta venta){
+		Set<HistorialVenta> hvs=new HashSet<>();
+		for (HistorialVentaModel historialVentam : vpedidos){
 			HistorialVenta hv=model2entity(historialVentam);
 			hv.setVenta(venta);
 			hvs.add(hv);

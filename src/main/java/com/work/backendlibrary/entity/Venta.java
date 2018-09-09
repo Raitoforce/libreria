@@ -2,7 +2,10 @@ package com.work.backendlibrary.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -72,7 +75,7 @@ public class Venta implements Serializable {
 	private Profesor profesor;
 	
 	@OneToMany(mappedBy="venta",cascade=CascadeType.ALL)
-	private List<HistorialVenta> pedidos;
+	private Set<HistorialVenta> pedidos;
 	
 	
 	@JsonView(VentaView.interno.class)
@@ -91,6 +94,10 @@ public class Venta implements Serializable {
 	@JsonView(VentaView.interno.class)
 	@Transient
 	private float restante;
+	
+	@Transient
+	@JsonIgnore
+	private Set<CuentasPorCobrar> cuentas=new HashSet<>();
 
 	public Venta(){
 	}
@@ -160,11 +167,11 @@ public class Venta implements Serializable {
 	}
 
 	@JsonIgnore
-	public List<HistorialVenta> getPedidos() {
+	public Set<HistorialVenta> getPedidos() {
 		return pedidos;
 	}
 
-	public void setPedidos(List<HistorialVenta> pedidos) {
+	public void setPedidos(Set<HistorialVenta> pedidos) {
 		this.pedidos = pedidos;
 	}
 
@@ -251,6 +258,13 @@ public class Venta implements Serializable {
 		this.calcularDeuda();
 		this.calcularPagado();
 		this.setRestante(this.getDeuda()-this.getPagado());
+	}
+	
+	public Set<CuentasPorCobrar> getCuentas(){
+		for (HistorialVenta historial : pedidos) {
+			cuentas.addAll(historial.getCuentas());
+		}
+		return this.cuentas;
 	}
 	
 }

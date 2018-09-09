@@ -1,7 +1,7 @@
 package com.work.backendlibrary.service.Impl;
 
 import java.util.List;
-
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -75,7 +75,7 @@ public class VentaServiceImpl implements VentaService{
 	}
 
 	@Override
-	public Venta appendPedidos(String folio,List<HistorialVentaModel> pedidos) {
+	public Venta appendPedidos(String folio,Set<HistorialVentaModel> pedidos) {
 		Venta venta=vConverter.appendPedidos(folio, pedidos);
 		return ventaJPA.save(venta);
 	}

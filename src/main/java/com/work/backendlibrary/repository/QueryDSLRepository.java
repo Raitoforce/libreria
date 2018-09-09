@@ -12,6 +12,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.work.backendlibrary.entity.QBloqueFolio;
+import com.work.backendlibrary.entity.QCuentasPorCobrar;
 import com.work.backendlibrary.entity.QEscuela;
 import com.work.backendlibrary.entity.QHistorialVenta;
 import com.work.backendlibrary.entity.QLibro;
@@ -75,7 +76,7 @@ public class QueryDSLRepository {
 				.fetch();
 	}
 	
-	public List<Vendedor> findVendedorByClaveEscuelaProfesor(String clave,String escuela,int profesor){
+	public List<Vendedor> findVendedorByClaveEscuelaProfesor(String clave,String escuela,int profesor,Date fechaInicial,Date fechaFinal){
 		JPAQuery<Vendedor> query = new JPAQuery<Vendedor>(em);
 		BooleanBuilder predicateBuilder = new BooleanBuilder();
 		//BooleanBuilder predicateBuilder2 = new BooleanBuilder();
@@ -87,27 +88,34 @@ public class QueryDSLRepository {
 			System.out.println("Filtro de vendedor");
 		}
 		if(!escuela.isEmpty()){
-			predicate = QEscuela.escuela.clave.eq(escuela);
+			predicate = QVenta.venta.escuela.clave.eq(escuela);
 			predicateBuilder.and(predicate);
 			System.out.println("Filtro de escuela");
 		}
 		if(profesor!=0){
-			predicate = QProfesor.profesor.idprofesor.eq(profesor);
+			predicate = QVenta.venta.profesor.idprofesor.eq(profesor);
 			predicateBuilder.and(predicate);
 			System.out.println("Filtro de profesor");
+		}
+		if(fechaInicial!=null && fechaFinal!=null){
+			predicate = QCuentasPorCobrar.cuentasPorCobrar.fecha.between(fechaInicial, fechaFinal);
+			predicateBuilder.and(predicate);
+			System.out.println("Filtro de fechas");
 		}
 		
 		return query.select(QVendedor.vendedor)
 				.distinct()
 				.from(QVendedor.vendedor)
-				.innerJoin(QVendedor.vendedor.zonas,QZona.zona)
+				.innerJoin(QVendedor.vendedor.bloqueFolios,QBloqueFolio.bloqueFolio)
 				.fetchJoin()
-				.innerJoin(QZona.zona.escuelas,QEscuela.escuela)
+				.innerJoin(QBloqueFolio.bloqueFolio.ventas,QVenta.venta)
 				.fetchJoin()
-				.innerJoin(QEscuela.escuela.profesores,QProfesor.profesor)
+				.innerJoin(QVenta.venta.pedidos,QHistorialVenta.historialVenta)
+				.fetchJoin()
+				.innerJoin(QHistorialVenta.historialVenta.cuentas,QCuentasPorCobrar.cuentasPorCobrar)
 				.fetchJoin()
 				.where(predicateBuilder)
-				.orderBy(QVendedor.vendedor.clave.asc(),QEscuela.escuela.clave.asc(),QProfesor.profesor.idprofesor.asc())
+				.orderBy(QVendedor.vendedor.clave.asc(),QVenta.venta.escuela.clave.asc(),QVenta.venta.profesor.idprofesor.asc())
 				.fetch();
 	}
 }

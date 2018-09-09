@@ -130,11 +130,11 @@ public class ReportesController {
 	@GetMapping("/Cobranza")
 	public ResponseEntity<byte[]> crearPDFCrobranza(@RequestParam(name="vendedor",defaultValue="")String vendedor,
 			@RequestParam(name="escuela",defaultValue="")String escuela,
-			//@RequestParam(name="fechaInicial",required=false)@DateTimeFormat(pattern="yyyy-MM-dd") Date fechaInicial,
-			//@RequestParam(name="fechaFinal",required=false)@DateTimeFormat(pattern="yyyy-MM-dd") Date fechaFinal,
+			@RequestParam(name="fechaInicial",required=false)@DateTimeFormat(pattern="yyyy-MM-dd") Date fechaInicial,
+			@RequestParam(name="fechaFinal",required=false)@DateTimeFormat(pattern="yyyy-MM-dd") Date fechaFinal,
 			@RequestParam(name="profesor",defaultValue="0")int profesor
 			){
-		rService.generarReporteCobranza(vendedor, escuela, profesor);;
+		rService.generarReporteCobranza(vendedor, escuela, profesor,fechaInicial, fechaFinal);
 		String path="";
 		try {
 			path= reporte.getURL().getPath().replaceAll("%20"," ");

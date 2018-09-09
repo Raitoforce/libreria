@@ -3,6 +3,8 @@ package com.work.backendlibrary.model;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import com.work.backendlibrary.entity.LideresComisiones;
 import com.work.backendlibrary.entity.LideresComisionesPK;
 
@@ -16,7 +18,7 @@ public class VentaModel {
 	private int idfolios;
 	private String escuela_clave;
 	private int idprofesor;
-	private List<HistorialVentaModel> pedidos;
+	private Set<HistorialVentaModel> pedidos;
 	private List<Lider> lideres; 
 	
 	public String getFolio() {
@@ -75,10 +77,10 @@ public class VentaModel {
 		
 	}
 	
-	public List<HistorialVentaModel> getPedidos() {
+	public Set<HistorialVentaModel> getPedidos() {
 		return pedidos;
 	}
-	public void setPedidos(List<HistorialVentaModel> pedidos) {
+	public void setPedidos(Set<HistorialVentaModel> pedidos) {
 		this.pedidos = pedidos;
 	}
 	

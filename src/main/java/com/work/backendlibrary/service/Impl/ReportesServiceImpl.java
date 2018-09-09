@@ -64,6 +64,7 @@ public class ReportesServiceImpl implements ReportesService{
 	String jasperMaster=null;
 	String subsubReportFileName=null;
 	String reporte;
+	String subFinalReportFileName;
 	
 	@Override
 	public void generarReporteZonas(String vendedor) {
@@ -135,7 +136,7 @@ public class ReportesServiceImpl implements ReportesService{
     	    
             JasperCompileManager.compileReportToFile(subReportFileName,path+"StocksR.jasper");
             JasperReport jasperSubReport = JasperCompileManager.compileReport(subReportFileName);
-            
+     
             JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
             
             //Map parameters = new HashMap();
@@ -193,7 +194,7 @@ public class ReportesServiceImpl implements ReportesService{
 	}
 	
 	@Override
-	public void generarReporteCobranza(String clave,String escuela,int profesor) {
+	public void generarReporteCobranza(String clave,String escuela,int profesor,Date fechaInicial, Date fechaFinal) {
 		if(path==null){
 	    	try {
 	    		path= reporte_model.getURL().getPath().replaceAll("%20"," ");
@@ -204,23 +205,24 @@ public class ReportesServiceImpl implements ReportesService{
 	    	masterReportFileName=path+"ReporteCobranza.jrxml";
 	    	subReportFileName=path+"ReporteEscuelas.jrxml";
 	    	subsubReportFileName=path+"ReporteProfesores.jrxml";
+	    	subFinalReportFileName=path+"ReporteCuentas.jrxml";
 	    	jasperMaster=path+"ReporteCobranza.jasper";
 	    	destFile=path+"reporte.pdf";
     	}
     	try {
     		
     	    JRBeanCollectionDataSource source = null;
-    	    source = new JRBeanCollectionDataSource(this.qDSLR.findVendedorByClaveEscuelaProfesor(clave, escuela, profesor)); 
+    	    source = new JRBeanCollectionDataSource(this.qDSLR.findVendedorByClaveEscuelaProfesor(clave, escuela, profesor,fechaInicial,fechaFinal)); 
              ///Compile the master and sub report 
             
-            JasperCompileManager.compileReportToFile(subsubReportFileName,path+"ReporteProfesores.jasper");
-            JasperReport jasperSubReport2= JasperCompileManager.compileReport(subReportFileName);
+            /*JasperCompileManager.compileReportToFile(subsubReportFileName,path+"");
+            JasperReport jasperSubReport2= JasperCompileManager.compileReport(subsubReportFileName);
     	    
             JasperCompileManager.compileReportToFile(subReportFileName,path+"ReporteEscuelas.jasper");
-            JasperReport jasperSubReport = JasperCompileManager.compileReport(subsubReportFileName);
+            JasperReport jasperSubReport = JasperCompileManager.compileReport(subReportFileName);
             
             JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
-            
+            */
             System.out.println("Llenando...");
             reporte=JasperFillManager.fillReportToFile(jasperMaster,null,source);
             if(reporte!=null){

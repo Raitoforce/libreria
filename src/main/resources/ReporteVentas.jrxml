@@ -69,7 +69,7 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="pedidos" class="java.util.List">
+	<field name="pedidos" class="java.util.Set">
 		<fieldDescription><![CDATA[pedidos]]></fieldDescription>
 	</field>
 	<field name="fecha" class="java.util.Date">

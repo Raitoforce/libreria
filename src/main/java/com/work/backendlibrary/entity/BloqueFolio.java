@@ -7,6 +7,7 @@ import com.work.backendlibrary.Views.VentaView;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -44,7 +45,7 @@ public class BloqueFolio implements Serializable {
 	//bi-directional many-to-one association to Venta
 	@JsonIgnore
 	@OneToMany(mappedBy="bloqueFolio")
-	private List<Venta> ventas;
+	private Set<Venta> ventas;
 
 	public BloqueFolio() {
 	}
@@ -90,11 +91,11 @@ public class BloqueFolio implements Serializable {
 		this.vendedor = vendedor;
 	}
 
-	public List<Venta> getVentas() {
+	public Set<Venta> getVentas() {
 		return ventas;
 	}
 
-	public void setVentas(List<Venta> ventas) {
+	public void setVentas(Set<Venta> ventas) {
 		this.ventas = ventas;
 	}
 	

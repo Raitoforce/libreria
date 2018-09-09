@@ -5,9 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.work.backendlibrary.Views.VentaView;
 
+import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -65,10 +69,11 @@ public class Vendedor {
     private String codigo_postal;
     
     @OneToMany(mappedBy="vendedor")
-	private List<BloqueFolio> bloqueFolios;
+	private Set<BloqueFolio> bloqueFolios;
     
     @Transient
-    private List<Escuela> escuelas;
+    @JsonIgnore
+    private Set<Venta> ventas= new HashSet<>();
 
     public Vendedor() {
     }
@@ -209,7 +214,7 @@ public class Vendedor {
 	}
 
 	@JsonIgnoreProperties({"id","vendedor"})
-    public List<BloqueFolio> getBloqueFolios() {
+    public Set<BloqueFolio> getBloqueFolios() {
         return bloqueFolios;
     }
 
@@ -221,21 +226,14 @@ public class Vendedor {
         }
     }
     
-    @JsonIgnore
-    public List<Escuela> getEscuelas(){
-    	List<Escuela> escuelas = new ArrayList<Escuela>();
-    	for(Zona zona:this.getZonas()){
-    		for(Escuela escuela:zona.getEscuelas()){
-    			escuelas.add(escuela);
+    public Set<Venta> getVentas(){
+    	for(BloqueFolio bfolio: getBloqueFolios()){
+    		if(bfolio!=null){
+	    		for(Venta venta: bfolio.getVentas()){
+	    			this.ventas.add(venta);
+	    		}
     		}
     	}
-    	return escuelas;
+    	return this.ventas;
     }
-    
-    @JsonIgnore
-    public List<Escuela> getListEscuelas(){
-    	this.escuelas = getEscuelas();
-    	return this.escuelas;
-    }
-
 }

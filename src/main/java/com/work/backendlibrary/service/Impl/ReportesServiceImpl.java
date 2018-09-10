@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,13 @@ import org.springframework.stereotype.Service;
 import com.work.backendlibrary.converter.InventarioConverterRConverter;
 import com.work.backendlibrary.entity.Vendedor;
 import com.work.backendlibrary.entity.Venta;
+import com.work.backendlibrary.model.ComisionesVistaModel;
 import com.work.backendlibrary.model.VentaReportModel;
 import com.work.backendlibrary.repository.EscuelaJPARepository;
 import com.work.backendlibrary.repository.QueryDSLRepository;
 import com.work.backendlibrary.repository.VendedorRepository;
 import com.work.backendlibrary.repository.ZonaJPARepository;
+import com.work.backendlibrary.service.ComisionService;
 import com.work.backendlibrary.service.ReportesService;
 
 import net.sf.jasperreports.engine.JRException;
@@ -52,6 +55,10 @@ public class ReportesServiceImpl implements ReportesService{
 	@Autowired
 	@Qualifier("queryDSLRepository")
 	QueryDSLRepository qDSLR;
+	
+	@Autowired
+	@Qualifier("comisionService")
+	ComisionService cService;
 	
 	@Value("classpath:/RZona.jrxml")
 	private Resource reporte_model;
@@ -221,6 +228,79 @@ public class ReportesServiceImpl implements ReportesService{
     		
     	    JRBeanCollectionDataSource source = null;
     	    source = new JRBeanCollectionDataSource(this.qDSLR.findVendedorByClaveEscuelaProfesor(clave, escuela, profesor,fechaInicial,fechaFinal)); 
+             ///Compile the master and sub report 
+            
+            /*JasperCompileManager.compileReportToFile(subsubReportFileName,path+"");
+            JasperReport jasperSubReport2= JasperCompileManager.compileReport(subsubReportFileName);
+    	    
+            JasperCompileManager.compileReportToFile(subReportFileName,path+"ReporteEscuelas.jasper");
+            JasperReport jasperSubReport = JasperCompileManager.compileReport(subReportFileName);
+            
+            JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
+            */
+            System.out.println("Llenando...");
+            reporte=null;
+            reporte=JasperFillManager.fillReportToFile(jasperMaster,null,source);
+            if(reporte!=null){
+            	JasperExportManager.exportReportToPdfFile(reporte, destFile);
+            }
+         } catch (JRException e) {
+
+            e.printStackTrace();
+         }
+         System.out.println("Done filling!!! ...");
+	}
+
+	@Override
+	public void generarReporteComisiones(int tipo, String id,int temporada) {
+		if(path==null){
+	    	try {
+	    		path= reporte_model.getURL().getPath().replaceAll("%20"," ");
+				path=path.replaceAll("RZona.jrxml","");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    	}
+    	try {
+    		
+    		masterReportFileName=path+"ReporteComisiones.jrxml";
+	    	destFile=path+"reporte.pdf";
+    		
+    	    JRBeanCollectionDataSource source = null;
+    	    List<ComisionesVistaModel> temporal =null;
+    	    //Vendedor
+    	    if(tipo==1){
+    	    	//por filtro
+    	    	if(id.isEmpty()){
+    	    		temporal.add(cService.consultarComisionesByVendedor(id,temporada));
+    	    		source = new JRBeanCollectionDataSource(temporal);
+    	    	//por filtro
+    	    	}else{
+    	    		source = new JRBeanCollectionDataSource(cService.consultarComisionesByLideres(temporada));
+    	    	}
+    	    }
+    	  //Director
+    	    if(tipo==2){
+    	    	//por filtro
+    	    	if(id.isEmpty()){
+    	    		temporal.add(cService.consultarComisionesByDirector(Integer.parseInt(id),temporada));
+    	    		source = new JRBeanCollectionDataSource(temporal);
+    	    	//por filtro
+    	    	}else{
+    	    		source = new JRBeanCollectionDataSource(cService.consultarComisionesByDirectors(temporada));
+    	    	}
+    	    }
+    	  //Lider
+    	    if(tipo==3){
+    	    	//por filtro
+    	    	if(id.isEmpty()){
+    	    		temporal.add(cService.consultarComisionesByLider(Integer.parseInt(id), temporada));
+    	    		source = new JRBeanCollectionDataSource(temporal);
+    	    	//por filtro
+    	    	}else{
+    	    		source = new JRBeanCollectionDataSource(cService.consultarComisionesByLideres(temporada));
+    	    	}
+    	    }
              ///Compile the master and sub report 
             
             /*JasperCompileManager.compileReportToFile(subsubReportFileName,path+"");

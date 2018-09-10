@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
+import com.work.backendlibrary.entity.Comision;
+import com.work.backendlibrary.entity.Profesor;
 import com.work.backendlibrary.entity.QBloqueFolio;
 import com.work.backendlibrary.entity.QCuentasPorCobrar;
 import com.work.backendlibrary.entity.QEscuela;

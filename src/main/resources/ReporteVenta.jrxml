@@ -84,7 +84,7 @@
 	<field name="cuentas" class="java.util.Set">
 		<fieldDescription><![CDATA[cuentas]]></fieldDescription>
 	</field>
-	<variable name="total" class="java.lang.Float"/>
+	<variable name="total" class="java.lang.Float" calculation="Sum"/>
 	<columnHeader>
 		<band height="30">
 			<staticText>
@@ -172,7 +172,7 @@
 			<subreport>
 				<reportElement x="0" y="32" width="561" height="28" uuid="4cd2fbb4-a2be-4941-85ce-b508b68169fd"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{cuentas})]]></dataSourceExpression>
-				<returnValue subreportVariable="total" toVariable="total"/>
+				<returnValue subreportVariable="total" toVariable="total" calculation="Sum"/>
 				<subreportExpression><![CDATA["ReporteCuentas.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
@@ -191,7 +191,7 @@
 				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="100" y="0" width="272" height="31" uuid="51cde75d-6104-4936-b305-e3290f2e3c83"/>
+				<reportElement x="0" y="0" width="372" height="31" uuid="51cde75d-6104-4936-b305-e3290f2e3c83"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>

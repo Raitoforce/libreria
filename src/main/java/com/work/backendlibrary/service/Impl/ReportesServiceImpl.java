@@ -75,13 +75,14 @@ public class ReportesServiceImpl implements ReportesService{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-	    	masterReportFileName=path+"RZona.jrxml";
+    	}
+    	try {
+    		
+    		masterReportFileName=path+"RZona.jrxml";
 	    	subReportFileName=path+"SubZonas.jrxml";
 	    	subsubReportFileName=path+"REscuelas.jrxml";
 	    	jasperMaster=path+"RZona.jasper";
 	    	destFile=path+"reporte.pdf";
-    	}
-    	try {
     		
     	    JRBeanCollectionDataSource sourceVendedor = null; 
     	    
@@ -94,15 +95,16 @@ public class ReportesServiceImpl implements ReportesService{
     	    }
              ///Compile the master and sub report 
             
-            JasperCompileManager.compileReportToFile(subsubReportFileName,path+"REscuelas.jasper");
+            /*JasperCompileManager.compileReportToFile(subsubReportFileName,path+"REscuelas.jasper");
             JasperReport jasperSubReport2= JasperCompileManager.compileReport(subReportFileName);
     	    
             JasperCompileManager.compileReportToFile(subReportFileName,path+"SubZonas.jasper");
-            JasperReport jasperSubReport = JasperCompileManager.compileReport(subsubReportFileName);
+            JasperReport jasperSubReport = JasperCompileManager.compileReport(subsubReportFileName);*/
             
             JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
             
             System.out.println("Llenando...");
+            reporte=null;
             reporte=JasperFillManager.fillReportToFile(jasperMaster,null,sourceVendedor);
             if(reporte!=null){
             	JasperExportManager.exportReportToPdfFile(reporte, destFile);
@@ -123,19 +125,20 @@ public class ReportesServiceImpl implements ReportesService{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+    	}
+    	try {
+
 	    	masterReportFileName=path+"ReporteInventario.jrxml";
 	    	subReportFileName=path+"StocksR.jrxml";
 	    	jasperMaster=path+"ReporteInventario.jasper";
 	    	destFile=path+"reporte.pdf";
-    	}
-    	try {
     		
     	    JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(this.icrc.converterInventarioRModel());
     	    
              ///Compile the master and sub report 
     	    
-            JasperCompileManager.compileReportToFile(subReportFileName,path+"StocksR.jasper");
-            JasperReport jasperSubReport = JasperCompileManager.compileReport(subReportFileName);
+            /*JasperCompileManager.compileReportToFile(subReportFileName,path+"StocksR.jasper");
+            JasperReport jasperSubReport = JasperCompileManager.compileReport(subReportFileName);*/
      
             JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
             
@@ -144,6 +147,7 @@ public class ReportesServiceImpl implements ReportesService{
             //parameters.put("subreportParameter2",jasperSubReport2);
             
             System.out.println("Llenando...");
+            reporte=null;
             reporte=JasperFillManager.fillReportToFile(jasperMaster,null,source);
             if(reporte!=null){
             	JasperExportManager.exportReportToPdfFile(reporte, destFile);
@@ -165,23 +169,26 @@ public class ReportesServiceImpl implements ReportesService{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+    	}
+    	try {
+    		
+
 	    	masterReportFileName=path+"ReporteVentas.jrxml";
 	    	subReportFileName=path+"ReportePedidos.jrxml";
 	    	jasperMaster=path+"ReporteVentas.jasper";
 	    	destFile=path+"reporte.pdf";
-    	}
-    	try {
     		
     	    JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(this.qDSLR.findVentaByVendedorLibroFecha(vendedor, libro, fechaInicial, fechaFinal, tipoPedido));
     	    
              ///Compile the master and sub report 
     	    
-            JasperCompileManager.compileReportToFile(subReportFileName,path+"ReportePedidos.jasper");
-            JasperReport jasperSubReport = JasperCompileManager.compileReport(subReportFileName);
+            /*JasperCompileManager.compileReportToFile(subReportFileName,path+"ReportePedidos.jasper");
+            JasperReport jasperSubReport = JasperCompileManager.compileReport(subReportFileName);*/
             
             JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
             
             System.out.println("Llenando...");
+            reporte=null;
             reporte=JasperFillManager.fillReportToFile(jasperMaster,null,source);
             if(reporte!=null){
             	JasperExportManager.exportReportToPdfFile(reporte, destFile);
@@ -202,14 +209,15 @@ public class ReportesServiceImpl implements ReportesService{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-	    	masterReportFileName=path+"ReporteCobranza.jrxml";
+    	}
+    	try {
+    		
+    		masterReportFileName=path+"ReporteCobranza.jrxml";
 	    	subReportFileName=path+"ReporteEscuelas.jrxml";
 	    	subsubReportFileName=path+"ReporteProfesores.jrxml";
 	    	subFinalReportFileName=path+"ReporteCuentas.jrxml";
 	    	jasperMaster=path+"ReporteCobranza.jasper";
 	    	destFile=path+"reporte.pdf";
-    	}
-    	try {
     		
     	    JRBeanCollectionDataSource source = null;
     	    source = new JRBeanCollectionDataSource(this.qDSLR.findVendedorByClaveEscuelaProfesor(clave, escuela, profesor,fechaInicial,fechaFinal)); 
@@ -224,6 +232,7 @@ public class ReportesServiceImpl implements ReportesService{
             JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
             */
             System.out.println("Llenando...");
+            reporte=null;
             reporte=JasperFillManager.fillReportToFile(jasperMaster,null,source);
             if(reporte!=null){
             	JasperExportManager.exportReportToPdfFile(reporte, destFile);

@@ -1,5 +1,6 @@
 package com.work.backendlibrary.converter;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -60,12 +61,13 @@ public class VentaConverter {
 		return v;
 	}
 	
-	public Venta appendPedidos(String folio,Set<HistorialVentaModel> vpedidos){
+	public Venta appendPedidos(String folio,LinkedHashSet<HistorialVentaModel> vpedidos){
 		Venta venta=ventaService.consultarVenta(folio);
-		Set<HistorialVenta> pedidosN=hvConverter.model2ListEntity(vpedidos, venta);
-		Set<HistorialVenta> pedidos=venta.getPedidos();
+		LinkedHashSet<HistorialVenta> pedidosN=hvConverter.model2ListEntity(vpedidos, venta);
+		LinkedHashSet<HistorialVenta> pedidos= new LinkedHashSet<HistorialVenta>(venta.getPedidos());
 		for (HistorialVenta pedido : pedidosN)
 			pedidos.add(pedido);
+		venta.setPedidos(pedidos);
 		return venta;
 	}
 	

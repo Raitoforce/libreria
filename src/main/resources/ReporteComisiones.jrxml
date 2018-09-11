@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteCobranza" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteCobranza" pageWidth="612" pageHeight="792" whenNoDataType="NoDataSection" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -95,7 +95,7 @@
 		<variableExpression><![CDATA[$F{restante}]]></variableExpression>
 	</variable>
 	<title>
-		<band height="80" splitType="Stretch">
+		<band height="80">
 			<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
 				<reportElement x="0" y="0" width="80" height="80" uuid="72db82aa-5df8-4fa0-be15-669dd041262a"/>
 				<imageExpression><![CDATA["logo.png"]]></imageExpression>
@@ -110,12 +110,7 @@
 		</band>
 	</title>
 	<detail>
-		<band height="61" splitType="Stretch">
-			<subreport>
-				<reportElement x="0" y="30" width="560" height="0" uuid="3ee2336d-6c2e-47a0-8dac-e6c37985f8d8"/>
-				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{comisiones})]]></dataSourceExpression>
-				<subreportExpression><![CDATA["SubReporteComision.jasper"]]></subreportExpression>
-			</subreport>
+		<band height="121" splitType="Stretch">
 			<textField>
 				<reportElement x="120" y="0" width="440" height="30" isRemoveLineWhenBlank="true" uuid="37007e3f-61a5-435c-9846-dd062acd177c"/>
 				<box>
@@ -129,6 +124,11 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
+			<subreport>
+				<reportElement x="0" y="60" width="560" height="60" isRemoveLineWhenBlank="true" uuid="3ee2336d-6c2e-47a0-8dac-e6c37985f8d8"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{comisiones})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["SubReporteComision.jasper"]]></subreportExpression>
+			</subreport>
 			<staticText>
 				<reportElement x="0" y="0" width="120" height="30" isRemoveLineWhenBlank="true" uuid="65510153-21ae-41ff-9365-afe03b1132a1"/>
 				<box>
@@ -141,7 +141,7 @@
 				<text><![CDATA[NOMBRE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="ElementGroupBottom" x="0" y="30" width="80" height="31" isRemoveLineWhenBlank="true" uuid="4e342ebf-924c-48da-bcfb-6469444188ae"/>
+				<reportElement stretchType="ContainerBottom" x="0" y="30" width="80" height="31" uuid="4e342ebf-924c-48da-bcfb-6469444188ae"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -152,7 +152,7 @@
 				<text><![CDATA[DEUDA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="ElementGroupBottom" x="380" y="30" width="90" height="30" isRemoveLineWhenBlank="true" uuid="388d9c63-ccba-45e9-ba19-6b9b2224bf87"/>
+				<reportElement stretchType="ContainerBottom" x="380" y="30" width="90" height="30" isRemoveLineWhenBlank="true" uuid="388d9c63-ccba-45e9-ba19-6b9b2224bf87"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -163,7 +163,7 @@
 				<text><![CDATA[RESTANTE POR PAGAR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="ElementGroupBottom" x="180" y="30" width="100" height="30" isRemoveLineWhenBlank="true" uuid="7d278272-3c7e-49bc-8bca-fdd7927212e7"/>
+				<reportElement stretchType="ContainerBottom" x="180" y="30" width="100" height="30" isRemoveLineWhenBlank="true" uuid="7d278272-3c7e-49bc-8bca-fdd7927212e7"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -174,7 +174,7 @@
 				<text><![CDATA[PAGADO]]></text>
 			</staticText>
 			<textField>
-				<reportElement stretchType="ElementGroupBottom" x="470" y="30" width="90" height="30" isRemoveLineWhenBlank="true" uuid="df602fd3-c063-40bb-8f88-b67798f00008"/>
+				<reportElement stretchType="ContainerBottom" x="470" y="30" width="90" height="30" isRemoveLineWhenBlank="true" uuid="df602fd3-c063-40bb-8f88-b67798f00008"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -185,7 +185,7 @@
 				<textFieldExpression><![CDATA[$F{restante}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement stretchType="ElementGroupBottom" x="80" y="30" width="100" height="30" isRemoveLineWhenBlank="true" uuid="ac34c539-6576-4d0d-bf5a-b4a40e14ac35"/>
+				<reportElement stretchType="ContainerBottom" x="80" y="30" width="100" height="30" isRemoveLineWhenBlank="true" uuid="ac34c539-6576-4d0d-bf5a-b4a40e14ac35"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -196,7 +196,7 @@
 				<textFieldExpression><![CDATA[$F{deuda}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement stretchType="ElementGroupBottom" x="280" y="30" width="100" height="30" isRemoveLineWhenBlank="true" uuid="9f7db8ee-029c-42e9-b698-fce02795b322"/>
+				<reportElement stretchType="ContainerBottom" x="280" y="30" width="100" height="30" isRemoveLineWhenBlank="true" uuid="9f7db8ee-029c-42e9-b698-fce02795b322"/>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>

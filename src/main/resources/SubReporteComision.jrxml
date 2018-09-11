@@ -76,7 +76,7 @@
 		<fieldDescription><![CDATA[monto]]></fieldDescription>
 	</field>
 	<columnHeader>
-		<band height="30" splitType="Stretch">
+		<band height="30">
 			<staticText>
 				<reportElement x="0" y="0" width="199" height="30" isRemoveLineWhenBlank="true" uuid="3f874ed0-ba8a-4a23-802d-e02e14b86c96">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5ea43f95-e5e0-4663-8573-d5febb0fa5b3"/>

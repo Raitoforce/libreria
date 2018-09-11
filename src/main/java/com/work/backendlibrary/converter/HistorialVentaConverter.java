@@ -3,6 +3,7 @@ package com.work.backendlibrary.converter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -42,8 +43,8 @@ public class HistorialVentaConverter {
 		return hv;
 	}
 	
-	public Set<HistorialVenta> model2ListEntity(Set<HistorialVentaModel> vpedidos, Venta venta){
-		Set<HistorialVenta> hvs=new HashSet<>();
+	public LinkedHashSet<HistorialVenta> model2ListEntity(LinkedHashSet<HistorialVentaModel> vpedidos, Venta venta){
+		LinkedHashSet<HistorialVenta> hvs=new LinkedHashSet<>();
 		for (HistorialVentaModel historialVentam : vpedidos){
 			HistorialVenta hv=model2entity(historialVentam);
 			hv.setVenta(venta);

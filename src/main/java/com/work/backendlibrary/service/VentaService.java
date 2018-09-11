@@ -1,5 +1,6 @@
 package com.work.backendlibrary.service;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ public interface VentaService {
 	public abstract Venta updateVenta(VentaModel venta);
 	public abstract Venta consultarVenta(String folio);
 	public abstract Venta consultarVentaByVendedorAndTemporada(String clave,int id);
-	public abstract Venta appendPedidos(String folio,Set<HistorialVentaModel> pedidos);
+	public abstract Venta appendPedidos(String folio,LinkedHashSet<HistorialVentaModel> pedidos);
 	public abstract boolean VentaIsOnDB(String folio);
 	public abstract boolean VentaHasConfirmed(String folio);
 }

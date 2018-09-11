@@ -1,5 +1,6 @@
 package com.work.backendlibrary.service.Impl;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -75,7 +76,7 @@ public class VentaServiceImpl implements VentaService{
 	}
 
 	@Override
-	public Venta appendPedidos(String folio,Set<HistorialVentaModel> pedidos) {
+	public Venta appendPedidos(String folio,LinkedHashSet<HistorialVentaModel> pedidos) {
 		Venta venta=vConverter.appendPedidos(folio, pedidos);
 		return ventaJPA.save(venta);
 	}

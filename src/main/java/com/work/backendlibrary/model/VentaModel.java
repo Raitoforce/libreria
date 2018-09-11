@@ -19,7 +19,7 @@ public class VentaModel {
 	private int idfolios;
 	private String escuela_clave;
 	private int idprofesor;
-	private Set<HistorialVentaModel> pedidos = new LinkedHashSet<>();
+	private LinkedHashSet<HistorialVentaModel> pedidos = new LinkedHashSet<>();
 	private List<Lider> lideres; 
 	
 	public String getFolio() {
@@ -78,10 +78,10 @@ public class VentaModel {
 		
 	}
 	
-	public Set<HistorialVentaModel> getPedidos() {
+	public LinkedHashSet<HistorialVentaModel> getPedidos() {
 		return pedidos;
 	}
-	public void setPedidos(Set<HistorialVentaModel> pedidos) {
+	public void setPedidos(LinkedHashSet<HistorialVentaModel> pedidos) {
 		this.pedidos = pedidos;
 	}
 	

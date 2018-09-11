@@ -52,7 +52,7 @@ public class VentaController {
 	
 	@PostMapping("resurtido")
 	public ResponseEntity<String> resurtidos(@RequestParam("folio") String folio,@RequestBody List<HistorialVentaModel> pedidos){
-		Set<HistorialVentaModel> pedidosN = new LinkedHashSet<>(pedidos);
+		LinkedHashSet<HistorialVentaModel> pedidosN = new LinkedHashSet<>(pedidos);
 		int num=hvService.getMaximo(folio)+1;
 		for (HistorialVentaModel pedido : pedidosN) {
 			pedido.setNumresurtido(num);

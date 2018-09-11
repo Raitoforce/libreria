@@ -62,8 +62,12 @@ public class ComisionesModuloConverter {
 		for (Venta venta : ventas) {
 			pedidos=hvJPA.findByVentaFolio(venta.getFolio());
 			for (HistorialVenta pedido : pedidos) {
-				if(pedido.getPrecioventa()!=0)
-					deuda+=(pedido.getPedidos()*venta.getComisionVendedor());
+				try{
+					if(pedido.getPrecioventa()!=0)
+						deuda+=(pedido.getPedidos()*venta.getComisionVendedor());
+				}catch(Exception e){
+					deuda+=0;
+				}
 			}
 		}
 		if(comisiones!=null){

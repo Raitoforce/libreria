@@ -1,5 +1,9 @@
 package com.work.backendlibrary.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.work.backendlibrary.entity.Comision;
 
 public class ComisionesVistaModel {
 	private String nombre;
@@ -9,6 +13,8 @@ public class ComisionesVistaModel {
 	private String clave;
 	private int iddirector;
 	private int idprofesor;
+	@JsonIgnore
+	private List<Comision> comisiones;
 	
 	public String getNombre() {
 		return nombre;
@@ -51,5 +57,11 @@ public class ComisionesVistaModel {
 	}
 	public void setIdprofesor(int idprofesor) {
 		this.idprofesor = idprofesor;
+	}
+	public List<Comision> getComisiones() {
+		return comisiones;
+	}
+	public void setComisiones(List<Comision> comisiones) {
+		this.comisiones = comisiones;
 	}
 }

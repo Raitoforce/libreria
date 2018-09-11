@@ -264,42 +264,63 @@ public class ReportesServiceImpl implements ReportesService{
     	try {
     		
     		masterReportFileName=path+"ReporteComisiones.jrxml";
+    		jasperMaster=path+"ReporteComisiones.jasper";
 	    	destFile=path+"reporte.pdf";
     		
     	    JRBeanCollectionDataSource source = null;
     	    List<ComisionesVistaModel> temporal =null;
+
+    	    String titulo="REPORTE DE COMISIONES";
     	    //Vendedor
     	    if(tipo==1){
     	    	//por filtro
-    	    	if(id.isEmpty()){
+    	    	if(!id.isEmpty()){
     	    		temporal.add(cService.consultarComisionesByVendedor(id,temporada));
+    	    		temporal.get(0).setComisiones(cService.consultarHistorialComisionesByVendedors(temporada,id));
     	    		source = new JRBeanCollectionDataSource(temporal);
     	    	//por filtro
     	    	}else{
-    	    		source = new JRBeanCollectionDataSource(cService.consultarComisionesByLideres(temporada));
+    	    		temporal=cService.consultarComisionesByVendedors(temporada);
+    	    		for(ComisionesVistaModel cModel: temporal){
+    	    			cModel.setComisiones(cService.consultarHistorialComisionesByVendedors(temporada, cModel.getClave()));
+    	    		}
+    	    		source = new JRBeanCollectionDataSource(temporal);
     	    	}
+    	    	titulo+=" POR VENDEDOR";
     	    }
     	  //Director
     	    if(tipo==2){
     	    	//por filtro
-    	    	if(id.isEmpty()){
+    	    	if(!id.isEmpty()){
     	    		temporal.add(cService.consultarComisionesByDirector(Integer.parseInt(id),temporada));
+    	    		temporal.get(0).setComisiones(cService.consultarHistorialComisionesByDirectors(temporada,Integer.parseInt(id)));
     	    		source = new JRBeanCollectionDataSource(temporal);
     	    	//por filtro
     	    	}else{
-    	    		source = new JRBeanCollectionDataSource(cService.consultarComisionesByDirectors(temporada));
+    	    		temporal=cService.consultarComisionesByDirectors(temporada);
+    	    		for(ComisionesVistaModel cModel: temporal){
+    	    			cModel.setComisiones(cService.consultarHistorialComisionesByDirectors(temporada, cModel.getIddirector()));
+    	    		}
+    	    		source = new JRBeanCollectionDataSource(temporal);
     	    	}
+    	    	titulo+=" POR DIRECTOR";
     	    }
     	  //Lider
     	    if(tipo==3){
     	    	//por filtro
-    	    	if(id.isEmpty()){
+    	    	if(!id.isEmpty()){
     	    		temporal.add(cService.consultarComisionesByLider(Integer.parseInt(id), temporada));
+    	    		temporal.get(0).setComisiones(cService.consultarHistorialComisionesByLideres(temporada, Integer.parseInt(id)));
     	    		source = new JRBeanCollectionDataSource(temporal);
     	    	//por filtro
     	    	}else{
-    	    		source = new JRBeanCollectionDataSource(cService.consultarComisionesByLideres(temporada));
+    	    		temporal = cService.consultarComisionesByLideres(temporada);
+    	    		for(ComisionesVistaModel cModel: temporal){
+    	    			cModel.setComisiones(cService.consultarHistorialComisionesByLideres(temporada, cModel.getIdprofesor()));
+    	    		}
+    	    		source = new JRBeanCollectionDataSource(temporal);
     	    	}
+    	    	titulo+=" POR LIDER";
     	    }
              ///Compile the master and sub report 
             
@@ -308,12 +329,16 @@ public class ReportesServiceImpl implements ReportesService{
     	    
             JasperCompileManager.compileReportToFile(subReportFileName,path+"ReporteEscuelas.jasper");
             JasperReport jasperSubReport = JasperCompileManager.compileReport(subReportFileName);
-            
-            JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
             */
+    	    
+            JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
+            
+            Map parameters = new HashMap();
+            parameters.put("titulo",titulo);
+            
             System.out.println("Llenando...");
             reporte=null;
-            reporte=JasperFillManager.fillReportToFile(jasperMaster,null,source);
+            reporte=JasperFillManager.fillReportToFile(jasperMaster,parameters,source);
             if(reporte!=null){
             	JasperExportManager.exportReportToPdfFile(reporte, destFile);
             }

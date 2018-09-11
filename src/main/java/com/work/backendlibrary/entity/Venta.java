@@ -3,6 +3,7 @@ package com.work.backendlibrary.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -75,7 +76,7 @@ public class Venta implements Serializable {
 	private Profesor profesor;
 	
 	@OneToMany(mappedBy="venta",cascade=CascadeType.ALL)
-	private Set<HistorialVenta> pedidos;
+	private Set<HistorialVenta> pedidos= new LinkedHashSet<>();
 	
 	
 	@JsonView(VentaView.interno.class)

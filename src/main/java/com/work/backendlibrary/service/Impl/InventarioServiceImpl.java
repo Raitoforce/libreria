@@ -118,12 +118,13 @@ public class InventarioServiceImpl implements InventarioService{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	    	masterReportFileName=path+"Invoice.jrxml";
+    	}
+    	try {
+    		masterReportFileName=path+"Invoice.jrxml";
 	    	subReportFileName=path+"pedidos.jrxml";
 	    	jasperMaster=path+"Invoice.jasper";
 	    	destFile=path+"reporte.pdf";
-    	}
-    	try {
+    		
     		Venta v=ventaService.consultarVenta(folio);
     		VentaReportModel venta=ventaReportC.entity2model(v);
     		venta.setPedidos(ventaReportC.entity2modelPedidos(hvService.consultarByVenta(folio)));
@@ -183,12 +184,13 @@ public class InventarioServiceImpl implements InventarioService{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	    	masterReportFileName=path+"Invoice.jrxml";
+    	}
+    	try {
+    		masterReportFileName=path+"Invoice.jrxml";
 	    	subReportFileName=path+"pedidos.jrxml";
 	    	jasperMaster=path+"Invoice.jasper";
 	    	destFile=path+"reporte.pdf";
-    	}
-    	try {
+    		
     		Venta v=ventaService.consultarVenta(folio);
     		VentaReportModel venta=ventaReportC.entity2modelp(v,numresurtido);
     		venta.setPedidos(ventaReportC.entity2modelPedidos(hvService.consultarByNumResurtido(numresurtido,folio)));

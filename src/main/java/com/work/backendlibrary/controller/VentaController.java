@@ -1,5 +1,6 @@
 package com.work.backendlibrary.controller;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -50,12 +51,13 @@ public class VentaController {
 	}
 	
 	@PostMapping("resurtido")
-	public ResponseEntity<String> resurtidos(@RequestParam("folio") String folio,@RequestBody Set<HistorialVentaModel> pedidos){
+	public ResponseEntity<String> resurtidos(@RequestParam("folio") String folio,@RequestBody List<HistorialVentaModel> pedidos){
+		Set<HistorialVentaModel> pedidosN = new LinkedHashSet<>(pedidos);
 		int num=hvService.getMaximo(folio)+1;
-		for (HistorialVentaModel pedido : pedidos) {
+		for (HistorialVentaModel pedido : pedidosN) {
 			pedido.setNumresurtido(num);
 		}
-		Venta venta=ventaService.appendPedidos(folio, pedidos);
+		Venta venta=ventaService.appendPedidos(folio, pedidosN);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	

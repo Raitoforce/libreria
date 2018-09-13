@@ -93,7 +93,7 @@
 				<text><![CDATA[FECHA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="199" y="0" width="300" height="30" isRemoveLineWhenBlank="true" uuid="219462ec-83e3-4102-be30-a522cb152ac4">
+				<reportElement x="199" y="0" width="361" height="30" isRemoveLineWhenBlank="true" uuid="219462ec-83e3-4102-be30-a522cb152ac4">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a472f4cf-024d-4756-8432-fdbfe52a0dd0"/>
 				</reportElement>
 				<box>
@@ -127,7 +127,7 @@
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="199" y="0" width="300" height="30" isRemoveLineWhenBlank="true" uuid="3097422b-b917-483e-a32d-c87b6211ffb2">
+				<reportElement x="199" y="0" width="361" height="30" isRemoveLineWhenBlank="true" uuid="3097422b-b917-483e-a32d-c87b6211ffb2">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a472f4cf-024d-4756-8432-fdbfe52a0dd0"/>
 				</reportElement>
 				<box>

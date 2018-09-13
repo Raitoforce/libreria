@@ -275,6 +275,7 @@ public class ReportesServiceImpl implements ReportesService{
     	    if(tipo==1){
     	    	//por filtro
     	    	if(!id.isEmpty()){
+    	    		temporal = new ArrayList<>();
     	    		temporal.add(cService.consultarComisionesByVendedor(id,temporada));
     	    		temporal.get(0).setComisiones(cService.consultarHistorialComisionesByVendedors(temporada,id));
     	    		source = new JRBeanCollectionDataSource(temporal);
@@ -292,6 +293,7 @@ public class ReportesServiceImpl implements ReportesService{
     	    if(tipo==2){
     	    	//por filtro
     	    	if(!id.isEmpty()){
+    	    		temporal = new ArrayList<>();
     	    		temporal.add(cService.consultarComisionesByDirector(Integer.parseInt(id),temporada));
     	    		temporal.get(0).setComisiones(cService.consultarHistorialComisionesByDirectors(temporada,Integer.parseInt(id)));
     	    		source = new JRBeanCollectionDataSource(temporal);
@@ -309,6 +311,7 @@ public class ReportesServiceImpl implements ReportesService{
     	    if(tipo==3){
     	    	//por filtro
     	    	if(!id.isEmpty()){
+    	    		temporal = new ArrayList<>();
     	    		temporal.add(cService.consultarComisionesByLider(Integer.parseInt(id), temporada));
     	    		temporal.get(0).setComisiones(cService.consultarHistorialComisionesByLideres(temporada, Integer.parseInt(id)));
     	    		source = new JRBeanCollectionDataSource(temporal);

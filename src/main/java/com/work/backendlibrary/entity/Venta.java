@@ -99,7 +99,11 @@ public class Venta implements Serializable {
 	@Transient
 	@JsonIgnore
 	private Set<CuentasPorCobrar> cuentas=new HashSet<>();
-
+	
+	@Transient
+	@JsonIgnore
+	private float comisionesLider;
+	
 	public Venta(){
 	}
 
@@ -268,4 +272,12 @@ public class Venta implements Serializable {
 		return this.cuentas;
 	}
 	
+	public float getComisionesLideres(){
+		this.comisionesLider=0;
+		for (LideresComisiones lider : this.getLideres()) {
+			comisionesLider+=getLiderComision(lider.getId().getProfesor());
+		}
+		return this.comisionesLider;
+	}
+
 }

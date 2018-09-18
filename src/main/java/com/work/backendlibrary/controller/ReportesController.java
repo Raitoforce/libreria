@@ -193,4 +193,39 @@ public class ReportesController {
 	    headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
 		return new ResponseEntity<byte[]>(data,HttpStatus.ACCEPTED);
 	}
+	
+	@GetMapping("/Ganancia")
+	public ResponseEntity<byte[]> crearPDFGanancia(@RequestParam(name="vendedor",defaultValue="")String vendedor,
+			@RequestParam(name="libro",defaultValue="")String libro,
+			@RequestParam(name="fechaInicial",required=false)@DateTimeFormat(pattern="yyyy-MM-dd") Date fechaInicial,
+			@RequestParam(name="fechaFinal",required=false)@DateTimeFormat(pattern="yyyy-MM-dd") Date fechaFinal,
+			@RequestParam(name="tipoPedido",defaultValue="0")int tipoPedido
+			){
+		rService.generarReporteGanancia(vendedor, libro, fechaInicial, fechaFinal, tipoPedido);
+		String path="";
+		try {
+			path= reporte.getURL().getPath().replaceAll("%20"," ");
+			path=path.replaceAll("Invoice.jrxml","")+"reporte.pdf";
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.parseMediaType("application/pdf"));
+	    //String filename =path+"reporte.pdf";
+	    byte[] data=null;
+	    try {
+	    	File file = new File(path);
+	        data = new byte[(int) file.length()];
+	        InputStream is = new FileInputStream(file);
+	        is.read(data);
+	        is.close();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}  
+	    
+	    headers.setContentDispositionFormData(path,path);
+	    headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+		return new ResponseEntity<byte[]>(data,HttpStatus.ACCEPTED);
+	}
 }

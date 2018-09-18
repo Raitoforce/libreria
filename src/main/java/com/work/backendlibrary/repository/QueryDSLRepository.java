@@ -78,6 +78,54 @@ public class QueryDSLRepository {
 				.fetch();
 	}
 	
+	public List<Venta> findVentaByVendedorLibroFechaGanancia(String clave,String libro,Date fechaInicial,Date fechaFinal,int tipoPedido){
+		JPAQuery<Venta> query = new JPAQuery<Venta>(em);
+		BooleanBuilder predicateBuilder = new BooleanBuilder();
+		//BooleanBuilder predicateBuilder2 = new BooleanBuilder();
+		Predicate predicate=null;
+		//Filtro vendedor
+		if(!clave.isEmpty()){
+			predicate = qVenta.bloqueFolio.vendedor.clave.eq(clave);
+			predicateBuilder.and(predicate);
+			System.out.println("Filtro de vendedor");
+		}
+		//Filtro libro
+		if(!libro.isEmpty()){
+			predicate = QLibro.libro.claveProducto.eq(libro);
+			predicateBuilder.and(predicate);
+			System.out.println("Filtro de libro "+predicate.toString());
+		}
+		//Filtro Fechas
+		if(fechaInicial!=null && fechaFinal!=null){
+			predicate = qVenta.fecha.between(fechaInicial, fechaFinal);
+			predicateBuilder.and(predicate);
+			System.out.println("Filtro de fechas");
+		}
+		
+		if(tipoPedido>0){
+			predicate = QHistorialVenta.historialVenta.tipoMovimiento.eq("SALIDA");
+			predicateBuilder.and(predicate);
+		}else{
+			if(tipoPedido<0){
+				predicate = QHistorialVenta.historialVenta.tipoMovimiento.eq("ENTRADA");
+				predicateBuilder.and(predicate);
+			}
+		}
+		
+		predicateBuilder.and(QHistorialVenta.historialVenta.precioventa.gt(0));
+		
+		return query.select(qVenta)
+				.distinct()
+				.from(qVenta)
+				.innerJoin(qVenta.pedidos,QHistorialVenta.historialVenta)
+				.fetchJoin()
+				.innerJoin(QHistorialVenta.historialVenta.libro,QLibro.libro)
+				//.on(predicateBuilder2)
+				.where(predicateBuilder)
+				.orderBy(qVenta.bloqueFolio.vendedor.clave.asc(),qVenta.folio.asc())
+				.fetch();
+	}
+	
 	public List<Vendedor> findVendedorByClaveEscuelaProfesor(String clave,String escuela,int profesor,Date fechaInicial,Date fechaFinal){
 		JPAQuery<Vendedor> query = new JPAQuery<Vendedor>(em);
 		BooleanBuilder predicateBuilder = new BooleanBuilder();
@@ -120,4 +168,6 @@ public class QueryDSLRepository {
 				.orderBy(QVendedor.vendedor.clave.asc(),QVenta.venta.escuela.clave.asc(),QVenta.venta.profesor.idprofesor.asc())
 				.fetch();
 	}
+	
+	
 }

@@ -352,4 +352,45 @@ public class ReportesServiceImpl implements ReportesService{
          System.out.println("Done filling!!! ...");
 	}
 
+	@Override
+	public void generarReporteGanancia(String vendedor, String libro, Date fechaInicial, Date fechaFinal,
+			int tipoPedido) {
+		if(path==null){
+	    	try {
+	    		path= reporte_model.getURL().getPath().replaceAll("%20"," ");
+				path=path.replaceAll("RZona.jrxml","");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    	}
+    	try {
+    		
+
+	    	masterReportFileName=path+"ReporteGanancia.jrxml";
+	    	subReportFileName=path+"SubReporteGanancia.jrxml";
+	    	jasperMaster=path+"ReporteGanancia.jasper";
+	    	destFile=path+"reporte.pdf";
+    		
+    	    JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(this.qDSLR.findVentaByVendedorLibroFechaGanancia(vendedor, libro, fechaInicial, fechaFinal, tipoPedido));
+    	    
+             ///Compile the master and sub report 
+    	    
+            /*JasperCompileManager.compileReportToFile(subReportFileName,path+"ReportePedidos.jasper");
+            JasperReport jasperSubReport = JasperCompileManager.compileReport(subReportFileName);*/
+            
+            JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
+            
+            System.out.println("Llenando...");
+            reporte=null;
+            reporte=JasperFillManager.fillReportToFile(jasperMaster,null,source);
+            if(reporte!=null){
+            	JasperExportManager.exportReportToPdfFile(reporte, destFile);
+            }
+         } catch (JRException e) {
+
+            e.printStackTrace();
+         }
+         System.out.println("Done filling!!! ...");
+	}
+
 }

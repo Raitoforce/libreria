@@ -10,7 +10,7 @@
 	<field name="idzona" class="java.lang.String">
 		<fieldDescription><![CDATA[idzona]]></fieldDescription>
 	</field>
-	<field name="escuelas" class="java.util.List">
+	<field name="escuelas" class="java.util.Set">
 		<fieldDescription><![CDATA[escuelas]]></fieldDescription>
 	</field>
 	<title>

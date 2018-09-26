@@ -184,16 +184,16 @@ public class HistorialVenta implements Serializable {
 	public float CalcularDeuda(){
 		float subtotalC=0;
 		float descuentoC=0;
-		float descLider = 0;
+		//float descLider = 0;
 		try{
 			if(this.getPrecioventa()!=0){
 					subtotalC+=this.getPrecioventa()*this.getPedidos();
 					descuentoC+=this.getPedidos()*this.getVenta().getComisionProfesor();
-					for(LideresComisiones lider:getVenta().getLideres()){
+					/*for(LideresComisiones lider:getVenta().getLideres()){
 						descLider+=this.getVenta().getLiderComision(lider.getLider().getIdprofesor());
 					}
 					descuentoC+=descLider;
-					descLider = 0;
+					descLider = 0;*/
 			}
 		}catch (Exception e) {
 				System.out.println(e.getMessage());

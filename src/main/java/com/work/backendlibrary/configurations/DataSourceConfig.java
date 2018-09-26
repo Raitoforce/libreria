@@ -19,7 +19,7 @@ public class DataSourceConfig{
 		return DataSourceBuilder
 				.create()
 		        .username("clinitec")
-		        .password("webos123")
+		        .password("huevos123")
 		        .url("jdbc:mysql://localhost:3306/DB_libreraLozano")
 		        .driverClassName("com.mysql.jdbc.Driver")
 		        .build();

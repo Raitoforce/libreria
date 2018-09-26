@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteInventarios" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteComision" pageWidth="572" pageHeight="752" columnWidth="572" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -69,75 +69,78 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="claveProducto" class="java.lang.String">
-		<fieldDescription><![CDATA[claveProducto]]></fieldDescription>
+	<field name="fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[fecha]]></fieldDescription>
 	</field>
-	<field name="titulo" class="java.lang.String">
-		<fieldDescription><![CDATA[titulo]]></fieldDescription>
+	<field name="monto" class="java.lang.Float">
+		<fieldDescription><![CDATA[monto]]></fieldDescription>
 	</field>
-	<field name="cantidad" class="java.lang.Integer">
-		<fieldDescription><![CDATA[cantidad]]></fieldDescription>
-	</field>
-	<field name="stocks" class="java.util.List">
-		<fieldDescription><![CDATA[stocks]]></fieldDescription>
-	</field>
-	<title>
-		<band height="80" splitType="Stretch">
+	<columnHeader>
+		<band height="30">
 			<staticText>
-				<reportElement x="141" y="0" width="290" height="40" uuid="03b20b75-7378-4cfc-972b-66e1ca79d87c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="14" isBold="true" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[REPORTE DE INVENTARIOS]]></text>
-			</staticText>
-			<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
-				<reportElement x="0" y="0" width="80" height="80" uuid="72db82aa-5df8-4fa0-be15-669dd041262a"/>
-				<imageExpression><![CDATA["logo.png"]]></imageExpression>
-			</image>
-		</band>
-	</title>
-	<detail>
-		<band height="59" splitType="Prevent">
-			<staticText>
-				<reportElement x="0" y="0" width="100" height="30" uuid="f49cb30b-6c25-4328-bffc-ca1b08dbbe99"/>
+				<reportElement x="0" y="0" width="199" height="30" isRemoveLineWhenBlank="true" uuid="3f874ed0-ba8a-4a23-802d-e02e14b86c96">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5ea43f95-e5e0-4663-8573-d5febb0fa5b3"/>
+				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11"/>
+					<font size="12"/>
 				</textElement>
-				<text><![CDATA[LIBRO]]></text>
+				<text><![CDATA[FECHA]]></text>
 			</staticText>
-			<subreport overflowType="Stretch">
-				<reportElement key="" x="0" y="30" width="560" height="29" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" uuid="bb3282ef-5a9f-41e2-a04f-2d82cf40abd0"/>
-				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{stocks})]]></dataSourceExpression>
-				<subreportExpression><![CDATA["StocksR.jasper"]]></subreportExpression>
-			</subreport>
-			<textField>
-				<reportElement x="100" y="0" width="140" height="30" uuid="808f9af2-655f-46f0-9a9f-6af0f30ddc01"/>
+			<staticText>
+				<reportElement x="199" y="0" width="361" height="30" isRemoveLineWhenBlank="true" uuid="219462ec-83e3-4102-be30-a522cb152ac4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a472f4cf-024d-4756-8432-fdbfe52a0dd0"/>
+				</reportElement>
 				<box>
-					<topPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{claveProducto}]]></textFieldExpression>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[MONTO ABONADO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField pattern="dd MMMM &apos;de&apos; yyyy">
+				<reportElement x="0" y="0" width="199" height="30" isRemoveLineWhenBlank="true" uuid="349ef400-6fc4-461d-8e69-096f85c7e791">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5ea43f95-e5e0-4663-8573-d5febb0fa5b3"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="240" y="0" width="320" height="30" uuid="d9da2f15-21e5-4e04-b7eb-1af7db6743a1"/>
+				<reportElement x="199" y="0" width="361" height="30" isRemoveLineWhenBlank="true" uuid="3097422b-b917-483e-a32d-c87b6211ffb2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a472f4cf-024d-4756-8432-fdbfe52a0dd0"/>
+				</reportElement>
 				<box>
-					<topPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
-	<lastPageFooter>
-		<band height="30" splitType="Stretch"/>
-	</lastPageFooter>
 </jasperReport>

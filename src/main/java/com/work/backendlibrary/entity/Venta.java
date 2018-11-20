@@ -104,6 +104,10 @@ public class Venta implements Serializable {
 	@JsonIgnore
 	private float comisionesLider;
 	
+	@Transient
+	@JsonIgnore
+	private int librosvendidos = gettotalLibros();
+	
 	public Venta(){
 	}
 
@@ -278,6 +282,24 @@ public class Venta implements Serializable {
 			comisionesLider+=getLiderComision(lider.getId().getProfesor());
 		}
 		return this.comisionesLider;
+	}
+	
+	public int gettotalLibros(){
+		int total=0;
+		for(HistorialVenta pedido:this.pedidos){
+			if(pedido.getPrecioventa()!=0) //si es diferente de 0 se suman
+				total+= pedido.getPedidos();
+		}
+		return total;
+		
+	}
+
+	public void setComisionesLider(float comisionesLider) {
+		this.comisionesLider = comisionesLider;
+	}
+
+	public float getComisionesLider() {
+		return comisionesLider;
 	}
 
 }

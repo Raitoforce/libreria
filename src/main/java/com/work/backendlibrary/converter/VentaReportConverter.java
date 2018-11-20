@@ -25,7 +25,7 @@ public class VentaReportConverter {
 		ventam.setFecha((Date) venta.getFecha());
 		ventam.setProfesor_nombre(venta.getProfesor().getNombre()+" "+venta.getProfesor().getApellidos());
 		ventam.setProfesor_telefono(venta.getProfesor().getTelefono());
-		ventam.setEscuela_nombre(venta.getEscuela().getNombre()+" ("+venta.getEscuela().getClave()+")");
+		ventam.setEscuela_nombre(venta.getEscuela().getNombre()+" ("+venta.getEscuela().getClave()+") Turno:"+venta.getEscuela().getTurno());
 		ventam.setEscuela_domicilio(venta.getEscuela().getDireccion()+" "+venta.getEscuela().getColonia()+"("+venta.getEscuela().getCodigoPostal()+")");
 		ventam.setFolio(venta.getFolio());
 		ventam.setMunicipio_escuela(venta.getEscuela().getMunicipio());	

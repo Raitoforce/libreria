@@ -2,7 +2,6 @@ package com.work.backendlibrary.service.Impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +21,7 @@ import com.work.backendlibrary.model.VentaReportModel;
 import com.work.backendlibrary.repository.EscuelaJPARepository;
 import com.work.backendlibrary.repository.QueryDSLRepository;
 import com.work.backendlibrary.repository.VendedorRepository;
+import com.work.backendlibrary.repository.VentaJPARepository;
 import com.work.backendlibrary.repository.ZonaJPARepository;
 import com.work.backendlibrary.service.ComisionService;
 import com.work.backendlibrary.service.ReportesService;
@@ -51,6 +51,10 @@ public class ReportesServiceImpl implements ReportesService{
 	@Autowired
 	@Qualifier("inventarioConverterRConverter")
 	InventarioConverterRConverter icrc;
+	
+	@Autowired
+	@Qualifier("ventaJPARepository")
+	VentaJPARepository vRepository;
 	
 	@Autowired
 	@Qualifier("queryDSLRepository")
@@ -268,76 +272,36 @@ public class ReportesServiceImpl implements ReportesService{
 	    	destFile=path+"reporte.pdf";
     		
     	    JRBeanCollectionDataSource source = null;
-    	    List<ComisionesVistaModel> temporal =null;
+    	    List<Venta> temporal =null;
 
     	    String titulo="REPORTE DE COMISIONES";
     	    //Vendedor
     	    if(tipo==1){
     	    	//por filtro
-    	    	if(!id.isEmpty()){
-    	    		temporal = new ArrayList<>();
-    	    		temporal.add(cService.consultarComisionesByVendedor(id,temporada));
-    	    		temporal.get(0).setComisiones(cService.consultarHistorialComisionesByVendedors(temporada,id));
-    	    		source = new JRBeanCollectionDataSource(temporal);
-    	    	//por filtro
-    	    	}else{
-    	    		temporal=cService.consultarComisionesByVendedors(temporada);
-    	    		for(ComisionesVistaModel cModel: temporal){
-    	    			cModel.setComisiones(cService.consultarHistorialComisionesByVendedors(temporada, cModel.getClave()));
-    	    		}
-    	    		source = new JRBeanCollectionDataSource(temporal);
-    	    	}
+    	    	temporal = vRepository.findByBloqueFolioVendedorClaveAndBloqueFolioFolioIdtemporadaIdtemporada(id,temporada);
     	    	titulo+=" POR VENDEDOR";
     	    }
     	  //Director
     	    if(tipo==2){
-    	    	//por filtro
-    	    	if(!id.isEmpty()){
-    	    		temporal = new ArrayList<>();
-    	    		temporal.add(cService.consultarComisionesByDirector(Integer.parseInt(id),temporada));
-    	    		temporal.get(0).setComisiones(cService.consultarHistorialComisionesByDirectors(temporada,Integer.parseInt(id)));
-    	    		source = new JRBeanCollectionDataSource(temporal);
-    	    	//por filtro
-    	    	}else{
-    	    		temporal=cService.consultarComisionesByDirectors(temporada);
-    	    		for(ComisionesVistaModel cModel: temporal){
-    	    			cModel.setComisiones(cService.consultarHistorialComisionesByDirectors(temporada, cModel.getIddirector()));
-    	    		}
-    	    		source = new JRBeanCollectionDataSource(temporal);
-    	    	}
+    	    	temporal = vRepository.findByEscuelaDirectorIddirectorAndBloqueFolioFolioIdtemporadaIdtemporada(Integer.valueOf(id),temporada);
     	    	titulo+=" POR DIRECTOR";
     	    }
     	  //Lider
     	    if(tipo==3){
-    	    	//por filtro
-    	    	if(!id.isEmpty()){
-    	    		temporal = new ArrayList<>();
-    	    		temporal.add(cService.consultarComisionesByLider(Integer.parseInt(id), temporada));
-    	    		temporal.get(0).setComisiones(cService.consultarHistorialComisionesByLideres(temporada, Integer.parseInt(id)));
-    	    		source = new JRBeanCollectionDataSource(temporal);
-    	    	//por filtro
-    	    	}else{
-    	    		temporal = cService.consultarComisionesByLideres(temporada);
-    	    		for(ComisionesVistaModel cModel: temporal){
-    	    			cModel.setComisiones(cService.consultarHistorialComisionesByLideres(temporada, cModel.getIdprofesor()));
-    	    		}
-    	    		source = new JRBeanCollectionDataSource(temporal);
-    	    	}
+    	    	temporal = vRepository.findByLideresLiderIdprofesorAndBloqueFolioFolioIdtemporadaIdtemporada(Integer.valueOf(id),temporada);
     	    	titulo+=" POR LIDER";
+    	    	//calculamos la comision del lider antes
+    	    	for(Venta venta:temporal){
+    	    		venta.setComisionesLider(venta.getLiderComision(Integer.valueOf(id)));
+    	    	}
     	    }
-             ///Compile the master and sub report 
-            
-            /*JasperCompileManager.compileReportToFile(subsubReportFileName,path+"");
-            JasperReport jasperSubReport2= JasperCompileManager.compileReport(subsubReportFileName);
-    	    
-            JasperCompileManager.compileReportToFile(subReportFileName,path+"ReporteEscuelas.jasper");
-            JasperReport jasperSubReport = JasperCompileManager.compileReport(subReportFileName);
-            */
-    	    
+    	    	
+    	    source = new JRBeanCollectionDataSource(temporal);
             JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
             
             Map parameters = new HashMap();
             parameters.put("titulo",titulo);
+            parameters.put("tipo",tipo);
             
             System.out.println("Llenando...");
             reporte=null;

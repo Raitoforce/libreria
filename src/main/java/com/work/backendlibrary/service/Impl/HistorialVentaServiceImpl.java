@@ -29,6 +29,11 @@ public class HistorialVentaServiceImpl implements HistorialVentaService{
 	}
 
 	@Override
+	public List<HistorialVenta> listAllHistorialVentasByHacienda(int hacienda) {
+		return hvJPA.findByVentaHacienda(hacienda);
+	}
+
+	@Override
 	public HistorialVenta addHistorialVenta(HistorialVentaModel hventam) {
 		// TODO Auto-generated method stub
 		HistorialVenta hventa=hvConverter.model2entity(hventam);

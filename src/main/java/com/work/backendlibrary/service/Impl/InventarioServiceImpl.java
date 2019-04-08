@@ -77,7 +77,17 @@ public class InventarioServiceImpl implements InventarioService{
         return cola;
     }
 
-    @Override
+	@Override
+	public List<HistorialVenta> getPedidosPendientesHacienda(int hacienda) {
+		List<HistorialVenta> cola=new ArrayList<HistorialVenta>();
+		for (HistorialVenta hv: hvService.listAllHistorialVentasByHacienda(hacienda)){
+			if(hv.getEntregados()-hv.getPedidos()!=0)
+				cola.add(hv);
+		}
+		return cola;
+	}
+
+	@Override
     public void confirmarPedido(int idHistorial, int entregados){
         HistorialVenta hv=hvService.consultarHistorialVenta(idHistorial);
         if(Math.abs(hv.getPedidos())>=Math.abs(hv.getEntregados()+entregados)){
@@ -168,9 +178,9 @@ public class InventarioServiceImpl implements InventarioService{
 	}
 
 	@Override
-	public List<LibroStockModel> getStocks() {
+	public List<LibroStockModel> getStocks(int hacienda) {
 		// TODO Auto-generated method stub
-		return lsc.convertir();
+		return lsc.convertir(hacienda);
 	}
 
 	@Override

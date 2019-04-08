@@ -56,4 +56,11 @@ public class StockController {
         stockService.removeStock(id);
         return new ResponseEntity<String>(HttpStatus.OK);
     }
+
+    @GetMapping("/hacienda={hacienda}")
+    public ResponseEntity<List<Stock>> consultarByHacienda(@PathVariable("hacienda")int hacienda){
+        List<Stock> stocks=stockService.getByHacienda(hacienda);
+        return new ResponseEntity<List<Stock>>(stocks,HttpStatus.OK);
+
+    }
 }

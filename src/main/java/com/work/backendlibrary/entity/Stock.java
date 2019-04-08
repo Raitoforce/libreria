@@ -29,6 +29,9 @@ public class Stock {
     @Column(name="motivo")
     private String motivo;
 
+    @Column(name="hacienda", columnDefinition = "int default 0")
+    private int hacienda = 0;
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="clave_producto",referencedColumnName="clave_producto")
     private Libro libro;
@@ -88,4 +91,12 @@ public class Stock {
 	public void setMotivo(String motivo) {
 		this.motivo = motivo;
 	}
+
+    public int getHacienda() {
+        return hacienda;
+    }
+
+    public void setHacienda(int hacienda) {
+        this.hacienda = hacienda;
+    }
 }

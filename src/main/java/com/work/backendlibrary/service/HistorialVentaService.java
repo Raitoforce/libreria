@@ -7,6 +7,7 @@ import com.work.backendlibrary.model.HistorialVentaModel;
 
 public interface HistorialVentaService {
 	public abstract List<HistorialVenta> listAllHistorialVentas();
+	public abstract List<HistorialVenta> listAllHistorialVentasByHacienda(int hacienda);
 	public abstract	HistorialVenta addHistorialVenta(HistorialVentaModel hventa);
 	public abstract void removeHistorialVenta(int id);
 	public abstract HistorialVenta updateHistorialVenta(HistorialVentaModel hventa);

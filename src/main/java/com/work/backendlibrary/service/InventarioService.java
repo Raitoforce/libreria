@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface InventarioService{
     public abstract List<HistorialVenta> getPedidosPendientes();
+    public abstract List<HistorialVenta> getPedidosPendientesHacienda(int hacienda);
 
     public abstract void confirmarPedido(int idHistorial,int entregados);
 
@@ -16,5 +17,5 @@ public interface InventarioService{
     
     public abstract int getStockActualTotal(String clave);
     
-    public abstract List<LibroStockModel> getStocks();
+    public abstract List<LibroStockModel> getStocks(int hacienda);
 }

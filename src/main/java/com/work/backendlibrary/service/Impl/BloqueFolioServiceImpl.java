@@ -56,7 +56,12 @@ public class BloqueFolioServiceImpl implements BloqueFolioService{
 	@Override
 	public BloqueFolio consultarByVendedorAndTemporada(String clave, int idtemporada) {
 		// TODO Auto-generated method stub
-		return bfJPA.findByVendedorClaveAndFolioIdtemporada(clave, idtemporada);
+		return bfJPA.findByVendedorClaveAndFolioIdtemporadaIdtemporada(clave, idtemporada);
+	}
+
+	@Override
+	public List<BloqueFolio> consultarByTemporada(int idtemporada) {
+		return bfJPA.findByFolioIdtemporadaIdtemporada(idtemporada);
 	}
 
 	@Override

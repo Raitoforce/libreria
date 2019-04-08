@@ -13,4 +13,6 @@ public interface StockService {
     public abstract Stock consultarStock(int id);
     public abstract List<Stock> consultarByLibro(String clave);
     public abstract Stock updtateInventario(Stock stock);
+
+    public abstract List<Stock> getByHacienda(int hacienda);
 }

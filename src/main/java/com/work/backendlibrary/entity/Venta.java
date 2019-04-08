@@ -55,6 +55,10 @@ public class Venta implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
 
+	@JsonView(VentaView.interno.class)
+	@Column(name="hacienda", columnDefinition = "int default 0")
+	private int hacienda = 0;
+
 	//bi-directional many-to-one association to BloqueFolio
 	@JsonView(VentaView.interno.class)
 	@ManyToOne
@@ -210,6 +214,26 @@ public class Venta implements Serializable {
 
 	public float getRestante() {
 		return restante;
+	}
+
+	public int getHacienda() {
+		return hacienda;
+	}
+
+	public void setHacienda(int hacienda) {
+		this.hacienda = hacienda;
+	}
+
+	public void setCuentas(Set<CuentasPorCobrar> cuentas) {
+		this.cuentas = cuentas;
+	}
+
+	public int getLibrosvendidos() {
+		return librosvendidos;
+	}
+
+	public void setLibrosvendidos(int librosvendidos) {
+		this.librosvendidos = librosvendidos;
 	}
 
 	public void setRestante(float restante) {

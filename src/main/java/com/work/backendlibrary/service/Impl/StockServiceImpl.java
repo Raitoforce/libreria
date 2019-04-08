@@ -69,4 +69,9 @@ public class StockServiceImpl implements StockService {
 		// TODO Auto-generated method stub
 		return stockJPARepository.save(stock);
 	}
+
+    @Override
+    public List<Stock> getByHacienda(int hacienda) {
+        return stockJPARepository.findByHacienda(hacienda);
+    }
 }

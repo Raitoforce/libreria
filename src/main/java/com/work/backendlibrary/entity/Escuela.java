@@ -44,6 +44,12 @@ public class Escuela implements Serializable {
 	private String telefono;
 	@Column(name="turno")
 	private String turno;
+
+	@Column(name="grupos", columnDefinition = "int default 0")
+	private Integer grupos = 0;
+
+	@Column(name="alumnos",columnDefinition = "int default 0")
+	private Integer alumnos = 0;
 	
 	
 	@ManyToOne(cascade=CascadeType.ALL)
@@ -63,6 +69,24 @@ public class Escuela implements Serializable {
 	private Set<Profesor> profesores;
 
 	public Escuela() {
+	}
+
+	public Escuela(String clave, String nombre, String codigoPostal, String direccion, String colonia, String email, String estado, String municipio, String telefono, String turno, Integer grupos, Integer alumnos, Director director, Zona zona, Set<Profesor> profesores) {
+		this.clave = clave;
+		this.nombre = nombre;
+		this.codigoPostal = codigoPostal;
+		this.direccion = direccion;
+		this.colonia = colonia;
+		this.email = email;
+		this.estado = estado;
+		this.municipio = municipio;
+		this.telefono = telefono;
+		this.turno = turno;
+		this.grupos = grupos;
+		this.alumnos = alumnos;
+		this.director = director;
+		this.zona = zona;
+		this.profesores = profesores;
 	}
 
 	public Escuela(String clave, String nombre, String codigoPostal, String direccion, String colonia, String email, String estado, String municipio, String telefono, String turno, Director director, Set<Profesor> profesores) {
@@ -180,6 +204,22 @@ public class Escuela implements Serializable {
 		this.colonia = colonia;
 	}
 
+	public int getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(int grupos) {
+		this.grupos = grupos;
+	}
+
+	public int getAlumnos() {
+		return alumnos;
+	}
+
+	public void setAlumnos(int alumnos) {
+		this.alumnos = alumnos;
+	}
+
 	@Transactional
 	@PreRemove
 	@Cascade(org.hibernate.annotations.CascadeType.REMOVE)
@@ -195,5 +235,13 @@ public class Escuela implements Serializable {
 
 	public void setZona(Zona zona) {
 		this.zona = zona;
+	}
+
+	public void setGrupos(Integer grupos) {
+		this.grupos = grupos;
+	}
+
+	public void setAlumnos(Integer alumnos) {
+		this.alumnos = alumnos;
 	}
 }

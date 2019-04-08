@@ -18,4 +18,5 @@ public interface VentaService {
 	public abstract Venta appendPedidos(String folio,LinkedHashSet<HistorialVentaModel> pedidos);
 	public abstract boolean VentaIsOnDB(String folio);
 	public abstract boolean VentaHasConfirmed(String folio);
+	public abstract List<Venta> consultarByTemporadaAndHacienda(int idtemporada,int hacienda);
 }

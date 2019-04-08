@@ -17,6 +17,8 @@ import com.work.backendlibrary.entity.HistorialVenta;
 public interface HistorialVentaJPARepository extends JpaRepository<HistorialVenta, Serializable>{
 	
 	public abstract List<HistorialVenta> findByVentaFolio(String id);
+
+	public abstract List<HistorialVenta> findByVentaHacienda(int hacienda);
 	
 	public abstract HistorialVenta findByIdHistorial(int id);
 	

@@ -18,15 +18,18 @@ public class LibroStockConverter {
 	@Qualifier("libroServiceImpl")
 	LibroService libroService;
 	
-	public List<LibroStockModel> convertir(){
+	public List<LibroStockModel> convertir(int hacienda){
 		List<LibroStockModel> librosM= new ArrayList<>();
 		for (Libro libro: libroService.listAllLibros()) {
 			LibroStockModel lsm=new LibroStockModel();
 			lsm.setClaveProducto(libro.getClave_producto());
 			lsm.setTitulo(libro.getTitulo());
 			int cont=0;
-			for (Stock stock : libro.getStocks()) {
-				cont+=stock.getStock_actual();
+			for (Stock stock : libro.getStocks()){
+				//se agrego para poder hacer el filtro...
+				if (stock.getHacienda() == hacienda) {
+					cont+=stock.getStock_actual();
+				}
 			}
 			lsm.setCantidad(cont);
 			librosM.add(lsm);

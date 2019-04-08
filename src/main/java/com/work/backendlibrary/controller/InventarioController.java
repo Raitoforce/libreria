@@ -50,6 +50,12 @@ public class InventarioController{
 		List<HistorialVenta> inventario=inventarioService.getPedidosPendientes();
 		return new ResponseEntity<>(inventario,HttpStatus.OK);
 	}
+
+	@GetMapping("/{hacienda}")
+	public ResponseEntity<List<HistorialVenta>> devolverInventarioByHacienda(@PathVariable("hacienda") int hacienda){
+		List<HistorialVenta> inventario=inventarioService.getPedidosPendientesHacienda(hacienda);
+		return new ResponseEntity<>(inventario,HttpStatus.OK);
+	}
 	
 	
 	@GetMapping("/resurtidos={folio}")
@@ -61,8 +67,8 @@ public class InventarioController{
 	
 	
 	@GetMapping("/stocks")
-	public ResponseEntity<List<LibroStockModel>> devolverStocks(){
-		List<LibroStockModel> inventario=inventarioService.getStocks();
+	public ResponseEntity<List<LibroStockModel>> devolverStocks(@RequestParam(value = "hacienda" , defaultValue = "0") int hacienda){
+		List<LibroStockModel> inventario=inventarioService.getStocks(hacienda);
 		return new ResponseEntity<>(inventario,HttpStatus.OK);
 	}
 	

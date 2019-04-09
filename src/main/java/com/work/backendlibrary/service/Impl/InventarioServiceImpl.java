@@ -88,12 +88,12 @@ public class InventarioServiceImpl implements InventarioService{
 	}
 
 	@Override
-    public void confirmarPedido(int idHistorial, int entregados){
+    public void confirmarPedido(int idHistorial, int entregados, int hacienda){
         HistorialVenta hv=hvService.consultarHistorialVenta(idHistorial);
         if(Math.abs(hv.getPedidos())>=Math.abs(hv.getEntregados()+entregados)){
 	        hv.setEntregados(hv.getEntregados()+entregados);
 	        hv.setFechaConfirmacion(new Timestamp(System.currentTimeMillis()));
-	        for(Stock stock: stockService.consultarByLibro(hv.getLibro().getClave_producto())){
+	        for(Stock stock: stockService.consultarByLibroHacienda(hv.getLibro().getClave_producto(),hacienda)){
 	        	if(entregados>0 && stock.getCantidad()>0){
 		        	if(stock.getStock_actual()>=entregados){
 		        		stock.setStock_actual(stock.getStock_actual()-entregados);

@@ -212,7 +212,7 @@ public class ReportesServiceImpl implements ReportesService{
 	}
 	
 	@Override
-	public void generarReporteCobranza(String clave,String escuela,int profesor,Date fechaInicial, Date fechaFinal) {
+	public void generarReporteCobranza(String clave,String escuela,int profesor,Date fechaInicial, Date fechaFinal, int temporada) {
 		if(path==null){
 	    	try {
 	    		path= reporte_model.getURL().getPath().replaceAll("%20"," ");
@@ -231,7 +231,7 @@ public class ReportesServiceImpl implements ReportesService{
 	    	destFile=path+"reporte.pdf";
     		
     	    JRBeanCollectionDataSource source = null;
-    	    source = new JRBeanCollectionDataSource(this.qDSLR.findVendedorByClaveEscuelaProfesor(clave, escuela, profesor,fechaInicial,fechaFinal)); 
+    	    source = new JRBeanCollectionDataSource(this.qDSLR.findVendedorByClaveEscuelaProfesor(clave, escuela, profesor,fechaInicial,fechaFinal, temporada)); 
              ///Compile the master and sub report 
             
             /*JasperCompileManager.compileReportToFile(subsubReportFileName,path+"");
@@ -256,7 +256,7 @@ public class ReportesServiceImpl implements ReportesService{
 	}
 
 	@Override
-	public void generarReporteComisiones(int tipo, String id,int temporada) {
+	public void generarReporteComisiones(int tipo, String id,int temporada, int hacienda) {
 		if(path==null){
 	    	try {
 	    		path= reporte_model.getURL().getPath().replaceAll("%20"," ");
@@ -278,17 +278,17 @@ public class ReportesServiceImpl implements ReportesService{
     	    //Vendedor
     	    if(tipo==1){
     	    	//por filtro
-    	    	temporal = vRepository.findByBloqueFolioVendedorClaveAndBloqueFolioFolioIdtemporadaIdtemporada(id,temporada);
+    	    	temporal = vRepository.findByBloqueFolioVendedorClaveAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(id,temporada,hacienda);
     	    	titulo+=" POR VENDEDOR";
     	    }
     	  //Director
     	    if(tipo==2){
-    	    	temporal = vRepository.findByEscuelaDirectorIddirectorAndBloqueFolioFolioIdtemporadaIdtemporada(Integer.valueOf(id),temporada);
+    	    	temporal = vRepository.findByEscuelaDirectorIddirectorAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(Integer.valueOf(id),temporada,hacienda);
     	    	titulo+=" POR DIRECTOR";
     	    }
     	  //Lider
     	    if(tipo==3){
-    	    	temporal = vRepository.findByLideresLiderIdprofesorAndBloqueFolioFolioIdtemporadaIdtemporada(Integer.valueOf(id),temporada);
+    	    	temporal = vRepository.findByLideresLiderIdprofesorAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(Integer.valueOf(id),temporada,hacienda);
     	    	titulo+=" POR LIDER";
     	    	//calculamos la comision del lider antes
     	    	for(Venta venta:temporal){

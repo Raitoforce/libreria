@@ -51,11 +51,11 @@ public class ComisionesModuloConverter {
 	@Qualifier("lideresComisionesJPARepository")
 	LideresComisionesJPARepository lcJPA;
 	
-	public ComisionesVistaModel cuentaVendedor(String clave,int idtemporada){
+	public ComisionesVistaModel cuentaVendedor(String clave,int idtemporada , int hacienda){
 		ComisionesVistaModel cvm=new ComisionesVistaModel();
 		Vendedor vendedor=vJPA.findByClave(clave);
 		List<Comision> comisiones=cJPA.findByTemporadaIdtemporadaAndVendedorClaveAndTipo(idtemporada, clave,"VENDEDOR");
-		List<Venta> ventas=ventaJPA.findByBloqueFolioVendedorClaveAndBloqueFolioFolioIdtemporadaIdtemporada(clave, idtemporada);
+		List<Venta> ventas=ventaJPA.findByBloqueFolioVendedorClaveAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(clave, idtemporada, hacienda);
 		List<HistorialVenta> pedidos=null;
 		float total=0;
 		float deuda=0;
@@ -83,11 +83,11 @@ public class ComisionesModuloConverter {
 		return cvm;
 	}
 	
-	public ComisionesVistaModel cuentaDirector(int iddirector,int idtemporada){
+	public ComisionesVistaModel cuentaDirector(int iddirector,int idtemporada , int hacienda){
 		ComisionesVistaModel cvm=new ComisionesVistaModel();
 		Director director=dJPA.findByIddirector(iddirector);
 		List<Comision> comisiones=cJPA.findByTemporadaIdtemporadaAndDirectorIddirectorAndTipo(idtemporada, iddirector,"DIRECTOR");
-		List<Venta> ventas=ventaJPA.findByEscuelaDirectorIddirectorAndBloqueFolioFolioIdtemporadaIdtemporada(iddirector, idtemporada);
+		List<Venta> ventas=ventaJPA.findByEscuelaDirectorIddirectorAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(iddirector, idtemporada, hacienda);
 		float total=0;
 		float deuda=0;
 		List<HistorialVenta> pedidos=null;
@@ -113,11 +113,11 @@ public class ComisionesModuloConverter {
 		return cvm;
 	}
 	
-	public ComisionesVistaModel cuentaLider(int idprofesor,int idtemporada){
+	public ComisionesVistaModel cuentaLider(int idprofesor,int idtemporada, int hacienda){
 		ComisionesVistaModel cvm=new ComisionesVistaModel();
 		Profesor profesor = pJPA.findByIdprofesor(idprofesor);
 		List<Comision> comisiones=cJPA.findByTemporadaIdtemporadaAndLiderLiderIdprofesorAndTipo(idtemporada, idprofesor,"LIDER");
-		List<Venta> ventas=ventaJPA.findByLideresLiderIdprofesorAndBloqueFolioFolioIdtemporadaIdtemporada(idprofesor, idtemporada);
+		List<Venta> ventas=ventaJPA.findByLideresLiderIdprofesorAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(idprofesor, idtemporada, hacienda);
 		float total=0;
 		float deuda=0;
 		List<HistorialVenta> pedidos=null;

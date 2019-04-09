@@ -14,4 +14,7 @@ public interface StockJPARepository extends JpaRepository<Stock,Serializable> {
     public List<Stock> findByLibroClaveProducto(String clave);
 
     public List<Stock> findByHacienda(int hacienda);
+    
+    public List<Stock> findByLibroClaveProductoAndHacienda(String clave, int hacienda);
+
 }

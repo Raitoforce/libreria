@@ -73,8 +73,10 @@ public class InventarioController{
 	}
 	
 	@GetMapping("/confirmar")
-	public ResponseEntity<String> confirmarPedido(@RequestParam("idHistorial")int idHistorial,@RequestParam("entregados")int entregados){
-		inventarioService.confirmarPedido(idHistorial, entregados);
+	public ResponseEntity<String> confirmarPedido(@RequestParam("idHistorial")int idHistorial,@RequestParam("entregados")int entregados
+			,@RequestParam("hacienda")int hacienda
+			){
+		inventarioService.confirmarPedido(idHistorial, entregados, hacienda);
 		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 	

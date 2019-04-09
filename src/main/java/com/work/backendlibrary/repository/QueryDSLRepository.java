@@ -138,7 +138,7 @@ public class QueryDSLRepository {
 				.fetch();
 	}
 	
-	public List<Vendedor> findVendedorByClaveEscuelaProfesor(String clave,String escuela,int profesor,Date fechaInicial,Date fechaFinal){
+	public List<Vendedor> findVendedorByClaveEscuelaProfesor(String clave,String escuela,int profesor,Date fechaInicial,Date fechaFinal, int temporada){
 		JPAQuery<Vendedor> query = new JPAQuery<Vendedor>(em);
 		BooleanBuilder predicateBuilder = new BooleanBuilder();
 		//BooleanBuilder predicateBuilder2 = new BooleanBuilder();
@@ -165,6 +165,8 @@ public class QueryDSLRepository {
 			System.out.println("Filtro de fechas");
 		}
 		
+		predicateBuilder.and(QTemporada.temporada.idtemporada.eq(temporada));
+		
 		return query.select(QVendedor.vendedor)
 				.distinct()
 				.from(QVendedor.vendedor)
@@ -176,6 +178,7 @@ public class QueryDSLRepository {
 				.fetchJoin()
 				.innerJoin(QHistorialVenta.historialVenta.cuentas,QCuentasPorCobrar.cuentasPorCobrar)
 				.fetchJoin()
+				.innerJoin(QBloqueFolio.bloqueFolio.folio.idtemporada,QTemporada.temporada)
 				.where(predicateBuilder)
 				.orderBy(QVendedor.vendedor.clave.asc(),QVenta.venta.escuela.clave.asc(),QVenta.venta.profesor.idprofesor.asc())
 				.fetch();

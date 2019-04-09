@@ -74,4 +74,10 @@ public class StockServiceImpl implements StockService {
     public List<Stock> getByHacienda(int hacienda) {
         return stockJPARepository.findByHacienda(hacienda);
     }
+
+	@Override
+	public List<Stock> consultarByLibroHacienda(String clave, int hacienda) {
+		// TODO Auto-generated method stub
+		return stockJPARepository.findByLibroClaveProductoAndHacienda(clave, hacienda);
+	}
 }

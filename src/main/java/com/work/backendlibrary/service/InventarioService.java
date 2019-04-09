@@ -9,7 +9,7 @@ public interface InventarioService{
     public abstract List<HistorialVenta> getPedidosPendientes();
     public abstract List<HistorialVenta> getPedidosPendientesHacienda(int hacienda);
 
-    public abstract void confirmarPedido(int idHistorial,int entregados);
+    public abstract void confirmarPedido(int idHistorial,int entregados, int hacienda);
 
     public abstract void generarReporte(String folio);
     

@@ -76,25 +76,25 @@ public class ComisionController {
 	
 	@PostMapping(path="/abonarLider",consumes="application/json")
 	public ResponseEntity<String> abonarLider(@RequestBody ComisionModel comision){
-		comisionService.addComisionLider(comision);
+		comisionService.addComisionLider(comision,0);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
 	@GetMapping("/comisionVendedor")
 	public ResponseEntity<List<ComisionesVistaModel>> getComisionesVendedor(@RequestParam int idtemporada){
-		List<ComisionesVistaModel> comisiones = comisionService.consultarComisionesByVendedors(idtemporada); 
+		List<ComisionesVistaModel> comisiones = comisionService.consultarComisionesByVendedors(idtemporada,0); 
 		return new ResponseEntity<List<ComisionesVistaModel>>(comisiones,HttpStatus.OK);
 	}
 	
 	@GetMapping("/comisionDirector")
 	public ResponseEntity<List<ComisionesVistaModel>> getComisionesDirector(@RequestParam int idtemporada){
-		List<ComisionesVistaModel> comisiones = comisionService.consultarComisionesByDirectors(idtemporada);
+		List<ComisionesVistaModel> comisiones = comisionService.consultarComisionesByDirectors(idtemporada,0);
 		return new ResponseEntity<List<ComisionesVistaModel>>(comisiones,HttpStatus.OK);
 	}
 	
 	@GetMapping("/comisionLider")
 	public ResponseEntity<List<ComisionesVistaModel>> getComisionesLider(@RequestParam int idtemporada){
-		List<ComisionesVistaModel> comisiones = comisionService.consultarComisionesByLideres(idtemporada);
+		List<ComisionesVistaModel> comisiones = comisionService.consultarComisionesByLideres(idtemporada,0);
 		return new ResponseEntity<List<ComisionesVistaModel>>(comisiones,HttpStatus.OK);
 	}
 	

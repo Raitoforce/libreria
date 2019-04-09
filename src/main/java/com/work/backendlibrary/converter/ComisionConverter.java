@@ -82,7 +82,7 @@ public class ComisionConverter {
 	}
 	
 	//Metodo para setear comisiones por venta y lider
-	public void entity2modelP(ComisionModel cm){
+	public void entity2modelP(ComisionModel cm,int hacienda){
 		Comision c=new Comision();
 		Profesor profesor = pJPA.findByIdprofesor(cm.getLider());
 		Temporada t=tJPA.findByIdtemporada(cm.getTemporada());
@@ -92,7 +92,7 @@ public class ComisionConverter {
 		float monto=0;
 		while(cm.getMonto()!=0){
 			c=new Comision();
-			venta = obtenerVentaActual(cm.getLider(), cm.getTemporada(),cm.getMonto());
+			venta = obtenerVentaActual(cm.getLider(), cm.getTemporada(),cm.getMonto(),hacienda);
 			if(venta==null)break;
 			c.setTemporada(t);
 			if(restante==0){
@@ -117,14 +117,14 @@ public class ComisionConverter {
 		}
 	}
 	
-	public Venta obtenerVentaActual(int idprofesor,int idtemporada,float amount){
+	public Venta obtenerVentaActual(int idprofesor,int idtemporada,float amount,int hacienda){
 		float totalC=0;
 		float totalP=0;
 		Venta ventar=null;
 		for (Comision comision:cmJPA.findByTemporadaIdtemporadaAndLiderLiderIdprofesorAndTipo(idtemporada,idprofesor,"LIDER")) {
 			totalC+=comision.getMonto();
 		}
-		for (Venta venta : ventaJPA.findByLideresLiderIdprofesorAndBloqueFolioFolioIdtemporadaIdtemporada(idprofesor, idtemporada)) {
+		for (Venta venta : ventaJPA.findByLideresLiderIdprofesorAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(idprofesor, idtemporada, hacienda)) {
 			totalP+=venta.getLiderComisionTotal(idprofesor);
 			ventar = venta;
 			if(venta.getLiderComisionTotal(idprofesor)==0)continue; //No asignar a las ventas 0

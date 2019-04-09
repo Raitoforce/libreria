@@ -91,24 +91,24 @@ public class ComisionServiceImpl implements ComisionService{
 	}
 
 	@Override
-	public ComisionesVistaModel consultarComisionesByVendedor(String clave, int idtemporada) {
+	public ComisionesVistaModel consultarComisionesByVendedor(String clave, int idtemporada, int hacienda) {
 		// TODO Auto-generated method stub
-		return cmc.cuentaVendedor(clave, idtemporada);
+		return cmc.cuentaVendedor(clave, idtemporada, hacienda);
 	}
 
 	@Override
-	public ComisionesVistaModel consultarComisionesByDirector(int iddirector, int idtemporada) {
-		return cmc.cuentaDirector(iddirector, idtemporada);
+	public ComisionesVistaModel consultarComisionesByDirector(int iddirector, int idtemporada , int hacienda) {
+		return cmc.cuentaDirector(iddirector, idtemporada, hacienda);
 	}
 
 	@Override
-	public List<ComisionesVistaModel> consultarComisionesByVendedors(int idtemporada) {
+	public List<ComisionesVistaModel> consultarComisionesByVendedors(int idtemporada , int hacienda) {
 		// TODO Auto-generated method stub
 		List<Vendedor> vendedores=vJPA.findAll();
 		List<ComisionesVistaModel> cvms= new ArrayList<>();
 		ComisionesVistaModel cvm=null;
 		for (Vendedor vendedor : vendedores) {
-			cvm=consultarComisionesByVendedor(vendedor.getClave(), idtemporada);
+			cvm=consultarComisionesByVendedor(vendedor.getClave(), idtemporada, hacienda);
 			if(cvm.getDeuda()!=0)
 				cvms.add(cvm);
 		}
@@ -116,13 +116,13 @@ public class ComisionServiceImpl implements ComisionService{
 	}
 
 	@Override
-	public List<ComisionesVistaModel> consultarComisionesByDirectors(int idtemporada) {
+	public List<ComisionesVistaModel> consultarComisionesByDirectors(int idtemporada , int hacienda) {
 		/// 
 		List<Director> directores=dJPA.findAll();
 		List<ComisionesVistaModel> cvms= new ArrayList<>();
 		ComisionesVistaModel cvm=null;
 		for (Director director : directores) {
-			cvm=consultarComisionesByDirector(director.getIddirector(),idtemporada);
+			cvm=consultarComisionesByDirector(director.getIddirector(),idtemporada , hacienda);
 			if(cvm.getDeuda()!=0)
 				cvms.add(cvm);
 		}
@@ -130,25 +130,25 @@ public class ComisionServiceImpl implements ComisionService{
 	}
 
 	@Override
-	public void addComisionLider(ComisionModel cm) {
+	public void addComisionLider(ComisionModel cm, int hacienda) {
 		// TODO Auto-generated method stub
-		cc.entity2modelP(cm);
+		cc.entity2modelP(cm , hacienda);
 	}
 
 	@Override
-	public ComisionesVistaModel consultarComisionesByLider(int idprofesor, int idtemporada) {
+	public ComisionesVistaModel consultarComisionesByLider(int idprofesor, int idtemporada , int hacienda) {
 		// TODO Auto-generated method stub
-		return cmc.cuentaLider(idprofesor, idtemporada);
+		return cmc.cuentaLider(idprofesor, idtemporada , hacienda);
 	}
 
 	@Override
-	public List<ComisionesVistaModel> consultarComisionesByLideres(int idtemporada) {
+	public List<ComisionesVistaModel> consultarComisionesByLideres(int idtemporada, int hacienda) {
 		// TODO Auto-generated method stub
 		List<Profesor> profesores=pJPA.findAll();
 		List<ComisionesVistaModel> cvms= new ArrayList<>();
 		ComisionesVistaModel cvm=null;
 		for (Profesor profesors : profesores) {
-			cvm=consultarComisionesByLider(profesors.getIdprofesor(), idtemporada);
+			cvm=consultarComisionesByLider(profesors.getIdprofesor(), idtemporada , hacienda);
 			if(cvm.getDeuda()!=0)
 				cvms.add(cvm);
 		}

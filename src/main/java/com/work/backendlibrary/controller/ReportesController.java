@@ -134,9 +134,10 @@ public class ReportesController {
 			@RequestParam(name="escuela",defaultValue="")String escuela,
 			@RequestParam(name="fechaInicial",required=false)@DateTimeFormat(pattern="yyyy-MM-dd") Date fechaInicial,
 			@RequestParam(name="fechaFinal",required=false)@DateTimeFormat(pattern="yyyy-MM-dd") Date fechaFinal,
-			@RequestParam(name="profesor",defaultValue="0")int profesor
+			@RequestParam(name="profesor",defaultValue="0")int profesor,
+			@RequestParam(name="temporada",defaultValue="0",required=false)int temporada
 			){
-		rService.generarReporteCobranza(vendedor, escuela, profesor,fechaInicial, fechaFinal);
+		rService.generarReporteCobranza(vendedor, escuela, profesor,fechaInicial, fechaFinal,temporada);
 		String path="";
 		try {
 			path= reporte.getURL().getPath().replaceAll("%20"," ");
@@ -167,15 +168,16 @@ public class ReportesController {
 	@GetMapping("/Comisiones")
 	public ResponseEntity<byte[]> crearPDFComisiones(@RequestParam(name="tipo")int tipo,
 			@RequestParam(name="temporada")int temporada,
-			@RequestParam(name="id",defaultValue="")String id){
-		rService.generarReporteComisiones(tipo, id, temporada);
+			@RequestParam(name="hacienda", defaultValue = "0")int hacienda,
+			@RequestParam(name="id", required = true)String id){
+		rService.generarReporteComisiones(tipo, id, temporada, hacienda);
 		String path="";
 		try {
 			path= reporte.getURL().getPath().replaceAll("%20"," ");
 			path=path.replaceAll("Invoice.jrxml","")+"reporte.pdf";
 		} catch (IOException e){
 			e.printStackTrace();
-		}
+		}	
 		HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.parseMediaType("application/pdf"));
 	    //String filename =path+"reporte.pdf";

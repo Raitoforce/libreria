@@ -390,7 +390,7 @@ public class ReportesServiceImpl implements ReportesService {
 
 	@Override
 	public void generarReporteGanancia(String vendedor, String libro, Date fechaInicial, Date fechaFinal,
-			int tipoPedido) {
+			int tipoPedido, int temporada) {
 		if (path == null) {
 			try {
 				path = reporte_model.getURL().getPath().replaceAll("%20", " ");
@@ -407,7 +407,7 @@ public class ReportesServiceImpl implements ReportesService {
 			destFile = path + "reporte.pdf";
 
 			JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(this.qDSLR
-					.findVentaByVendedorLibroFechaGanancia(vendedor, libro, fechaInicial, fechaFinal, tipoPedido));
+					.findVentaByVendedorLibroFechaGanancia(vendedor, libro, fechaInicial, fechaFinal, tipoPedido,temporada));
 
 			/// Compile the master and sub report
 

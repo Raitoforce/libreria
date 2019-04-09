@@ -201,11 +201,12 @@ public class ReportesController {
 	@GetMapping("/Ganancia")
 	public ResponseEntity<byte[]> crearPDFGanancia(@RequestParam(name="vendedor",defaultValue="")String vendedor,
 			@RequestParam(name="libro",defaultValue="")String libro,
+			@RequestParam(name="temporada")int temporada,
 			@RequestParam(name="fechaInicial",required=false)@DateTimeFormat(pattern="yyyy-MM-dd") Date fechaInicial,
 			@RequestParam(name="fechaFinal",required=false)@DateTimeFormat(pattern="yyyy-MM-dd") Date fechaFinal,
 			@RequestParam(name="tipoPedido",defaultValue="0")int tipoPedido
 			){
-		rService.generarReporteGanancia(vendedor, libro, fechaInicial, fechaFinal, tipoPedido);
+		rService.generarReporteGanancia(vendedor, libro, fechaInicial, fechaFinal, tipoPedido , temporada);
 		String path="";
 		try {
 			path= reporte.getURL().getPath().replaceAll("%20"," ");

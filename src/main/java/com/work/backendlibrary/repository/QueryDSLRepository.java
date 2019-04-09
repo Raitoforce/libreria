@@ -16,9 +16,11 @@ import com.work.backendlibrary.entity.Profesor;
 import com.work.backendlibrary.entity.QBloqueFolio;
 import com.work.backendlibrary.entity.QCuentasPorCobrar;
 import com.work.backendlibrary.entity.QEscuela;
+import com.work.backendlibrary.entity.QFolio;
 import com.work.backendlibrary.entity.QHistorialVenta;
 import com.work.backendlibrary.entity.QLibro;
 import com.work.backendlibrary.entity.QProfesor;
+import com.work.backendlibrary.entity.QTemporada;
 import com.work.backendlibrary.entity.QVendedor;
 import com.work.backendlibrary.entity.QVenta;
 import com.work.backendlibrary.entity.QZona;
@@ -32,10 +34,9 @@ public class QueryDSLRepository {
 	private EntityManager em;
 	private QVenta qVenta = QVenta.venta;
 
-	public List<Venta> findVentaByVendedorLibroFecha(String clave,String libro,Date fechaInicial,Date fechaFinal,int tipoPedido){
+	public List<Venta> findVentaByVendedorLibroFechaTemporadaHacienda(String clave,String libro,Date fechaInicial,Date fechaFinal,int tipoPedido,int temporada, int hacienda){
 		JPAQuery<Venta> query = new JPAQuery<Venta>(em);
 		BooleanBuilder predicateBuilder = new BooleanBuilder();
-		//BooleanBuilder predicateBuilder2 = new BooleanBuilder();
 		Predicate predicate=null;
 		//Filtro vendedor
 		if(!clave.isEmpty()){
@@ -66,12 +67,23 @@ public class QueryDSLRepository {
 			}
 		}
 		
+		predicate = qVenta.hacienda.eq(hacienda);
+		predicateBuilder.and(predicate);
+		
+		if(temporada != 0){
+			predicate = QTemporada.temporada.idtemporada.eq(temporada);
+			predicateBuilder.and(predicate);
+		}
+		
 		return query.select(qVenta)
 				.distinct()
 				.from(qVenta)
 				.innerJoin(qVenta.pedidos,QHistorialVenta.historialVenta)
 				.fetchJoin()
 				.innerJoin(QHistorialVenta.historialVenta.libro,QLibro.libro)
+				.innerJoin(qVenta.bloqueFolio,QBloqueFolio.bloqueFolio)
+				.innerJoin(QBloqueFolio.bloqueFolio.folio,QFolio.folio)
+				.innerJoin(QFolio.folio.idtemporada,QTemporada.temporada)
 				//.on(predicateBuilder2)
 				.where(predicateBuilder)
 				.orderBy(qVenta.bloqueFolio.vendedor.clave.asc(),qVenta.folio.asc())

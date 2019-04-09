@@ -97,9 +97,11 @@ public class ReportesController {
 			@RequestParam(name="libro",defaultValue="")String libro,
 			@RequestParam(name="fechaInicial",required=false)@DateTimeFormat(pattern="yyyy-MM-dd") Date fechaInicial,
 			@RequestParam(name="fechaFinal",required=false)@DateTimeFormat(pattern="yyyy-MM-dd") Date fechaFinal,
-			@RequestParam(name="tipoPedido",defaultValue="0")int tipoPedido
+			@RequestParam(name="tipoPedido",defaultValue="0")int tipoPedido,
+			@RequestParam(name="temporada", required = true)int temporada,
+			@RequestParam(name="hacienda",defaultValue="0")int hacienda
 			){
-		rService.generarReporteVentas(vendedor, libro, fechaInicial, fechaFinal, tipoPedido);
+		rService.generarReporteVentas(vendedor, libro, fechaInicial, fechaFinal, tipoPedido,temporada, hacienda);
 		String path="";
 		try {
 			path= reporte.getURL().getPath().replaceAll("%20"," ");

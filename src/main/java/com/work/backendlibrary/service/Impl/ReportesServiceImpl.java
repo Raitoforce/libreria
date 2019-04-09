@@ -172,7 +172,7 @@ public class ReportesServiceImpl implements ReportesService{
 
 	@Override
 	public void generarReporteVentas(String vendedor, String libro, Date fechaInicial, Date fechaFinal,
-			int tipoPedido) {
+			int tipoPedido,int temporada, int hacienda) {
 		if(path==null){
 	    	try {
 	    		path= reporte_model.getURL().getPath().replaceAll("%20"," ");
@@ -189,7 +189,7 @@ public class ReportesServiceImpl implements ReportesService{
 	    	jasperMaster=path+"ReporteVentas.jasper";
 	    	destFile=path+"reporte.pdf";
     		
-    	    JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(this.qDSLR.findVentaByVendedorLibroFecha(vendedor, libro, fechaInicial, fechaFinal, tipoPedido));
+    	    JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(this.qDSLR.findVentaByVendedorLibroFechaTemporadaHacienda(vendedor, libro, fechaInicial, fechaFinal, tipoPedido,temporada,hacienda));
     	    
              ///Compile the master and sub report 
     	    

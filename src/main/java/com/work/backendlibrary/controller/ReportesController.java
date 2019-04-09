@@ -169,7 +169,7 @@ public class ReportesController {
 	public ResponseEntity<byte[]> crearPDFComisiones(@RequestParam(name="tipo")int tipo,
 			@RequestParam(name="temporada")int temporada,
 			@RequestParam(name="hacienda", defaultValue = "0")int hacienda,
-			@RequestParam(name="id", required = true)String id){
+			@RequestParam(name="id", defaultValue = "")String id){
 		rService.generarReporteComisiones(tipo, id, temporada, hacienda);
 		String path="";
 		try {

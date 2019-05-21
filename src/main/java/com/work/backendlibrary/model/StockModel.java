@@ -1,4 +1,5 @@
 package com.work.backendlibrary.model;
+
 import java.sql.Timestamp;
 
 public class StockModel {
@@ -12,10 +13,12 @@ public class StockModel {
     private int stock_actual;
 
     private String libro;
-    
+
     private String motivo;
-    
+
     private String tipomovimiento;
+
+    private int hacienda;
 
     public int getIdstock() {
         return idstock;
@@ -57,19 +60,27 @@ public class StockModel {
         this.libro = libro;
     }
 
-	public String getMotivo() {
-		return motivo;
-	}
+    public String getMotivo() {
+        return motivo;
+    }
 
-	public void setMotivo(String motivo) {
-		this.motivo = motivo;
-	}
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
 
-	public String getTipomovimiento() {
-		return tipomovimiento;
-	}
+    public String getTipomovimiento() {
+        return tipomovimiento;
+    }
 
-	public void setTipomovimiento(String tipomovimiento) {
-		this.tipomovimiento = tipomovimiento;
-	}
+    public void setTipomovimiento(String tipomovimiento) {
+        this.tipomovimiento = tipomovimiento;
+    }
+
+    public int getHacienda() {
+        return hacienda;
+    }
+
+    public void setHacienda(int hacienda) {
+        this.hacienda = hacienda;
+    }
 }

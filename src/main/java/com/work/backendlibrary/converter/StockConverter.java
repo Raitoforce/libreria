@@ -13,14 +13,15 @@ public class StockConverter {
     @Qualifier("libroServiceImpl")
     LibroService libroService;
 
-    public Stock model2entity(StockModel stockModel){
-        Stock stock=new Stock();
+    public Stock model2entity(StockModel stockModel) {
+        Stock stock = new Stock();
         stock.setLibro(libroService.consultarLibro(stockModel.getLibro()));
         stock.setCantidad(stockModel.getCantidad());
         stock.setFecha_entrada(stockModel.getFecha_entrada());
         stock.setStock_actual(stockModel.getStock_actual());
         stock.setMotivo(stockModel.getMotivo());
         stock.setTipomovimiento(stockModel.getTipomovimiento());
+        stock.setHacienda(stockModel.getHacienda());
         stock.setIdstock(stockModel.getIdstock());
         return stock;
     }

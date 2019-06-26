@@ -5,17 +5,18 @@ import com.work.backendlibrary.model.LibroStockModel;
 
 import java.util.List;
 
-public interface InventarioService{
+public interface InventarioService {
     public abstract List<HistorialVenta> getPedidosPendientes();
-    public abstract List<HistorialVenta> getPedidosPendientesHacienda(int hacienda);
 
-    public abstract void confirmarPedido(int idHistorial,int entregados, int hacienda);
+    public abstract List<HistorialVenta> getPedidosPendientesHacienda(int hacienda, int temporada);
+
+    public abstract void confirmarPedido(int idHistorial, int entregados, int hacienda);
 
     public abstract void generarReporte(String folio);
-    
+
     public abstract void generarReportePedido(String folio, int numresurtido);
-    
+
     public abstract int getStockActualTotal(String clave);
-    
+
     public abstract List<LibroStockModel> getStocks(int hacienda);
 }

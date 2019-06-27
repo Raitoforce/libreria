@@ -22,6 +22,7 @@ public class VentaReportModel{
 	private String cantidad;
 	private float precioventa;
 	private List<PedidosReportModel> pedidos;
+	private String nombreVendedor;
 	
 	public String getEscuela_nombre() {
 		return escuela_nombre;
@@ -125,6 +126,15 @@ public class VentaReportModel{
 
 	public void setPedidos(List<PedidosReportModel> pedidos) {
 		this.pedidos = pedidos;
+	}
+	
+
+	public String getNombreVendedor() {
+		return nombreVendedor;
+	}
+
+	public void setNombreVendedor(String nombreVendedor) {
+		this.nombreVendedor = nombreVendedor;
 	}
 
 	public void Calcular(float comision){

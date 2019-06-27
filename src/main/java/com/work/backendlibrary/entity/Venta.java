@@ -325,5 +325,11 @@ public class Venta implements Serializable {
 	public float getComisionesLider() {
 		return comisionesLider;
 	}
+	
+	public String getNameVendedor(){
+		
+		return this.getBloqueFolio().getVendedor().getNombre();
+	}
+	
 
 }

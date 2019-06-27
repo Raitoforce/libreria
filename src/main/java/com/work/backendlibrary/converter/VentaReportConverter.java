@@ -29,6 +29,7 @@ public class VentaReportConverter {
 		ventam.setEscuela_domicilio(venta.getEscuela().getDireccion()+" "+venta.getEscuela().getColonia()+"("+venta.getEscuela().getCodigoPostal()+")");
 		ventam.setFolio(venta.getFolio());
 		ventam.setMunicipio_escuela(venta.getEscuela().getMunicipio());	
+		ventam.setNombreVendedor(venta.getNameVendedor());
 		return ventam;
 	}
 	

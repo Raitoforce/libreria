@@ -92,6 +92,10 @@ public class VentaServiceImpl implements VentaService {
 
     @Override
     public List<Venta> consultarByTemporadaAndHacienda(int idtemporada, int hacienda) {
-        return ventaJPA.findByBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(idtemporada, hacienda);
+        List<Venta> ventas = ventaJPA.findByBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(idtemporada, hacienda);
+        for (Venta venta : ventas) {
+            venta.calcularAll();
+        }
+        return ventas;
     }
 }

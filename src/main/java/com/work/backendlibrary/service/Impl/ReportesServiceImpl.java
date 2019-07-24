@@ -1,435 +1,423 @@
 package com.work.backendlibrary.service.Impl;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
+import com.work.backendlibrary.converter.InventarioConverterRConverter;
+import com.work.backendlibrary.entity.Director;
+import com.work.backendlibrary.entity.LideresComisiones;
+import com.work.backendlibrary.entity.Vendedor;
+import com.work.backendlibrary.entity.Venta;
+import com.work.backendlibrary.repository.*;
+import com.work.backendlibrary.service.ComisionService;
+import com.work.backendlibrary.service.ReportesService;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import com.work.backendlibrary.converter.InventarioConverterRConverter;
-import com.work.backendlibrary.entity.Director;
-import com.work.backendlibrary.entity.LideresComisiones;
-import com.work.backendlibrary.entity.Vendedor;
-import com.work.backendlibrary.entity.Venta;
-import com.work.backendlibrary.model.ComisionesVistaModel;
-import com.work.backendlibrary.model.VentaReportModel;
-import com.work.backendlibrary.repository.DirectorJPARepository;
-import com.work.backendlibrary.repository.EscuelaJPARepository;
-import com.work.backendlibrary.repository.LideresComisionesJPARepository;
-import com.work.backendlibrary.repository.QueryDSLRepository;
-import com.work.backendlibrary.repository.VendedorRepository;
-import com.work.backendlibrary.repository.VentaJPARepository;
-import com.work.backendlibrary.repository.ZonaJPARepository;
-import com.work.backendlibrary.service.ComisionService;
-import com.work.backendlibrary.service.ReportesService;
-
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import java.io.IOException;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service("reportesService")
 public class ReportesServiceImpl implements ReportesService {
 
-	@Autowired
-	@Qualifier("escuelaJPARepository")
-	EscuelaJPARepository eJPA;
-	
-	@Autowired
-	@Qualifier("directorJPARepository")
-	DirectorJPARepository dJPA;
-	
-	@Autowired
-	@Qualifier("lideresComisionesJPARepository")
-	LideresComisionesJPARepository lcJPA;
+    @Autowired
+    @Qualifier("escuelaJPARepository")
+    EscuelaJPARepository eJPA;
 
-	@Autowired
-	@Qualifier("vendedorRepository")
-	VendedorRepository vJPA;
+    @Autowired
+    @Qualifier("directorJPARepository")
+    DirectorJPARepository dJPA;
 
-	@Autowired
-	@Qualifier("zonaJPARepository")
-	ZonaJPARepository zJPA;
+    @Autowired
+    @Qualifier("lideresComisionesJPARepository")
+    LideresComisionesJPARepository lcJPA;
 
-	@Autowired
-	@Qualifier("inventarioConverterRConverter")
-	InventarioConverterRConverter icrc;
+    @Autowired
+    @Qualifier("vendedorRepository")
+    VendedorRepository vJPA;
 
-	@Autowired
-	@Qualifier("ventaJPARepository")
-	VentaJPARepository vRepository;
+    @Autowired
+    @Qualifier("zonaJPARepository")
+    ZonaJPARepository zJPA;
 
-	@Autowired
-	@Qualifier("queryDSLRepository")
-	QueryDSLRepository qDSLR;
+    @Autowired
+    @Qualifier("inventarioConverterRConverter")
+    InventarioConverterRConverter icrc;
 
-	@Autowired
-	@Qualifier("comisionService")
-	ComisionService cService;
+    @Autowired
+    @Qualifier("ventaJPARepository")
+    VentaJPARepository vRepository;
 
-	@Value("classpath:/RZona.jrxml")
-	private Resource reporte_model;
+    @Autowired
+    @Qualifier("queryDSLRepository")
+    QueryDSLRepository qDSLR;
 
-	String path = null;
-	String masterReportFileName = null;
-	String subReportFileName = null;
-	String subEscuela = null;
-	String destFile = null;
-	String jasperMaster = null;
-	String subsubReportFileName = null;
-	String reporte;
-	String subFinalReportFileName;
+    @Autowired
+    @Qualifier("comisionService")
+    ComisionService cService;
 
-	@Override
-	public void generarReporteZonas(String vendedor) {
-		if (path == null) {
-			try {
-				path = reporte_model.getURL().getPath().replaceAll("%20", " ");
-				path = path.replaceAll("RZona.jrxml", "");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		try {
+    @Value("classpath:/RZona.jrxml")
+    private Resource reporte_model;
 
-			masterReportFileName = path + "RZona.jrxml";
-			subReportFileName = path + "SubZonas.jrxml";
-			subsubReportFileName = path + "REscuelas.jrxml";
-			jasperMaster = path + "RZona.jasper";
-			destFile = path + "reporte.pdf";
+    String path = null;
+    String masterReportFileName = null;
+    String subReportFileName = null;
+    String subEscuela = null;
+    String destFile = null;
+    String jasperMaster = null;
+    String subsubReportFileName = null;
+    String reporte;
+    String subFinalReportFileName;
 
-			JRBeanCollectionDataSource sourceVendedor = null;
+    @Override
+    public void generarReporteZonas(String vendedor) {
+        if (path == null) {
+            try {
+                path = reporte_model.getURL().getPath().replaceAll("%20", " ");
+                path = path.replaceAll("RZona.jrxml", "");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
 
-			if (vendedor.compareTo("") == 0) {
-				sourceVendedor = new JRBeanCollectionDataSource(vJPA.findAll());
-			} else {
-				ArrayList<Vendedor> vendedores = new ArrayList<>();
-				vendedores.add(vJPA.findByClave(vendedor));
-				sourceVendedor = new JRBeanCollectionDataSource(vendedores);
-			}
-			/// Compile the master and sub report
+            masterReportFileName = path + "RZona.jrxml";
+            subReportFileName = path + "SubZonas.jrxml";
+            subsubReportFileName = path + "REscuelas.jrxml";
+            jasperMaster = path + "RZona.jasper";
+            destFile = path + "reporte.pdf";
 
-			/*
-			 * JasperCompileManager.compileReportToFile(subsubReportFileName,path+
-			 * "REscuelas.jasper"); JasperReport jasperSubReport2=
-			 * JasperCompileManager.compileReport(subReportFileName);
-			 * 
-			 * JasperCompileManager.compileReportToFile(subReportFileName,path+
-			 * "SubZonas.jasper"); JasperReport jasperSubReport =
-			 * JasperCompileManager.compileReport(subsubReportFileName);
-			 */
+            JRBeanCollectionDataSource sourceVendedor = null;
 
-			JasperCompileManager.compileReportToFile(masterReportFileName, jasperMaster);
+            if (vendedor.compareTo("") == 0) {
+                sourceVendedor = new JRBeanCollectionDataSource(vJPA.findAll());
+            } else {
+                ArrayList<Vendedor> vendedores = new ArrayList<>();
+                vendedores.add(vJPA.findByClave(vendedor));
+                sourceVendedor = new JRBeanCollectionDataSource(vendedores);
+            }
+            /// Compile the master and sub report
 
-			System.out.println("Llenando...");
-			reporte = null;
-			reporte = JasperFillManager.fillReportToFile(jasperMaster, null, sourceVendedor);
-			if (reporte != null) {
-				JasperExportManager.exportReportToPdfFile(reporte, destFile);
-			}
-		} catch (JRException e) {
+            /*
+             * JasperCompileManager.compileReportToFile(subsubReportFileName,path+
+             * "REscuelas.jasper"); JasperReport jasperSubReport2=
+             * JasperCompileManager.compileReport(subReportFileName);
+             *
+             * JasperCompileManager.compileReportToFile(subReportFileName,path+
+             * "SubZonas.jasper"); JasperReport jasperSubReport =
+             * JasperCompileManager.compileReport(subsubReportFileName);
+             */
 
-			e.printStackTrace();
-		}
-		System.out.println("Done filling!!! ...");
-	}
+            JasperCompileManager.compileReportToFile(masterReportFileName, jasperMaster);
 
-	@Override
-	public void generarReporteInventario() {
-		if (path == null) {
-			try {
-				path = reporte_model.getURL().getPath().replaceAll("%20", " ");
-				path = path.replaceAll("RZona.jrxml", "");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		try {
+            System.out.println("Llenando...");
+            reporte = null;
+            reporte = JasperFillManager.fillReportToFile(jasperMaster, null, sourceVendedor);
+            if (reporte != null) {
+                JasperExportManager.exportReportToPdfFile(reporte, destFile);
+            }
+        } catch (JRException e) {
 
-			masterReportFileName = path + "ReporteInventario.jrxml";
-			subReportFileName = path + "StocksR.jrxml";
-			jasperMaster = path + "ReporteInventario.jasper";
-			destFile = path + "reporte.pdf";
+            e.printStackTrace();
+        }
+        System.out.println("Done filling!!! ...");
+    }
 
-			JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(this.icrc.converterInventarioRModel());
+    @Override
+    public void generarReporteInventario() {
+        if (path == null) {
+            try {
+                path = reporte_model.getURL().getPath().replaceAll("%20", " ");
+                path = path.replaceAll("RZona.jrxml", "");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
 
-			/// Compile the master and sub report
+            masterReportFileName = path + "ReporteInventario.jrxml";
+            subReportFileName = path + "StocksR.jrxml";
+            jasperMaster = path + "ReporteInventario.jasper";
+            destFile = path + "reporte.pdf";
 
-			/*
-			 * JasperCompileManager.compileReportToFile(subReportFileName,path+
-			 * "StocksR.jasper"); JasperReport jasperSubReport =
-			 * JasperCompileManager.compileReport(subReportFileName);
-			 */
+            JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(this.icrc.converterInventarioRModel());
 
-			JasperCompileManager.compileReportToFile(masterReportFileName, jasperMaster);
+            /// Compile the master and sub report
 
-			// Map parameters = new HashMap();
-			// parameters.put("subreportParameter", jasperSubReport);
-			// parameters.put("subreportParameter2",jasperSubReport2);
+            /*
+             * JasperCompileManager.compileReportToFile(subReportFileName,path+
+             * "StocksR.jasper"); JasperReport jasperSubReport =
+             * JasperCompileManager.compileReport(subReportFileName);
+             */
 
-			System.out.println("Llenando...");
-			reporte = null;
-			reporte = JasperFillManager.fillReportToFile(jasperMaster, null, source);
-			if (reporte != null) {
-				JasperExportManager.exportReportToPdfFile(reporte, destFile);
-			}
-		} catch (JRException e) {
+            JasperCompileManager.compileReportToFile(masterReportFileName, jasperMaster);
 
-			e.printStackTrace();
-		}
-		System.out.println("Done filling!!! ...");
-	}
+            // Map parameters = new HashMap();
+            // parameters.put("subreportParameter", jasperSubReport);
+            // parameters.put("subreportParameter2",jasperSubReport2);
 
-	@Override
-	public void generarReporteVentas(String vendedor, String libro, Date fechaInicial, Date fechaFinal, int tipoPedido,
-			int temporada, int hacienda) {
-		if (path == null) {
-			try {
-				path = reporte_model.getURL().getPath().replaceAll("%20", " ");
-				path = path.replaceAll("RZona.jrxml", "");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		try {
+            System.out.println("Llenando...");
+            reporte = null;
+            reporte = JasperFillManager.fillReportToFile(jasperMaster, null, source);
+            if (reporte != null) {
+                JasperExportManager.exportReportToPdfFile(reporte, destFile);
+            }
+        } catch (JRException e) {
 
-			masterReportFileName = path + "ReporteVentas.jrxml";
-			subReportFileName = path + "ReportePedidos.jrxml";
-			jasperMaster = path + "ReporteVentas.jasper";
-			destFile = path + "reporte.pdf";
+            e.printStackTrace();
+        }
+        System.out.println("Done filling!!! ...");
+    }
 
-			JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(
-					this.qDSLR.findVentaByVendedorLibroFechaTemporadaHacienda(vendedor, libro, fechaInicial, fechaFinal,
-							tipoPedido, temporada, hacienda));
+    @Override
+    public void generarReporteVentas(String vendedor, String libro, Date fechaInicial, Date fechaFinal, int tipoPedido,
+                                     int temporada, int hacienda) {
+        if (path == null) {
+            try {
+                path = reporte_model.getURL().getPath().replaceAll("%20", " ");
+                path = path.replaceAll("RZona.jrxml", "");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
 
-			/// Compile the master and sub report
+            masterReportFileName = path + "ReporteVentas.jrxml";
+            subReportFileName = path + "ReportePedidos.jrxml";
+            jasperMaster = path + "ReporteVentas.jasper";
+            destFile = path + "reporte.pdf";
 
-			/*
-			 * JasperCompileManager.compileReportToFile(subReportFileName,path+
-			 * "ReportePedidos.jasper"); JasperReport jasperSubReport =
-			 * JasperCompileManager.compileReport(subReportFileName);
-			 */
+            JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(
+                    this.qDSLR.findVentaByVendedorLibroFechaTemporadaHacienda(vendedor, libro, fechaInicial, fechaFinal,
+                            tipoPedido, temporada, hacienda));
 
-			JasperCompileManager.compileReportToFile(masterReportFileName, jasperMaster);
+            /// Compile the master and sub report
 
-			System.out.println("Llenando...");
-			reporte = null;
-			reporte = JasperFillManager.fillReportToFile(jasperMaster, null, source);
-			if (reporte != null) {
-				JasperExportManager.exportReportToPdfFile(reporte, destFile);
-			}
-		} catch (JRException e) {
+            /*
+             * JasperCompileManager.compileReportToFile(subReportFileName,path+
+             * "ReportePedidos.jasper"); JasperReport jasperSubReport =
+             * JasperCompileManager.compileReport(subReportFileName);
+             */
 
-			e.printStackTrace();
-		}
-		System.out.println("Done filling!!! ...");
-	}
+            JasperCompileManager.compileReportToFile(masterReportFileName, jasperMaster);
 
-	@Override
-	public void generarReporteCobranza(String clave, String escuela, int profesor, Date fechaInicial, Date fechaFinal,
-			int temporada) {
-		if (path == null) {
-			try {
-				path = reporte_model.getURL().getPath().replaceAll("%20", " ");
-				path = path.replaceAll("RZona.jrxml", "");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		try {
+            System.out.println("Llenando...");
+            reporte = null;
+            reporte = JasperFillManager.fillReportToFile(jasperMaster, null, source);
+            if (reporte != null) {
+                JasperExportManager.exportReportToPdfFile(reporte, destFile);
+            }
+        } catch (JRException e) {
 
-			masterReportFileName = path + "ReporteCobranza.jrxml";
-			subReportFileName = path + "ReporteEscuelas.jrxml";
-			subsubReportFileName = path + "ReporteProfesores.jrxml";
-			subFinalReportFileName = path + "ReporteCuentas.jrxml";
-			jasperMaster = path + "ReporteCobranza.jasper";
-			destFile = path + "reporte.pdf";
+            e.printStackTrace();
+        }
+        System.out.println("Done filling!!! ...");
+    }
 
-			JRBeanCollectionDataSource source = null;
-			source = new JRBeanCollectionDataSource(this.qDSLR.findVendedorByClaveEscuelaProfesor(clave, escuela,
-					profesor, fechaInicial, fechaFinal, temporada));
-			/// Compile the master and sub report
+    @Override
+    public void generarReporteCobranza(String clave, String escuela, int profesor, Date fechaInicial, Date fechaFinal,
+                                       int temporada) {
+        if (path == null) {
+            try {
+                path = reporte_model.getURL().getPath().replaceAll("%20", " ");
+                path = path.replaceAll("RZona.jrxml", "");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
 
-			/*
-			 * JasperCompileManager.compileReportToFile(subsubReportFileName,path+"");
-			 * JasperReport jasperSubReport2=
-			 * JasperCompileManager.compileReport(subsubReportFileName);
-			 * 
-			 * JasperCompileManager.compileReportToFile(subReportFileName,path+
-			 * "ReporteEscuelas.jasper"); JasperReport jasperSubReport =
-			 * JasperCompileManager.compileReport(subReportFileName);
-			 * 
-			 * JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
-			 */
-			System.out.println("Llenando...");
-			reporte = null;
-			reporte = JasperFillManager.fillReportToFile(jasperMaster, null, source);
-			if (reporte != null) {
-				JasperExportManager.exportReportToPdfFile(reporte, destFile);
-			}
-		} catch (JRException e) {
+            masterReportFileName = path + "ReporteCobranza.jrxml";
+            subReportFileName = path + "ReporteEscuelas.jrxml";
+            subsubReportFileName = path + "ReporteProfesores.jrxml";
+            subFinalReportFileName = path + "ReporteCuentas.jrxml";
+            jasperMaster = path + "ReporteCobranza.jasper";
+            destFile = path + "reporte.pdf";
 
-			e.printStackTrace();
-		}
-		System.out.println("Done filling!!! ...");
-	}
+            JRBeanCollectionDataSource source = null;
+            source = new JRBeanCollectionDataSource(this.qDSLR.findVendedorByClaveEscuelaProfesor(clave, escuela,
+                    profesor, fechaInicial, fechaFinal, temporada));
+            /// Compile the master and sub report
 
-	@Override
-	public void generarReporteComisiones(int tipo, String id, int temporada, int hacienda) {
-		if (path == null) {
-			try {
-				path = reporte_model.getURL().getPath().replaceAll("%20", " ");
-				path = path.replaceAll("RZona.jrxml", "");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		try {
+            /*
+             * JasperCompileManager.compileReportToFile(subsubReportFileName,path+"");
+             * JasperReport jasperSubReport2=
+             * JasperCompileManager.compileReport(subsubReportFileName);
+             *
+             * JasperCompileManager.compileReportToFile(subReportFileName,path+
+             * "ReporteEscuelas.jasper"); JasperReport jasperSubReport =
+             * JasperCompileManager.compileReport(subReportFileName);
+             *
+             * JasperCompileManager.compileReportToFile(masterReportFileName,jasperMaster);
+             */
+            System.out.println("Llenando...");
+            reporte = null;
+            reporte = JasperFillManager.fillReportToFile(jasperMaster, null, source);
+            if (reporte != null) {
+                JasperExportManager.exportReportToPdfFile(reporte, destFile);
+            }
+        } catch (JRException e) {
 
-			masterReportFileName = path + "ReporteComisiones.jrxml";
-			jasperMaster = path + "ReporteComisiones.jasper";
-			destFile = path + "reporte.pdf";
+            e.printStackTrace();
+        }
+        System.out.println("Done filling!!! ...");
+    }
 
-			JRBeanCollectionDataSource source = null;
-			List<Venta> temporal = null;
+    @Override
+    public void generarReporteComisiones(int tipo, String id, int temporada, int hacienda) {
+        if (path == null) {
+            try {
+                path = reporte_model.getURL().getPath().replaceAll("%20", " ");
+                path = path.replaceAll("RZona.jrxml", "");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
 
-			String titulo = "REPORTE DE COMISIONES";
-			// Vendedor
-			if (tipo == 1) {
-				// por filtro
-				if (id.isEmpty()) {
-					temporal = new ArrayList<>();
-					List<Vendedor> vendedores = vJPA.findAll();
-					for (Vendedor vendedor : vendedores) {
-						
-						temporal.addAll(vRepository
-								.findByBloqueFolioVendedorClaveAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(vendedor.getClave(),
-										temporada, hacienda));
-					}
-				} else {
-					temporal = vRepository
-							.findByBloqueFolioVendedorClaveAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(id,
-									temporada, hacienda);
-				}
-				titulo += " POR VENDEDOR";
-			}
-			// Director
-			if (tipo == 2) {
-				if (id.isEmpty()) {
-					temporal = new ArrayList<>();
-					List<Director> directores = dJPA.findAll();
-					for (Director director : directores) {
-						temporal.addAll(vRepository
-								.findByEscuelaDirectorIddirectorAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(
-										director.getIddirector(), temporada, hacienda));
-					}
-				} else {
-					temporal = vRepository
-							.findByEscuelaDirectorIddirectorAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(
-									Integer.valueOf(id), temporada, hacienda);
-				}
-				titulo += " POR DIRECTOR";
-			}
-			// Lider
-			if (tipo == 3) {
-				if (id.isEmpty()) {
-					temporal = new ArrayList<>();
-					List<LideresComisiones> lideresComisiones = lcJPA.findAll();
-					for (LideresComisiones liderComision : lideresComisiones) {
-						List<Venta> aux= vRepository
-								.findByLideresLiderIdprofesorAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(
-										liderComision.getId().getProfesor(), temporada, hacienda);
-						for (Venta venta : aux) {
-							venta.setComisionesLider(venta.getLiderComision(liderComision.getId().getProfesor()));
-						}
-						temporal.addAll(aux);
-					}
-					
-				} else {
+            masterReportFileName = path + "ReporteComisiones.jrxml";
+            jasperMaster = path + "ReporteComisiones.jasper";
+            destFile = path + "reporte.pdf";
 
-					temporal = vRepository
-							.findByLideresLiderIdprofesorAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(
-									Integer.valueOf(id), temporada, hacienda);
-					for (Venta venta : temporal) {
-						venta.setComisionesLider(venta.getLiderComision(Integer.valueOf(id)));
-					}
-				}
-				titulo += " POR LIDER";
-				// calculamos la comision del lider antes
-			}
+            JRBeanCollectionDataSource source = null;
+            List<Venta> temporal = null;
 
-			source = new JRBeanCollectionDataSource(temporal);
-			JasperCompileManager.compileReportToFile(masterReportFileName, jasperMaster);
+            String titulo = "REPORTE DE COMISIONES";
+            // Vendedor
+            if (tipo == 1) {
+                // por filtro
+                if (id.isEmpty()) {
+                    temporal = new ArrayList<>();
+                    List<Vendedor> vendedores = vJPA.findAll();
+                    for (Vendedor vendedor : vendedores) {
 
-			Map parameters = new HashMap();
-			parameters.put("titulo", titulo);
-			parameters.put("tipo", tipo);
+                        temporal.addAll(vRepository
+                                .findByBloqueFolioVendedorClaveAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(vendedor.getClave(),
+                                        temporada, hacienda));
+                    }
+                } else {
+                    temporal = vRepository
+                            .findByBloqueFolioVendedorClaveAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(id,
+                                    temporada, hacienda);
+                }
+                titulo += " POR VENDEDOR";
+            }
+            // Director
+            if (tipo == 2) {
+                if (id.isEmpty()) {
+                    temporal = new ArrayList<>();
+                    List<Director> directores = dJPA.findAll();
+                    for (Director director : directores) {
+                        temporal.addAll(vRepository
+                                .findByEscuelaDirectorIddirectorAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(
+                                        director.getIddirector(), temporada, hacienda));
+                    }
+                } else {
+                    temporal = vRepository
+                            .findByEscuelaDirectorIddirectorAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(
+                                    Integer.valueOf(id), temporada, hacienda);
+                }
+                titulo += " POR DIRECTOR";
+            }
+            // Lider
+            if (tipo == 3) {
+                if (id.isEmpty()) {
+                    temporal = new ArrayList<>();
+                    List<LideresComisiones> lideresComisiones = lcJPA.findAll();
+                    for (LideresComisiones liderComision : lideresComisiones) {
+                        List<Venta> aux = vRepository
+                                .findByLideresLiderIdprofesorAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(
+                                        liderComision.getId().getProfesor(), temporada, hacienda);
+                        for (Venta venta : aux) {
+                            venta.setComisionesLider(venta.getLiderComision(liderComision.getId().getProfesor()));
+                        }
+                        temporal.addAll(aux);
+                    }
 
-			System.out.println("Llenando...");
-			reporte = null;
-			reporte = JasperFillManager.fillReportToFile(jasperMaster, parameters, source);
-			if (reporte != null) {
-				JasperExportManager.exportReportToPdfFile(reporte, destFile);
-			}
-		} catch (JRException e) {
+                } else {
 
-			e.printStackTrace();
-		}
-		System.out.println("Done filling!!! ...");
-	}
+                    temporal = vRepository
+                            .findByLideresLiderIdprofesorAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(
+                                    Integer.valueOf(id), temporada, hacienda);
+                    for (Venta venta : temporal) {
+                        venta.setComisionesLider(venta.getLiderComision(Integer.valueOf(id)));
+                    }
+                }
+                titulo += " POR LIDER";
+                // calculamos la comision del lider antes
+            }
 
-	@Override
-	public void generarReporteGanancia(String vendedor, String libro, Date fechaInicial, Date fechaFinal,
-			int tipoPedido, int temporada) {
-		if (path == null) {
-			try {
-				path = reporte_model.getURL().getPath().replaceAll("%20", " ");
-				path = path.replaceAll("RZona.jrxml", "");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		try {
+            source = new JRBeanCollectionDataSource(temporal);
+            JasperCompileManager.compileReportToFile(masterReportFileName, jasperMaster);
 
-			masterReportFileName = path + "ReporteGanancia.jrxml";
-			subReportFileName = path + "SubReporteGanancia.jrxml";
-			jasperMaster = path + "ReporteGanancia.jasper";
-			destFile = path + "reporte.pdf";
+            Map parameters = new HashMap();
+            parameters.put("titulo", titulo);
+            parameters.put("tipo", tipo);
 
-			JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(this.qDSLR
-					.findVentaByVendedorLibroFechaGanancia(vendedor, libro, fechaInicial, fechaFinal, tipoPedido,temporada));
+            System.out.println("Llenando...");
+            reporte = null;
+            reporte = JasperFillManager.fillReportToFile(jasperMaster, parameters, source);
+            if (reporte != null) {
+                JasperExportManager.exportReportToPdfFile(reporte, destFile);
+            }
+        } catch (JRException e) {
 
-			/// Compile the master and sub report
+            e.printStackTrace();
+        }
+        System.out.println("Done filling!!! ...");
+    }
 
-			/*
-			 * JasperCompileManager.compileReportToFile(subReportFileName,path+
-			 * "ReportePedidos.jasper"); JasperReport jasperSubReport =
-			 * JasperCompileManager.compileReport(subReportFileName);
-			 */
+    @Override
+    public void generarReporteGanancia(String vendedor, String libro, Date fechaInicial, Date fechaFinal,
+                                       int tipoPedido, int temporada) {
+        if (path == null) {
+            try {
+                path = reporte_model.getURL().getPath().replaceAll("%20", " ");
+                path = path.replaceAll("RZona.jrxml", "");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
 
-			JasperCompileManager.compileReportToFile(masterReportFileName, jasperMaster);
+            masterReportFileName = path + "ReporteGanancia.jrxml";
+            subReportFileName = path + "SubReporteGanancia.jrxml";
+            jasperMaster = path + "ReporteGanancia.jasper";
+            destFile = path + "reporte.pdf";
 
-			System.out.println("Llenando...");
-			reporte = null;
-			reporte = JasperFillManager.fillReportToFile(jasperMaster, null, source);
-			if (reporte != null) {
-				JasperExportManager.exportReportToPdfFile(reporte, destFile);
-			}
-		} catch (JRException e) {
+            JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(this.qDSLR
+                    .findVentaByVendedorLibroFechaGanancia(vendedor, libro, fechaInicial, fechaFinal, tipoPedido, temporada));
 
-			e.printStackTrace();
-		}
-		System.out.println("Done filling!!! ...");
-	}
+            /// Compile the master and sub report
+
+            /*
+             * JasperCompileManager.compileReportToFile(subReportFileName,path+
+             * "ReportePedidos.jasper"); JasperReport jasperSubReport =
+             * JasperCompileManager.compileReport(subReportFileName);
+             */
+
+            JasperCompileManager.compileReportToFile(masterReportFileName, jasperMaster);
+
+            System.out.println("Llenando...");
+            reporte = null;
+            reporte = JasperFillManager.fillReportToFile(jasperMaster, null, source);
+            if (reporte != null) {
+                JasperExportManager.exportReportToPdfFile(reporte, destFile);
+            }
+        } catch (JRException e) {
+
+            e.printStackTrace();
+        }
+        System.out.println("Done filling!!! ...");
+    }
 
 }

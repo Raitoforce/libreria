@@ -100,8 +100,18 @@ public class ReportesController {
                                                 @RequestParam(name = "temporada", required = true) int temporada,
                                                 @RequestParam(name = "hacienda", defaultValue = "0") int hacienda
     ) {
-        java.sql.Date fechaInicialS = new java.sql.Date(fechaInicial.getTime());
-        java.sql.Date fechaFinalS = new java.sql.Date(fechaFinal.getTime());
+        java.sql.Date fechaInicialS = null;
+        try {
+            fechaInicialS = new java.sql.Date(fechaInicial.getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        java.sql.Date fechaFinalS = null;
+        try {
+            fechaFinalS = new java.sql.Date(fechaFinal.getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         rService.generarReporteVentas(vendedor, libro, fechaInicialS, fechaFinalS, tipoPedido, temporada, hacienda);
         String path = "";
@@ -139,8 +149,18 @@ public class ReportesController {
                                                     @RequestParam(name = "profesor", defaultValue = "0") int profesor,
                                                     @RequestParam(name = "temporada", defaultValue = "0", required = false) int temporada
     ) {
-        java.sql.Date fechaInicialS = new java.sql.Date(fechaInicial.getTime());
-        java.sql.Date fechaFinalS = new java.sql.Date(fechaFinal.getTime());
+        java.sql.Date fechaInicialS = null;
+        try {
+            fechaInicialS = new java.sql.Date(fechaInicial.getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        java.sql.Date fechaFinalS = null;
+        try {
+            fechaFinalS = new java.sql.Date(fechaFinal.getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         rService.generarReporteCobranza(vendedor, escuela, profesor, fechaInicialS, fechaFinalS, temporada);
         String path = "";
         try {
@@ -210,8 +230,18 @@ public class ReportesController {
                                                    @RequestParam(name = "fechaFinal", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaFinal,
                                                    @RequestParam(name = "tipoPedido", defaultValue = "0") int tipoPedido
     ) {
-        java.sql.Date fechaInicialS = new java.sql.Date(fechaInicial.getTime());
-        java.sql.Date fechaFinalS = new java.sql.Date(fechaFinal.getTime());
+        java.sql.Date fechaInicialS = null;
+        try {
+            fechaInicialS = new java.sql.Date(fechaInicial.getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        java.sql.Date fechaFinalS = null;
+        try {
+            fechaFinalS = new java.sql.Date(fechaFinal.getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         rService.generarReporteGanancia(vendedor, libro, fechaInicialS, fechaFinalS, tipoPedido, temporada);
         String path = "";
         try {

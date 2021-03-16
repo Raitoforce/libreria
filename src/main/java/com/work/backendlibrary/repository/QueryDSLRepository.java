@@ -4,6 +4,14 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.work.backendlibrary.entity.*;
+import com.work.backendlibrary.entity.QBloqueFolio;
+import com.work.backendlibrary.entity.QCuentasPorCobrar;
+import com.work.backendlibrary.entity.QFolio;
+import com.work.backendlibrary.entity.QHistorialVenta;
+import com.work.backendlibrary.entity.QLibro;
+import com.work.backendlibrary.entity.QTemporada;
+import com.work.backendlibrary.entity.QVendedor;
+import com.work.backendlibrary.entity.QVenta;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

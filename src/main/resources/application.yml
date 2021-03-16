@@ -11,12 +11,15 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.MySQLInnoDBDialect
+        globally_quoted_identifiers: true
+    open-in-view: false
 server:
   port: 8081
-
+  ssl:
+    enabled: false

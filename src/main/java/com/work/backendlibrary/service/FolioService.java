@@ -6,11 +6,11 @@ import java.util.List;
 import com.work.backendlibrary.entity.Folio;
 
 public interface FolioService {
-	public abstract List<Folio> listAllFolios();
-	public abstract Folio addFolio(Folio folio);
-	public abstract void removeFolio(int id);
-	public abstract Folio updateFolio(Folio folio);
-	public abstract Folio consultarFolio(int id);
-	public abstract List<Folio> consultarTemporada(int id);
-	public abstract boolean isInRange(int valor,String tipo, int idtemporada);
+	List<Folio> listAllFolios();
+	Folio addFolio(Folio folio);
+	void removeFolio(int id);
+	Folio updateFolio(Folio folio);
+	Folio consultarFolio(int id);
+	List<Folio> consultarTemporada(int id);
+	boolean isInRange(int valor, String tipo, int idtemporada);
 }

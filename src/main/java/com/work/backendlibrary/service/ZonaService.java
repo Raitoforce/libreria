@@ -5,10 +5,10 @@ import java.util.List;
 import com.work.backendlibrary.entity.Zona;
 
 public interface ZonaService {
-	public abstract List<Zona> listAllZonas();
-	public abstract	Zona addZona(Zona zona);
-	public abstract void removeZona(String idzona);
-	public abstract Zona updateZona(Zona zona);
-	public abstract Zona consultarZona(String idzona);
-	public abstract boolean ZonaIsOnDB(String zona);
+	List<Zona> listAllZonas();
+	Zona addZona(Zona zona);
+	void removeZona(String idzona);
+	Zona updateZona(Zona zona);
+	Zona consultarZona(String idzona);
+	boolean ZonaIsOnDB(String zona);
 }

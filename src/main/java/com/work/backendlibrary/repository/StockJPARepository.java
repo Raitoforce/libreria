@@ -9,12 +9,12 @@ import java.util.List;
 
 @Repository("stockJPARepository")
 public interface StockJPARepository extends JpaRepository<Stock,Serializable> {
-    public Stock findByIdstock(int id);
+    Stock findByIdstock(int id);
     
-    public List<Stock> findByLibroClaveProducto(String clave);
+    List<Stock> findByLibroClaveProducto(String clave);
 
-    public List<Stock> findByHacienda(int hacienda);
+    List<Stock> findByHacienda(int hacienda);
     
-    public List<Stock> findByLibroClaveProductoAndHacienda(String clave, int hacienda);
+    List<Stock> findByLibroClaveProductoAndHacienda(String clave, int hacienda);
 
 }

@@ -24,7 +24,7 @@ public class QueryDSLRepository {
 
     @PersistenceContext
     private EntityManager em;
-    private QVenta qVenta = QVenta.venta;
+    private final QVenta qVenta = QVenta.venta;
 
     public List<Venta> findVentaByVendedorLibroFechaTemporadaHacienda(String clave, String libro, Date fechaInicial, Date fechaFinal, int tipoPedido, int temporada, int hacienda) {
         JPAQuery<Venta> query = new JPAQuery<Venta>(em);

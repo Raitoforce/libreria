@@ -48,10 +48,8 @@ public class BloqueFolioServiceImpl implements BloqueFolioService{
 
 	@Override
 	public boolean isInRange(int valor, int idfolio) {
-		if(bfJPA.findByIsRange(valor, idfolio)!=null)
-			return true;
-		return false;
-	}
+        return bfJPA.findByIsRange(valor, idfolio) != null;
+    }
 
 	@Override
 	public BloqueFolio consultarByVendedorAndTemporada(String clave, int idtemporada) {
@@ -72,17 +70,13 @@ public class BloqueFolioServiceImpl implements BloqueFolioService{
 	@Override
 	public boolean isAValidFolio(String clave, int valor) {
 		// TODO Auto-generated method stub
-		if(isInRangeAndVendedor(clave, valor)!=null)
-			return true;
-		return false;
-	}
+        return isInRangeAndVendedor(clave, valor) != null;
+    }
 
 	@Override
 	public boolean isAValidFolioType(String clave, int valor, String type) {
-		if(bfJPA.findByVendedorAndRangeType(clave, valor, type)!=null)
-			return true;
-		return false;
-	}
+        return bfJPA.findByVendedorAndRangeType(clave, valor, type) != null;
+    }
 	
 	
 }

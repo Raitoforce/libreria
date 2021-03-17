@@ -10,10 +10,10 @@ import com.work.backendlibrary.model.ProfesorModel;
 public interface ProfesorService {
 
 	Profesor addProfesor(Profesor profesor);
-	public abstract List<Profesor> listAllProfesores();
-	public abstract void removeProfesor(int id);
-	public abstract Profesor updateProfesor(Profesor profesor);
-	public abstract Profesor consultarProfesor(int id);
-	public abstract List<ProfesorModel> listPage(Pageable pageable);
-	public abstract List<Profesor> findByEscuela(String clave);
+	List<Profesor> listAllProfesores();
+	void removeProfesor(int id);
+	Profesor updateProfesor(Profesor profesor);
+	Profesor consultarProfesor(int id);
+	List<ProfesorModel> listPage(Pageable pageable);
+	List<Profesor> findByEscuela(String clave);
 }

@@ -58,8 +58,8 @@ public class FolioController {
 	
 	@DeleteMapping(path="/{id}")
 	public ResponseEntity<String> eliminarFolio(@PathVariable("id") int id){
-		fs.removeFolio(id);;
-		return new ResponseEntity<String>(HttpStatus.OK);
+		fs.removeFolio(id);
+        return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
 	@PutMapping(path="",consumes="application/json")

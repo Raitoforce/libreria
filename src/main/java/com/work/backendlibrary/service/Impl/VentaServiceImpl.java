@@ -68,9 +68,7 @@ public class VentaServiceImpl implements VentaService {
     @Override
     public boolean VentaIsOnDB(String folio) {
         // TODO Auto-generated method stub
-        if (ventaJPA.findByFolio(folio) != null)
-            return true;
-        return false;
+        return ventaJPA.findByFolio(folio) != null;
     }
 
     @Override

@@ -91,7 +91,7 @@ public class Director {
 	@PreRemove
 	public void Nullable(){
 		for (Iterator<Escuela> iterator = escuelas.iterator(); iterator.hasNext();) {
-			Escuela escuela = (Escuela) iterator.next();
+			Escuela escuela = iterator.next();
 			escuela.setDirector(null);
 		}
 	}

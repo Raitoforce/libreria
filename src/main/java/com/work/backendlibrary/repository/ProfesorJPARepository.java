@@ -10,7 +10,7 @@ import com.work.backendlibrary.entity.Profesor;
 
 @Repository("profesorJPARepository")
 public interface ProfesorJPARepository extends JpaRepository<Profesor,Serializable>{
-	public abstract Profesor findByIdprofesor(int idprofesor);
+	Profesor findByIdprofesor(int idprofesor);
 	
-	public abstract List<Profesor> findByEscuelasClave(String clave);
+	List<Profesor> findByEscuelasClave(String clave);
 }

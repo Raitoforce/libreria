@@ -10,11 +10,11 @@ import com.work.backendlibrary.entity.Comision;
 
 @Repository("comisionJPARepository")
 public interface ComisionJPARepository extends JpaRepository<Comision, Serializable>{
-	public abstract Comision findByIdComision(int id);
+	Comision findByIdComision(int id);
 	
-	public abstract List<Comision> findByTemporadaIdtemporadaAndDirectorIddirectorAndTipo(int idtemporada,int iddirector,String tipo);
-	public abstract List<Comision> findByTemporadaIdtemporadaAndVendedorClaveAndTipo(int idtemporada,String claveV,String tipo);
-	public abstract List<Comision> findByTemporadaIdtemporadaAndLiderLiderIdprofesorAndTipo(int idtemporada,int idlider,String tipo);
-	public abstract List<Comision> findByVendedorClaveAndTemporadaIdtemporada(String clave,int idtemporada);
+	List<Comision> findByTemporadaIdtemporadaAndDirectorIddirectorAndTipo(int idtemporada, int iddirector, String tipo);
+	List<Comision> findByTemporadaIdtemporadaAndVendedorClaveAndTipo(int idtemporada, String claveV, String tipo);
+	List<Comision> findByTemporadaIdtemporadaAndLiderLiderIdprofesorAndTipo(int idtemporada, int idlider, String tipo);
+	List<Comision> findByVendedorClaveAndTemporadaIdtemporada(String clave, int idtemporada);
 
 }

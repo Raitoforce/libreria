@@ -22,7 +22,7 @@ public class VentaReportConverter {
 	
 	public VentaReportModel entity2model(Venta venta){
 		VentaReportModel ventam=new VentaReportModel();
-		ventam.setFecha((Date) venta.getFecha());
+		ventam.setFecha(venta.getFecha());
 		ventam.setProfesor_nombre(venta.getProfesor().getNombre()+" "+venta.getProfesor().getApellidos());
 		ventam.setProfesor_telefono(venta.getProfesor().getTelefono());
 		ventam.setEscuela_nombre(venta.getEscuela().getNombre()+" ("+venta.getEscuela().getClave()+") Turno:"+venta.getEscuela().getTurno());

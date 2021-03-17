@@ -12,25 +12,25 @@ import java.util.List;
 
 @Repository("bloqueFolioJPARepository")
 public interface BloqueFoliosJPARepository extends JpaRepository<BloqueFolio, Serializable> {
-    public abstract BloqueFolio findByVendedorClaveAndFolioIdfolios(String clave, int id);
+    BloqueFolio findByVendedorClaveAndFolioIdfolios(String clave, int id);
 
     @Modifying
     @Transactional
     @Query("delete from BloqueFolio bfolio where vendedor_clave = ?1 and folio_idfolios = ?2")
-    public void deleteByClaveAndId(String clave, int id);
+    void deleteByClaveAndId(String clave, int id);
 
     @Query("select bf from BloqueFolio bf where inicio <= ?1 and fin >= ?1 and folio.idfolios=?2")
-    public abstract BloqueFolio findByIsRange(int valor, int folio);
+    BloqueFolio findByIsRange(int valor, int folio);
 
-    public abstract BloqueFolio findByVendedorClaveAndFolioIdtemporadaIdtemporada(String clave, int idtemporada);
+    BloqueFolio findByVendedorClaveAndFolioIdtemporadaIdtemporada(String clave, int idtemporada);
 
 
     @Query("select bf from BloqueFolio bf where inicio <= ?2 and fin >= ?2 and vendedor_clave=?1 and folio.tipo='VENTA'")
-    public abstract BloqueFolio findByVendedorAndRange(String clave, int valor);
+    BloqueFolio findByVendedorAndRange(String clave, int valor);
 
     @Query("select bf from BloqueFolio bf where inicio <= ?2 and fin >= ?2 and vendedor_clave=?1 and folio.tipo=?3")
-    public abstract BloqueFolio findByVendedorAndRangeType(String clave, int valor, String type);
+    BloqueFolio findByVendedorAndRangeType(String clave, int valor, String type);
     
-    public abstract List<BloqueFolio> findByFolioIdtemporadaIdtemporada(int id);
+    List<BloqueFolio> findByFolioIdtemporadaIdtemporada(int id);
     
 }

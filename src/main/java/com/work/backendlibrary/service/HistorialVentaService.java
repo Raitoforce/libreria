@@ -6,28 +6,28 @@ import com.work.backendlibrary.model.HistorialVentaModel;
 import java.util.List;
 
 public interface HistorialVentaService {
-    public abstract List<HistorialVenta> listAllHistorialVentas();
+    List<HistorialVenta> listAllHistorialVentas();
 
-    public abstract List<HistorialVenta> listAllHistorialVentasByHacienda(int hacienda, int temporada);
+    List<HistorialVenta> listAllHistorialVentasByHacienda(int hacienda, int temporada);
 
-    public abstract HistorialVenta addHistorialVenta(HistorialVentaModel hventa);
+    HistorialVenta addHistorialVenta(HistorialVentaModel hventa);
 
-    public abstract void removeHistorialVenta(int id);
+    void removeHistorialVenta(int id);
 
-    public abstract HistorialVenta updateHistorialVenta(HistorialVentaModel hventa);
+    HistorialVenta updateHistorialVenta(HistorialVentaModel hventa);
 
-    public abstract HistorialVenta consultarHistorialVenta(int id);
+    HistorialVenta consultarHistorialVenta(int id);
 
-    public abstract HistorialVenta updateInventario(HistorialVenta historialVenta);
+    HistorialVenta updateInventario(HistorialVenta historialVenta);
 
-    public abstract List<HistorialVenta> consultarByVenta(String idVenta);
+    List<HistorialVenta> consultarByVenta(String idVenta);
 
-    public abstract Integer getMaximo(String folio);
+    Integer getMaximo(String folio);
 
-    public abstract List<HistorialVenta> consultarByNumResurtido(int numresurtido, String folio);
+    List<HistorialVenta> consultarByNumResurtido(int numresurtido, String folio);
 
-    public abstract void eliminarByResurtido(String folio, int numresurtido);
+    void eliminarByResurtido(String folio, int numresurtido);
 
-    public abstract boolean numresurtidoHasConfirmed(String folio, int numresurtido);
+    boolean numresurtidoHasConfirmed(String folio, int numresurtido);
 
 }

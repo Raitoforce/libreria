@@ -55,10 +55,8 @@ public class LibroServiceImpl implements LibroService{
 
 	@Override
 	public boolean LibroIsOnDB(String clave_producto) {
-		if(libroJPARepository.findByClaveProducto(clave_producto)!=null)
-			return true;
-		return false;
-	}
+        return libroJPARepository.findByClaveProducto(clave_producto) != null;
+    }
 	
 	
 }

@@ -15,17 +15,17 @@ import com.work.backendlibrary.entity.Escuela;
 
 @Repository("escuelaJPARepository")
 public interface EscuelaJPARepository extends JpaRepository<Escuela,Serializable>,CrudRepository<Escuela,Serializable>{
-	public abstract List<Escuela> findByDirectorIddirector(int id);
+	List<Escuela> findByDirectorIddirector(int id);
 	
 	@Transactional
 	@Query("SELECT escuela from Escuela escuela where clave=?1")
-	public Escuela findByClave(String clave);
+    Escuela findByClave(String clave);
 	
 	@Modifying
 	@Transactional
 	@Query("delete from Escuela escuela where clave=?1")
-	public void deleteByClave(String clave);
+    void deleteByClave(String clave);
 	
-	public abstract List<Escuela> findByZonaIdzona(String idzona);
+	List<Escuela> findByZonaIdzona(String idzona);
 	
 }

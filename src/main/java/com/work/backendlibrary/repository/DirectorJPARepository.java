@@ -9,5 +9,5 @@ import com.work.backendlibrary.entity.Director;
 
 @Repository("directorJPARepository")
 public interface DirectorJPARepository extends JpaRepository<Director,Serializable>{
-	public abstract Director findByIddirector(int iddirector);
+	Director findByIddirector(int iddirector);
 }

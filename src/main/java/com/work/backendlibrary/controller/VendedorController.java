@@ -21,8 +21,8 @@ import java.util.List;
 @RequestMapping("/vendedores")
 public class VendedorController {
 
-    private UserRepository userRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public VendedorController(UserRepository userRepository,
                               BCryptPasswordEncoder bCryptPasswordEncoder) {

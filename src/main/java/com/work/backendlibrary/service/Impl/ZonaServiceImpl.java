@@ -48,9 +48,7 @@ public class ZonaServiceImpl implements ZonaService{
 
 	@Override
 	public boolean ZonaIsOnDB(String zona) {
-		if(zonaJPA.findByIdzona(zona)!=null)
-			return true;
-		return false;
-	}
+        return zonaJPA.findByIdzona(zona) != null;
+    }
 
 }

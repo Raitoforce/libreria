@@ -14,35 +14,35 @@ import java.util.List;
 @Repository("historialVentaJPARepository")
 public interface HistorialVentaJPARepository extends JpaRepository<HistorialVenta, Serializable> {
 
-    public abstract List<HistorialVenta> findByVentaFolio(String id);
+    List<HistorialVenta> findByVentaFolio(String id);
 
-    public abstract List<HistorialVenta> findByVentaHacienda(int hacienda);
+    List<HistorialVenta> findByVentaHacienda(int hacienda);
 
-    public abstract List<HistorialVenta> findByVentaHaciendaAndVentaBloqueFolioFolioIdtemporadaIdtemporada(int hacienda, int temporada);
+    List<HistorialVenta> findByVentaHaciendaAndVentaBloqueFolioFolioIdtemporadaIdtemporada(int hacienda, int temporada);
 
-    public abstract HistorialVenta findByIdHistorial(int id);
+    HistorialVenta findByIdHistorial(int id);
 
     @Query("select max(hv.numresurtido) from HistorialVenta hv where venta.folio=?1")
-    public abstract int getMAX(String folio);
+    int getMAX(String folio);
 
-    public abstract List<HistorialVenta> findByNumresurtidoAndVentaFolio(int num, String folio);
+    List<HistorialVenta> findByNumresurtidoAndVentaFolio(int num, String folio);
 
     @Query("select max(hv.fechaSolicitud) from HistorialVenta hv where venta.folio=?1 and hv.numresurtido= ?2")
-    public abstract Date getDate(String folio, int num);
+    Date getDate(String folio, int num);
 
     @Query("select DISTINCT  hv.numresurtido from HistorialVenta hv where venta.folio=?1")
-    public abstract List<Integer> getNumResurtidos(String folio);
+    List<Integer> getNumResurtidos(String folio);
 
-    public abstract List<HistorialVenta> findByVentaBloqueFolioVendedorClaveAndVentaBloqueFolioFolioIdtemporadaIdtemporada(String clave, int idtemporada);
+    List<HistorialVenta> findByVentaBloqueFolioVendedorClaveAndVentaBloqueFolioFolioIdtemporadaIdtemporada(String clave, int idtemporada);
 
-    public abstract List<HistorialVenta> findByVentaBloqueFolioVendedorClaveAndVentaEscuelaClaveAndVentaBloqueFolioFolioIdtemporadaIdtemporada(String claveV, String claveE, int idtemporada);
+    List<HistorialVenta> findByVentaBloqueFolioVendedorClaveAndVentaEscuelaClaveAndVentaBloqueFolioFolioIdtemporadaIdtemporada(String claveV, String claveE, int idtemporada);
 
-    public abstract List<HistorialVenta> findByVentaBloqueFolioVendedorClaveAndVentaEscuelaClaveAndVentaProfesorIdprofesorAndVentaBloqueFolioFolioIdtemporadaIdtemporada(String claveV, String claveE, int idprofesor, int idtemporada);
+    List<HistorialVenta> findByVentaBloqueFolioVendedorClaveAndVentaEscuelaClaveAndVentaProfesorIdprofesorAndVentaBloqueFolioFolioIdtemporadaIdtemporada(String claveV, String claveE, int idprofesor, int idtemporada);
 
     @Modifying
     @Transactional
     @Query("delete from HistorialVenta hventa where venta.folio=?1 and hventa.numresurtido= ?2")
-    public abstract void DeleteByNumresurtidoAndFolioVenta(String folio, int numresurtido);
+    void DeleteByNumresurtidoAndFolioVenta(String folio, int numresurtido);
 
-    public abstract List<HistorialVenta> findByVentaBloqueFolioFolioIdtemporadaIdtemporadaAndVentaLideresLiderIdprofesor(int idtemporada, int idlider);
+    List<HistorialVenta> findByVentaBloqueFolioFolioIdtemporadaIdtemporadaAndVentaLideresLiderIdprofesor(int idtemporada, int idlider);
 }

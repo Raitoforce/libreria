@@ -32,7 +32,7 @@ public class Numero_a_Letra {
         //se valida formato de entrada -> 0,00 y 999 999 999,00
         if (Pattern.matches("\\d{1,9},\\d{1,2}", numero)) {
             //se divide el numero 0000000,00 -> entero y decimal
-            String Num[] = numero.split(",");            
+            String[] Num = numero.split(",");
             //de da formato al numero decimal
             parte_decimal = Num[1] + "/100 Pesos M.N.";
             //se convierte el numero a literal

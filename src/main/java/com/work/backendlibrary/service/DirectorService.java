@@ -8,10 +8,10 @@ import com.work.backendlibrary.entity.Director;
 import com.work.backendlibrary.model.DirectorModel;
 
 public interface DirectorService {
-	public abstract List<DirectorModel> listAllDirectores();
-	public abstract Director addDirector(DirectorModel directorm);
-	public abstract void removeDirector(int id);
-	public abstract Director updateDirector(Director director);
-	public abstract DirectorModel consultarDirector(int id);
-	public abstract List<DirectorModel> listPage(Pageable pageable);
+	List<DirectorModel> listAllDirectores();
+	Director addDirector(DirectorModel directorm);
+	void removeDirector(int id);
+	Director updateDirector(Director director);
+	DirectorModel consultarDirector(int id);
+	List<DirectorModel> listPage(Pageable pageable);
 }

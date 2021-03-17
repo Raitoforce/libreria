@@ -10,16 +10,16 @@ import java.util.List;
 @Repository("ventaJPARepository")
 public interface VentaJPARepository extends JpaRepository<Venta, Serializable> {
 
-    public abstract Venta findByFolio(String folio);
+    Venta findByFolio(String folio);
 
-    public abstract Venta findByFolioAndBloqueFolioVendedorClaveAndBloqueFolioFolioIdtemporada(String folio, String clave, int idtemporada);
+    Venta findByFolioAndBloqueFolioVendedorClaveAndBloqueFolioFolioIdtemporada(String folio, String clave, int idtemporada);
 
-    public abstract List<Venta> findByBloqueFolioVendedorClaveAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(String clave, int idtemporada, int hacienda);
+    List<Venta> findByBloqueFolioVendedorClaveAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(String clave, int idtemporada, int hacienda);
 
-    public abstract List<Venta> findByEscuelaDirectorIddirectorAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(int iddirector, int idtemporada, int hacienda);
+    List<Venta> findByEscuelaDirectorIddirectorAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(int iddirector, int idtemporada, int hacienda);
 
-    public abstract List<Venta> findByLideresLiderIdprofesorAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(int idprofesor, int idtemporada, int hacienda);
+    List<Venta> findByLideresLiderIdprofesorAndBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(int idprofesor, int idtemporada, int hacienda);
 
-    public abstract List<Venta> findByBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(int temporada, int hacienda);
+    List<Venta> findByBloqueFolioFolioIdtemporadaIdtemporadaAndHacienda(int temporada, int hacienda);
 }
  

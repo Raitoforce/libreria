@@ -47,8 +47,7 @@ public class TemporadaServiceImpl implements TemporadaService{
 	public boolean rangoTemporada(Date date) {
 		// TODO Auto-generated method stub
 		Temporada temporada=temporadaJPA.findByFechaActualBeetwenFechaInicioAndFechaFin(date);
-		if(temporada==null) return false;
-		else return true;
+        return temporada != null;
 	}
 	@Override
 	public Temporada actualTemporada() {

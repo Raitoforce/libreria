@@ -10,8 +10,8 @@ import com.work.backendlibrary.entity.Zona;
 
 @Repository("zonaJPARepository")
 public interface ZonaJPARepository extends JpaRepository<Zona, Serializable>{
-	public abstract List<Zona> findByVendedorClave(String clave);
+	List<Zona> findByVendedorClave(String clave);
 	
-	public abstract Zona findByIdzona(String idzona);
+	Zona findByIdzona(String idzona);
 	
 }

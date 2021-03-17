@@ -13,9 +13,9 @@ import com.work.backendlibrary.entity.Temporada;
 
 @Repository("temporadaJPARepository")
 public interface TemporadaJPARepository extends JpaRepository<Temporada, Serializable>{
-	public abstract Temporada findByIdtemporada(int idtemporada);
+	Temporada findByIdtemporada(int idtemporada);
 	
 	@Transactional
 	@Query("select t from Temporada t where fecha_inicio <= ?1 and fecha_termino >= ?1")
-	public abstract Temporada findByFechaActualBeetwenFechaInicioAndFechaFin(Date date);
+    Temporada findByFechaActualBeetwenFechaInicioAndFechaFin(Date date);
 }

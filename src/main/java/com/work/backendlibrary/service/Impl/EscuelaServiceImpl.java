@@ -38,8 +38,8 @@ public class EscuelaServiceImpl implements EscuelaService{
 	@Override
 	public void removeEscuela(String clave) {
 		// TODO Auto-generated method stub
-		escuelajpa.deleteByClave(clave);;
-	}
+		escuelajpa.deleteByClave(clave);
+    }
 
 	@Override
 	public Escuela updateEscuela(Escuela escuela) {
@@ -79,9 +79,7 @@ public class EscuelaServiceImpl implements EscuelaService{
 	@Override
 	public boolean EscuelaIsOnDB(String clave) {
 		// TODO Auto-generated method stub
-		if(escuelajpa.findByClave(clave)!=null)
-			return true;
-		return false;
-	}
+        return escuelajpa.findByClave(clave) != null;
+    }
 
 }

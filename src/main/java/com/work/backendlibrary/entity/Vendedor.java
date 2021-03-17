@@ -67,7 +67,7 @@ public class Vendedor {
     
     @Transient
     @JsonIgnore
-    private Set<Venta> ventas= new HashSet<>();
+    private final Set<Venta> ventas= new HashSet<>();
 
     public Vendedor() {
     }
@@ -215,7 +215,7 @@ public class Vendedor {
     @PreRemove
     public void Nullable(){
         for (Iterator<Zona> iterator = zonas.iterator(); iterator.hasNext();) {
-            Zona zona = (Zona) iterator.next();
+            Zona zona = iterator.next();
             zona.setVendedor(null);
         }
     }

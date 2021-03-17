@@ -13,10 +13,10 @@ import com.work.backendlibrary.entity.Folio;
 
 @Repository("folioJPARepository")
 public interface FolioJPARepository extends JpaRepository<Folio,Serializable> {
-	public abstract List<Folio> findByIdtemporadaIdtemporada(int id);
-	public abstract Folio findByIdfolios(int id);
+	List<Folio> findByIdtemporadaIdtemporada(int id);
+	Folio findByIdfolios(int id);
 	
 	@Transactional
 	@Query("select f from Folio f where inicio <= ?1 and fin >= ?1 and tipo=?2 and idtemporada.idtemporada = ?3")
-	public abstract Folio findByIsRange(int valor, String tipo,int idtemporada);
+    Folio findByIsRange(int valor, String tipo, int idtemporada);
 }
